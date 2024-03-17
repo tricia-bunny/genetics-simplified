@@ -1,6 +1,6 @@
 import random
 title = "Genetics: Oversimplified"
-#genetics = [strength, intelligence, agility, charisma, instinct, sex]
+# genetics = [strength, intelligence, agility, charisma, instinct, sex]
 numlist = [1, 2, 3, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0.5, 1.5, 2.0]
 genlist = ["X", "Y"]
 gendlist = ["Male", "Female"]
@@ -8,6 +8,7 @@ colors = ['crimson', 'carmine', 'vermillion', 'bright orange', 'pale orange', 'o
 
 
 from collections import namedtuple
+
 
 personAttributes = namedtuple('personAttributes', 'firstname, lastname, strength, intelligence, agility, charisma, instinct, gender, bodyColor, finColor, eyeColor, momGenetics, dadGenetics')
 """
@@ -317,7 +318,7 @@ def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats,
             attackDamage *= 2
         secondFishHP -= attackDamage
     return secondFishHP
-def unMutate(firstFishStats, secondFishStats, secondFishHP, attacker):
+def unMutate(secondFishStats, secondFishHP, attacker):
     if attacker != 'You':
         extraS = 's'
         attacked = 'you'
@@ -331,7 +332,7 @@ def unMutate(firstFishStats, secondFishStats, secondFishHP, attacker):
     print(attacker+' raise'+extraS+' '+somethingR+'r fins in a Fishcromancer stance.')
     print('Nyaa! '+attacker+' shout'+extraS+'.')
     if (secondFishStats.intelligence == 0) and (secondFishStats.instinct == 0):
-        #The target is mutated
+        # The target is mutated
         print("A beam of arcing blue light shoots from "+somethingR+"r interlaced fins.")
         print(attacked+' '+pronoun+' no longer mutated.')
         nextPeepGenes = secondFishStats
@@ -343,26 +344,95 @@ def unMutate(firstFishStats, secondFishStats, secondFishHP, attacker):
         print('\'What the heck?\' '+attacker+' exclaim'+extraS+'.')
         secondFishHP *= 1.5
         secondFishHP = int(secondFishHP)
+        secFishStats = secondFishStats
     return secondFishHP, secFishStats
+def raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, angle, cashmere):
+    tuple_fish = personAttributes('Tuple', 'the Fish', 8, 9, 17, 16, 7, 'Male', 'coral pink', 'bright orange', 'neon pink',
+                                  None, None)
+    iridium = personAttributes("Iridium", 'the Fish', 19, 9, 12, 16, 8, 'Female', 'pale orange', 'orange yellow', 'carmine',
+                                None, None)
+    lithium = personAttributes("Angle", 'the Fish', 12, 9, 15, 10, 17, 'Female', 0, 0, 0, None, None)
+    deadFish = [tuple_fish, xenon, angle, cashmere, iridium, lithium]
+    possAttacks = ['Stab', 'Slash', 'Ambush', 'Sweep']
+    chosenFish = []
+    if attacker == 'You':
+        extraS = ' '
+    else:
+        extraS = 's'
+    print('A splatter of blue sparks showers into the sky.')
+    print('And then the likeness of a fish rises out of the mist.')
+    for i in range(5):
+        chosenfish = random.choice(deadFish)
+        chosenFish.append(chosenfish)
+        print('It is '+chosenfish.firstname+"!")
+    for i in chosenFish:
+        atatck = random.choice(possAttacks)
+        secondFishHP = Attack(0, 70, firstFishStats, secondFishStats, secondFishHP, i.firstname, atatck)
+        print(i.firstname+' attacks!')
+    return secondFishHP
+
+def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP):
+    breakForUnMutation = False
+    if attack != 'Un-Mutate' and attack != 'Raise the Dead':
+        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker,
+                              attack)
+    elif attack == 'Un-Mutate':
+        secondFishHP, secFishStats = unMutate(secondFishStats, secondFishHP, attacker)
+        if secondFishStats != secFishStats:
+            if attacker == 'You':
+                attacked = 'The fish'
+                pronoun = 'has been'
+            else:
+                attacked = 'You'
+                pronoun = 'were'
+            print(attacked + ' ' + pronoun + ' un-mutated!')
+            breakForUnMutation = True
+    elif attack == 'Raise the Dead':
+        secondFishHP = raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, angle, cashmere)
+
+    return firstFishHP, secondFishHP, breakForUnMutation
 
 def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
-    #Strength (xxxFishStats.strength) is the dealt damage. It tastes like 
-    #Intelligence is the probability that the dealt attack is a crit hit. It tastes like ginger lemon chews.
-    #Agility is the probability that the attack will be dodged. It tastes like 
-    #Charisma does nothing. It tastes like fishflower nectar. 
-    #Instinct is for casting spells. It tastes like cherry blossoms and fishes' blood.
-    #First fish(you) always goes first
+    # Strength (xxxFishStats.strength) is the dealt damage. It tastes like
+    # Intelligence is the probability that the dealt attack is a crit hit. It tastes like ginger lemon chews.
+    # Agility is the probability that the attack will be dodged. It tastes like
+    # Charisma does nothing. It tastes like fishflower nectar.
+    # Instinct is for casting spells. It tastes like cherry blossoms and fishes' blood.
+    # First fish(you) always goes first
     print('It is time for a battle!')
     print('These are the attacks you can use!')
     printDict(battleStratagems)
-    attack = ' '
-    while not attack in battleStratagems.keys():
-        attack = input('What kind of attack do you want to do? (Enter in full.)')
-    attacker = 'You'
-    if attack != 'Un-Mutate' and attack != 'Raise the Dead':
-        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attack)
-    elif attack == 'Un-Mutate':
-        secondFishHP, secondFishStats = unMutate(firstFishStats, secondFishStats, secondFishHP, attacker)
+    yourturn = True
+    while firstFishHP > 0 and secondFishHP > 0:
+        attack = "  "
+        if yourturn == True:
+            while attack not in battleStratagems.keys():
+                attack = input('What kind of attack do you want to do? (Enter in full.)')
+            attacker = 'You'
+            firstFishHP, secondFishHP, breakForUnMutation = simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP)
+            yourturn = False
+        else:
+            choiceStratagems = list(battleStratagems)
+            attack = random.choice(choiceStratagems)
+            attacker = 'The fish'
+            secondFishHP, firstFishHP, breakForUnMutation = simulateAttack(attacker, attack, secondFishStats, firstFishStats, secondFishHP, firstFishHP)
+            yourturn = True
+        if breakForUnMutation == True:
+            break
+        print('Your health is '+str(firstFishHP))
+        print('The fish\'s health is '+str(secondFishHP))
+    if firstFishHP < 1:
+        winner = 'The fish'
+        loser = 'you'
+    else:
+        winner = 'You'
+        loser = 'you'
+    if breakForUnMutation == False:
+        print('The battle has ended.')
+        print(winner+' has won.')
+    else:
+        print('The battle has ended, ')
+        print('because '+loser+" has been un-mutated.")
 
 fishArray = {}
 missionArray = {}
