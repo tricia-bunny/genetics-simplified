@@ -282,6 +282,69 @@ slashDodgeChance, slashCritChance = 13, 0
 ambushDodgeChance, ambushCritChance = 30, 30
 sweepDodgeChance, sweepCritChance = 50, 40
 
+def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attackType):
+    if attackType == 'Ambush':
+        extraS = 'e'
+    else:
+        extraS = ''
+    if attacker != 'You':
+        extraS += 's'
+        attacked = 'you'
+    else:
+        attacked = 'the fish'
+
+    if attackType == 'Stab':
+        motion = 'stab'+extraS+' towards'
+    elif attackType == 'Slash':
+        motion = 'slash'+extraS+' towards'
+    elif attackType == 'Ambush':
+        motion = 'ambush'+extraS
+    elif attackType == 'Sweep':
+        motion = 'sweep'+extraS+' towards'
+
+    print(attacker+' '+motion+' '+attacked+'...')
+    dodgeChance = secondFishStats.agility + attackDodgeChance
+    chance = random.randint(0, 100)
+    if chance <= dodgeChance:
+        print('...and '+attacked+' dodge'+extraS+' it!')
+    else:
+        print('...and the attack connects!')
+        critChance = random.randint(0, 100)
+        attackDamage = firstFishStats.strength
+        criticalChance = firstFishStats.intelligence + attackCritChance
+        if critChance <= firstFishStats.intelligence:
+            print('It is a critical hit!!!')
+            attackDamage *= 2
+        secondFishHP -= attackDamage
+    return secondFishHP
+def unMutate(firstFishStats, secondFishStats, secondFishHP, attacker):
+    if attacker != 'You':
+        extraS = 's'
+        attacked = 'you'
+        somethingR = 'thei'
+        pronoun = 'is'
+    else:
+        extraS = ''
+        attacked = 'the fish'
+        somethingR = 'you'
+        pronoun = 'are'
+    print(attacker+' raise'+extraS+' '+somethingR+'r fins in a Fishcromancer stance.')
+    print('Nyaa! '+attacker+' shout'+extraS+'.')
+    if (secondFishStats.intelligence == 0) and (secondFishStats.instinct == 0):
+        #The target is mutated
+        print("A beam of arcing blue light shoots from "+somethingR+"r interlaced fins.")
+        print(attacked+' '+pronoun+' no longer mutated.')
+        nextPeepGenes = secondFishStats
+        secFishStats = personAttributes(nextPeepGenes.firstname, nextPeepGenes.lastname, nextPeepGenes.strength, random.randint(5, 10), nextPeepGenes.agility, nextPeepGenes.charisma, random.randint(2, 6), nextPeepGenes.gender, nextPeepGenes.bodyColor, nextPeepGenes.finColor, nextPeepGenes.eyeColor, nextPeepGenes.momGenetics, nextPeepGenes.dadGenetics)
+        
+    else:
+        print("A beam of arcing blue light shoots from "+somethingR+"r interlaced fins.")
+        print('It sputters and fades.')
+        print('\'What the heck?\' '+attacker+' exclaim'+extraS+'.')
+        secondFishHP *= 1.5
+        secondFishHP = int(secondFishHP)
+    return secondFishHP, secFishStats
+
 def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
     #Strength (xxxFishStats.strength) is the dealt damage. It tastes like 
     #Intelligence is the probability that the dealt attack is a crit hit. It tastes like ginger lemon chews.
@@ -290,27 +353,16 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
     #Instinct is for casting spells. It tastes like cherry blossoms and fishes' blood.
     #First fish(you) always goes first
     print('It is time for a battle!')
-    print(battleStratagems)
+    print('These are the attacks you can use!')
+    printDict(battleStratagems)
+    attack = ' '
     while not attack in battleStratagems.keys():
-        attack = input('What kind of attack do you want to do?')
-    if attack == 'Stab':
-        print('You stab towards the fish...')
-        dodgeChance = secondFishStats.agility + stabDodgeChance
-        chance = random.randint(0, 100)
-        if chance <= dodgeChance:
-            print('...and the fish dodges it!')
-        else:
-            print('...and the attack connects!')
-            critChance = random.randint(0, 100)
-            attackDamage = firstFishStats.strength
-            criticalChance = firstFishStats.intelligence + stabCritChance
-            if critChance <= firstFishStats.intelligence:
-                print('It is a critical hit!!!')
-                attackDamage *= 2
-            secondFishHP -= attackDamage
-    elif attack == 'Slash':
-        pass
-    
+        attack = input('What kind of attack do you want to do? (Enter in full.)')
+    attacker = 'You'
+    if attack != 'Un-Mutate' and attack != 'Raise the Dead':
+        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attack)
+    elif attack == 'Un-Mutate':
+        secondFishHP, secondFishStats = unMutate(firstFishStats, secondFishStats, secondFishHP, attacker)
 
 fishArray = {}
 missionArray = {}
@@ -1251,7 +1303,4 @@ if gameType == "y":
 else:
     print("Invalid input!")
     printMap(fishMap)  
-    #addFish(fishArray, fidget)
-    #addFish(fishArray, kale)
-    #addFish(fishArray, theBoys_Sikell)
-    #printDict(fishArray)
+    battle(fidget, 200, bob, 200)
