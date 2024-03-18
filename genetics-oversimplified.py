@@ -1,3 +1,4 @@
+
 import random
 title = "Genetics: Oversimplified"
 # genetics = [strength, intelligence, agility, charisma, instinct, sex]
@@ -799,36 +800,52 @@ def meetPizzicato(Team, fishianGold, metPizz):
     print('You can attack or hide.')
     desicion = input('But which one?(a/h) ')
     if desicion == 'a':
-        losses = 0
-        print('Attack! If a fish has over 12 strength and over 14 intelligence, they may win.')
-        for i in Team:
-            if (fishArray[i].strength > 12) and (fishArray[i].strength > 14):
-                print(i+' has beaten the fish!')
-                break
-            else:
-                print(i+' was unable to defeat the fish.')
-                losses += 1
-        if losses == len(Team):
-            print('The fish has defeated all. She robs you of your Fishian gold and leaves.')
-            fishianGold = 0
-            print('\'I am Pizzicato! And I am your death.\'')
-            metPizz = True
+        if 'Arco the Fish' in Team:
+            print('The fish\'s eyes widen. \'Arco?\'')
+            print('\'Pizzicato!\' Arco says.')
+            print('\'I  will join you... for Arco.\' the fish(presumably Pizzicato) says.')
+            pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray', 'grass green')
+            addFish(fishArray, pizzicato)
+            fishianGold += 250
         else:
-            print('The fish,  battered and wet with her own blood, leaves.')
-            if fishArray[i].strength > 19:
-                print('\'What--I\'ve never met so strong a fish.\'')
-                print('\'Maybe I\'ll join you...\'')
-                pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray', 'grass green')
-                addFish(fishArray, pizzicato)
-                fishianGold += 250
+            losses = 0
+            print('Attack! If a fish has over 12 strength and over 14 intelligence, they may win.')
+            for i in Team:
+                if (fishArray[i].strength > 12) and (fishArray[i].strength > 14):
+                    print(i+' has beaten the fish!')
+                    break
+                else:
+                    print(i+' was unable to defeat the fish.')
+                    losses += 1
+            if losses == len(Team):
+                print('The fish has defeated all. She robs you of your Fishian gold and leaves.')
+                fishianGold = 0
+                print('\'I am Pizzicato! And I am your death.\'')
             else:
-                print('\'Don\'t come back.\'')
-            metPizz = True
+                print('The fish,  battered and wet with her own blood, leaves.')
+                if fishArray[i].strength > 19:
+                    print('\'What--I\'ve never met so strong a fish.\'')
+                    print('\'Maybe I\'ll join you...\'')
+                    pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray', 'grass green')
+                    addFish(fishArray, pizzicato)
+                    fishianGold += 250
+                else:
+                    print('\'Don\'t come back.\'')
+        metPizz = True
     elif desicion == 'h':
         print('Sadly the one green bush is insufficient for hiding.')
-        print('The fish quickly finds you and robs you of your Fishian gold.')
-        fishianGold = 0
-        print('\'I am Pizzicato! And I am your death.\'')
+        if 'Arco the Fish' in Team:
+            print('The fish finds you...but then')
+            print('the fish\'s eyes widen. \'Arco?\'')
+            print('\'Pizzicato!\' Arco says.')
+            print('\'I  will join you... for Arco.\' the fish(presumably Pizzicato) says.')
+            pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray', 'grass green')
+            addFish(fishArray, pizzicato)
+            fishianGold += 250
+        else:
+            print('The fish quickly finds you and robs you of your Fishian gold.')
+            fishianGold = 0
+            print('\'I am Pizzicato! And I am your death.\'')
         metPizz = True
     return fishianGold, metPizz
 
@@ -869,7 +886,7 @@ def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine
            
     return gotGold, gotArco, metPizz, fishianGold, metIodine, items
 
-def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance):
+def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood):
     print('Ahh. The snowy breeze blows past you at the foot of the mountains, \n and above you there are beautiful snow-studded peaks.')
     input('Press enter to continue. ')
     print('You can stay at the foot of the mountains, head to the shortest peak, or head to the tallest.')
@@ -1117,7 +1134,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
                 gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine, items)
             elif place == 'Cloud Mountains':
                 # print('Ah! Dab\'s guards are here! Come back later...')
-                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood = cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance)
+                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood = cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood)
         else:
             print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
     return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, items, fishFood
