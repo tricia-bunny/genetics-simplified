@@ -438,7 +438,7 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP, enemyStra
         loser = 'you'
     else:
         winner = 'You'
-        loser = 'you'
+        loser = 'the fish'
     if breakForUnMutation == False:
         print('The battle has ended.')
         print(winner+' has won.')
@@ -708,7 +708,7 @@ def fishAdventure(place, urName):
     print('Your mission team: \n'+str(peeps))
     return peeps
 
-def meetArco(Team):
+def meetArco(Team, gotArco):
     print('Your team comes out into a grassy clearing.')
     print('There is a small, intricate sea glass knife hidden by the brush.')
     print('You look closely...and see that a fish has snuck up behind you!')
@@ -738,7 +738,7 @@ def meetArco(Team):
             addFish(fishArray, arco)
         '''
         for i in Team:
-            nothing, loser = battle(arco, 200, fishArray[Team[i]], 120, normalEnemyStratagems)
+            nothing, loser = battle(arco, 200, fishArray[i], 120, normalEnemyStratagems)
             if loser == 'the fish': break
         if loser == 'you':
             print('The fish has defeated all. Sadly you retreat back to the safety of your camp.')
@@ -746,7 +746,7 @@ def meetArco(Team):
             print('\'Wait, who are you? You\'re somehow familiar.\' '+Team[1]+' says.')
             print('\'I am Arco. Arco of Kelp Ridge.\'')
         else:
-            print(Team[i]+' has defeated the fish!')
+            print(i+' has defeated the fish!')
             print('\'Wait, who are you? You\'re somehow familiar.\' '+Team[1]+' says.')
             print('\'I am Arco. Arco of Kelp Ridge.\'')
             addFish(fishArray, arco)
@@ -760,7 +760,7 @@ def meetArco(Team):
         addFish(fishArray, arco)
         gotArco = True
     return gotArco
-def meetIodine(Team, items):
+def meetIodine(Team, items, metIodine):
     print('You and your team head toward the plain.')
     print('There is a green bush.')
     print('You know what happened last time, but still you head on.')
@@ -792,7 +792,7 @@ def meetIodine(Team, items):
         print('\'Then leave. This is my place, and I can kill you if I want.\'')
         metIodine = True
     return metIodine, items
-def meetPizzicato(Team, fishianGold):
+def meetPizzicato(Team, fishianGold, metPizz):
     print('You and your team head toward the plain.')
     print('There is a green bush.')
     print('Oh no! You see a fish skulking by.')
@@ -821,7 +821,8 @@ def meetPizzicato(Team, fishianGold):
                 pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray', 'grass green')
                 addFish(fishArray, pizzicato)
                 fishianGold += 250
-            print('\'Don\'t come back.\'')
+            else:
+                print('\'Don\'t come back.\'')
             metPizz = True
     elif desicion == 'h':
         print('Sadly the one green bush is insufficient for hiding.')
@@ -831,7 +832,7 @@ def meetPizzicato(Team, fishianGold):
         metPizz = True
     return fishianGold, metPizz
 
-def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine):
+def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine, items):
     print('Your kingdom? Seriously?')
     input('Press enter to continue.')
     print('You decide to go either to the forest or plain.')
@@ -839,9 +840,10 @@ def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine
     if decision == 'f':
         print('You and your team go towards the forest.')
         print('In here there is bushy undergrowth, almost like a maze.')
-        print('A fish must have at least 6 intelligence to pass.')
+        neededInt = random.randint(4, 12)
+        print('A fish must have at least '+str(neededInt)+' intelligence to pass.')
         for i in Team:
-            if fishArray[i].intelligence >= 6:
+            if fishArray[i].intelligence >= neededInt:
                 print(i+' has made it out!')
             else:
                 print(i+' could not make it and turned back.')
@@ -852,15 +854,15 @@ def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine
             fishianGold += 15
             gotGold = True
         elif gotArco == False:
-            gotArco = meetArco(Team)
+            gotArco = meetArco(Team, gotArco)
         else:
             print('Your team comes out in a grassy clearing.')
             print('There is nothing here.')
     elif decision == 'p':
         if metPizz == False:
-            fishianGold, metPizz = meetPizzicato(Team, fishianGold)
+            fishianGold, metPizz = meetPizzicato(Team, fishianGold, metPizz)
         elif metIodine == False:
-            metIodine, items = meetIodine(Team, items)
+            metIodine, items = meetIodine(Team, items, metIodine)
         else:
             print('You and your team head toward the plain.')
             print('There is a green bush, but nothing else.')
@@ -884,10 +886,10 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                 print('A flash of metal catches your eye. It\'s a wickedly jagged knife, \n tied delicately to the brush to point directly at your head.')
                 print('You back away, but it\'s too late. The brush behind you has closed in a cage shape, and you are trapped.')
                 print('A twilight fish with sky blue fins and mint-colored eyes assaults you from the front,')
-                koyden = personAttributes('Köyden', 'Kyda', 16, 36, 19, 12, 14, 'Female', 'twilight', 'sky blue', 'mint green')
-                #Köyden only joins your team at the very, very end, if she ever does.
-                #Lore: Köyden was the one to injure/almost kill Arco and Kale. She also killed many a good fish.
-                #She is also one of Dab's best generals. But loyalty? Maybe not...she has plans for killing Dab and taking over Fishland. Hehe!
+                koyden = personAttributes('Köyden', 'Kyda', 16, 36, 19, 12, 14, 'Female', 'twilight', 'sky blue', 'mint green', None, None)
+                # Köyden only joins your team at the very, very end, if she ever does.
+                # Lore: Köyden was the one to injure/almost kill Arco and Kale. She also killed many a good fish.
+                # She is also one of Dab's best generals. But loyalty? Maybe not...she has plans for killing Dab and taking over Fishland. Hehe!
                 print('followed by two other fish, both vermillion with orange yellow fins.')
                 print('Weirdly, their eyes are stormy purple, without a trace of pupil.')
                 print('\'Hey! You! You\'ve trespassed on our territory.\' the twilight fish yells.')
@@ -942,10 +944,10 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                     print('You leap towards Köyden, trying to throw her off balance.')
                     print('It doesn\'t work and she stabs you.')
                     if (fishArray[Team[0]].strength >= 19) and (fishArray[Team[0]].intelligence >= 19) and (fishArray[Team[0]].agility >= 19):
-                        print('But you are strong and smart and fast, so you use a fishrate chop to her face.')
+                        print('But you are strong and smart and fast, so you use a fish-karate chop to her face.')
                         print('Köyden falls back, injured. Then she stabs you again.')
                         print('Then you heave a PUNCH to her STOMACH!')
-                        print('She falls unconcious to the cave floor.')
+                        print('She falls unconscious to the cave floor.')
                         print('You grab her knives. They are now yours.')
                         items['Köyden\'s Twin Knives'] = ['weapon', 'knife', 9]
                         guardsDefeated = True
@@ -960,8 +962,18 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                     print('You leave, looking back at the fish who has killed and the fish who is imprisoned.')
             else:
                 print('You and your team explore the brush lining the foot of the mountain.')
-                print('There is a cave with creepy archraic script all over the walls.')
+                print('There is a cave with creepy archaic script all over the walls.')
                 print('But other than that, there is nothing here.')
+                read = input('Do you want to read the text? (y/n)')
+                if read == 'y':
+                    scripts = [
+                        'A fish will come to save the land.',
+                        'There will be a fish one day who will doom Fishland if not stopped.',
+                        'Fishes can be good and brave but they can also be evil.',
+                        'Two fish once together will reunite.'
+                    ]
+                    print('It is hard to read, but you see something: ')
+                    print(random.choice(scripts))
         elif desicion == 'p':
             if gotMoreGold == False:
                 print('You and your team explore the pines to your left.')
@@ -1085,7 +1097,7 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                
     return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood
 
-def trueAdventure(fishianGold, team, place, kingdomStuff):
+def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     Team = team
     yourKingdomStuff = kingdomStuff[0]
     cloudMountainStuff = kingdomStuff[1]
@@ -1102,9 +1114,9 @@ def trueAdventure(fishianGold, team, place, kingdomStuff):
     if guardsDefeated == False:
         if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
             if place == 'Your Kingdom':
-                gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine)
+                gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine, items)
             elif place == 'Cloud Mountains':
-                #print('Ah! Dab\'s guards are here! Come back later...')
+                # print('Ah! Dab\'s guards are here! Come back later...')
                 borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood = cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance)
         else:
             print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
@@ -1357,8 +1369,18 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items):
             print('Where would you like to go?')
             print('This is the key to the map.')
             printDict(adventurePlaces)
-            destinationX = int(input('Please choose a destination! Enter the x-coordinate. '))
-            destinationY = int(input('Please choose a destination! Enter the y-coordinate. '))
+            destinationX = input('Please choose a destination! Enter the x-coordinate. ')
+            try:
+                destinationX = int(destinationX)
+            except ValueError as error:
+                print('That is not an integer!')
+                continue
+            destinationY = input('Please choose a destination! Enter the y-coordinate. ')
+            try:
+                destinationY = int(destinationY)
+            except ValueError as error:
+                print('That is not an integer!')
+                continue
             if destinationX <= maxMapX and destinationY <= maxMapY:
                 newMap = assignXY(fishlandMap, destinationX, destinationY, '🟥')
                 printMap(newMap)
@@ -1371,7 +1393,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items):
                     adventurePlace = findPlace(destinationX, destinationY)
                     print('You are adventuring in '+str(adventurePlace)+'!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
-                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, items, fishFood = trueAdventure(fishianGold, fishTeam, adventurePlace, kingdomStuff)
+                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, items, fishFood = trueAdventure(fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items)
                     yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
                     cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance]
                     kingdomStuff = [yourKingdomStuff, cloudMountainStuff]
