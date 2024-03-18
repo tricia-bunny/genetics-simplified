@@ -107,6 +107,15 @@ def addFish(theArray, theFish):
     fishName = theFish.firstname + " " + theFish.lastname
     theArray[fishName] = theFish
 
+fishcromancerStratagems = ['Stab', 'Slash', 'Ambush', 'Un-Mutate', 'Raise the Dead']
+normalStratagems = ['Stab', 'Slash', 'Ambush', 'Sweep']
+def createStratagemList(num, stratagems):
+    stratagemList = []
+    for i in range(num):
+        stratagemList.append(random.choice(stratagems))
+    return stratagemList
+normalEnemyStratagems = createStratagemList(200, normalStratagems)
+fishcromancerEnemyStratagems = createStratagemList(400, fishcromancerStratagems)
 
 #These are our fish
 #ZERO GENERATION
@@ -271,12 +280,13 @@ def makeoffspring(femaleGenetics, maleGenetics):
     return offspring
 
 battleStratagems = {
-    'Stab': 'Stab the enemy', #7% chance of dodge
-    'Slash': 'Slash at the enemy', #13% chance of dodge
-    'Ambush': 'Ambush the enemy', #30% chance of dodge, 30% ch of crit
-    'Sweep': 'Sweep sword below enemy', #50% chance of dodge, 40% ch of crit
+    'Stab': 'Stab the enemy', # 7% chance of dodge
+    'Slash': 'Slash at the enemy', # 13% chance of dodge
+    'Ambush': 'Ambush the enemy', # 30% chance of dodge, 30% ch of crit
+    'Sweep': 'Sweep sword below enemy', # 50% chance of dodge, 40% ch of crit
     'Un-Mutate': 'Something only fish-necromancers can do. Turns an undead fish into a live one.', #0% ch of evryding
-    'Raise the Dead': 'Something only fishcromancers can do. Raises the spirits of 5 dead fish to attack.', #70% chance of crit
+    'Raise the Dead': '''Something only fishcromancers can do. Raises the spirits of 5 dead fish to attack...but they m
+    ay attack you''', # 70% chance of crit
 }
 stabDodgeChance, stabCritChance = 7, 0
 slashDodgeChance, slashCritChance = 13, 0
@@ -344,6 +354,8 @@ def unMutate(secondFishStats, secondFishHP, attacker):
         print('\'What the heck?\' '+attacker+' exclaim'+extraS+'.')
         secondFishHP *= 1.5
         secondFishHP = int(secondFishHP)
+        if secondFishHP > 200:
+            secondFishHP = 200
         secFishStats = secondFishStats
     return secondFishHP, secFishStats
 def raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, angle, cashmere):
@@ -368,7 +380,6 @@ def raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, an
     for i in chosenFish:
         atatck = random.choice(possAttacks)
         secondFishHP = Attack(0, 70, firstFishStats, secondFishStats, secondFishHP, i.firstname, atatck)
-        print(i.firstname+' attacks!')
     return secondFishHP
 
 def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP):
@@ -392,7 +403,7 @@ def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishH
 
     return firstFishHP, secondFishHP, breakForUnMutation
 
-def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
+def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP, enemyStratagems):
     # Strength (xxxFishStats.strength) is the dealt damage. It tastes like
     # Intelligence is the probability that the dealt attack is a crit hit. It tastes like ginger lemon chews.
     # Agility is the probability that the attack will be dodged. It tastes like
@@ -403,6 +414,7 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
     print('These are the attacks you can use!')
     printDict(battleStratagems)
     yourturn = True
+    numStratagem = 0
     while firstFishHP > 0 and secondFishHP > 0:
         attack = "  "
         if yourturn == True:
@@ -412,11 +424,11 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
             firstFishHP, secondFishHP, breakForUnMutation = simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP)
             yourturn = False
         else:
-            choiceStratagems = list(battleStratagems)
-            attack = random.choice(choiceStratagems)
+            attack = enemyStratagems[numStratagem]
             attacker = 'The fish'
             secondFishHP, firstFishHP, breakForUnMutation = simulateAttack(attacker, attack, secondFishStats, firstFishStats, secondFishHP, firstFishHP)
             yourturn = True
+            numStratagem += 1
         if breakForUnMutation == True:
             break
         print('Your health is '+str(firstFishHP))
@@ -433,15 +445,16 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP):
     else:
         print('The battle has ended, ')
         print('because '+loser+" has been un-mutated.")
+    return breakForUnMutation, loser
 
 fishArray = {}
 missionArray = {}
 missionArray['Defeat Dab'] = 'Defeat Dab and save Fishland! Reward: Unknown'
-#         Shif's crystal spearhead
+#                                                                   Shif's crystal spearhead
 completedMissions = {}
 fishianGold = 0
 fishFood = 0
-items = {'A Random Orb':['orb', 'instinct', 10], 'Fidget\'s Pocketknife':['weapon', 'knife', '3']}
+items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', '3']}
 gotGold = False
 gotArco = False
 metPizz = False
@@ -700,26 +713,50 @@ def meetArco(Team):
     print('There is a small, intricate sea glass knife hidden by the brush.')
     print('You look closely...and see that a fish has snuck up behind you!')
     print('The fish is light gray with dark gray fins and brilliant ice blue eyes.')
-    print('The fish asks, \'Are you with Dab?\'')
-    print('You reply, \'No\'.')
-    print('Then he replies: \'Beat me in a duel...and I will join you.\'')
-    arco = personAttributes('Arco', 'the Fish', 13, 16, 17, 18, 14, 'Male', 'light gray', 'dark gray', 'ice blue')
-    print('To beat the fish, a fish must have at least 13 strength and 17 agility to beat the fish.')
-    losses = 0
-    for i in Team:
-        if (fishArray[i].strength >= 13) and (fishArray[i].agility >= 17):
-            print(i+' has defeated the fish in a duel!')
-            break
+    if 'Pizzicato the Fish' not in Team:
+        print('The fish asks, \'Are you with Dab?\'')
+        print('You reply, \'No\'.')
+        print('Then he replies: \'Beat me in a duel...and I will join you.\'')
+        arco = personAttributes('Arco', 'the Fish', 13, 16, 17, 18, 14, 'Male', 'light gray', 'dark gray', 'ice blue', None, None)
+        '''
+        print('To beat the fish, a fish must have at least 13 strength and 17 agility to beat the fish.')
+        losses = 0
+        for i in Team:
+            if (fishArray[i].strength >= 13) and (fishArray[i].agility >= 17):
+                print(i+' has defeated the fish in a duel!')
+                break
+            else:
+                print(i+' could not win, and is heavily wounded.')
+                losses += 1
+        if losses == len(Team):
+            print('The fish has defeated all. Sadly you retreat back to the safety of your camp.')
+            print('\'Ha! You couldn\'t defeat a lowly fish like me, how will you be able to defeat Dab?\'')
         else:
-            print(i+' could not win, and is heavily wounded.')
-            losses += 1
-    if losses == len(Team):
-        print('The fish has defeated all. Sadly you retreat back to the safety of your camp.')
-        print('\'Ha! You couldn\'t defeat a lowly fish like me, how will you be able to defeat Dab?\'')
+            print('The fish decides to join your team!')
+            print('\'Okay, fine. You beat me.\'')
+            print('\'Another step towards the defeat of that horrendous tyrant.\'')
+            addFish(fishArray, arco)
+        '''
+        for i in Team:
+            nothing, loser = battle(arco, 200, fishArray[Team[i]], 120, normalEnemyStratagems)
+            if loser == 'the fish': break
+        if loser == 'you':
+            print('The fish has defeated all. Sadly you retreat back to the safety of your camp.')
+            print('\'If you can\'t even defeat me, don\'t even think of taking on Dab!\'')
+            print('\'Wait, who are you? You\'re somehow familiar.\' '+Team[1]+' says.')
+            print('\'I am Arco. Arco of Kelp Ridge.\'')
+        else:
+            print(Team[i]+' has defeated the fish!')
+            print('\'Wait, who are you? You\'re somehow familiar.\' '+Team[1]+' says.')
+            print('\'I am Arco. Arco of Kelp Ridge.\'')
+            addFish(fishArray, arco)
+            gotArco = True
     else:
-        print('The fish decides to join your team!')
-        print('\'Okay, fine. You beat me.\'')
-        print('\'Another step towards the defeat of that horrendous tyrant.\'')
+        print('The fish\'s eyes widen when he sees Pizzicato.')
+        print('\'Arco!\' Pizzicato shouts. ')
+        print('The fish (presumably Arco) drops his knife. \'...Pizzicato?\'')
+        print('\'Yes! Arco, it\'s me!\'')
+        print('Arco turns to you. \'I think I will join you... for Pizzicato.\'')
         addFish(fishArray, arco)
         gotArco = True
     return gotArco
@@ -1361,6 +1398,8 @@ fish = createFromAquarium()
 print(fish)
 print(fishArray)
 """
+
+
 print("Hello! This is a game of breeding fish.")
 gameType = input("New game?(y/n) ")
 if gameType == "y":
@@ -1372,5 +1411,5 @@ if gameType == "y":
 #    pass
 else:
     print("Invalid input!")
-    printMap(fishMap)  
-    battle(fidget, 200, bob, 200)
+    printMap(fishMap)
+    battle(fidget, 200, bob, 200, normalEnemyStratagems)
