@@ -334,16 +334,11 @@ ambushDodgeChance, ambushCritChance = 30, 30
 sweepDodgeChance, sweepCritChance = 50, 40
 
 
-def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attackType):
+def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, attackType):
     if attackType == 'Ambush':
         extraS = 'e'
     else:
         extraS = ''
-    if attacker != 'You':
-        extraS += 's'
-        attacked = 'you'
-    else:
-        attacked = 'the fish'
 
     if attackType == 'Stab':
         motion = 'stab' + extraS + ' towards'
@@ -401,13 +396,13 @@ def unMutate(secondFishStats, secondFishHP, attacker):
         print('\'What the heck?\' ' + attacker + ' exclaim' + extraS + '.')
         secondFishHP *= 1.5
         secondFishHP = int(secondFishHP)
-        if secondFishHP > 200:
-            secondFishHP = 200
+        if secondFishHP > secondFishCap:
+            secondFishHP = secondFishCap
         secFishStats = secondFishStats
     return secondFishHP, secFishStats
 
 
-def raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, angle, cashmere):
+def raiseDead(firstFishStats, secondFishStats, secondFishHP, firstFishHP, attacker, xenon, angle, cashmere):
     tuple_fish = personAttributes('Tuple', 'the Fish', 8, 9, 17, 16, 7, 'Male', 'coral pink', 'bright orange',
                                   'neon pink',
                                   None, None)
@@ -430,17 +425,35 @@ def raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, an
         print('It is ' + chosenfish.firstname + "!")
     for i in chosenFish:
         atatck = random.choice(possAttacks)
-        secondFishHP = Attack(0, 70, firstFishStats, secondFishStats, secondFishHP, i.firstname, atatck)
-    return secondFishHP
+        if random.randint(0, 4) <= 1:
+            stats1 = firstFishStats
+            stats2 = secondFishStats
+            hp = secondFishHP
+            attacked = 'the fish'
+        else:
+            stats1 = secondFishStats
+            stats2 = firstFishStats
+            hp = firstFishHP
+            attacked = 'you'
+        returnedHP = Attack(0, 70, stats1, stats2, hp, i.firstname, attacked, atatck)
+        if hp == firstFishHP:
+            firstFishHP = returnedHP
+        else:
+            secondFishHP = returnedHP
+    return secondFishHP, firstFishHP
 
 
-def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP):
+def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishHP, secondFishHP, secondFishCap):
+    if attacker != 'You':
+        attacked = 'you'
+    else:
+        attacked = 'the fish'
     breakForUnMutation = False
     if attack != 'Un-Mutate' and attack != 'Raise the Dead':
-        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker,
+        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, 
                               attack)
     elif attack == 'Un-Mutate':
-        secondFishHP, secFishStats = unMutate(secondFishStats, secondFishHP, attacker)
+        secondFishHP, secFishStats = unMutate(secondFishStats, secondFishHP, secondFishCap, attacker)
         if secondFishStats != secFishStats:
             if attacker == 'You':
                 attacked = 'The fish'
@@ -451,12 +464,12 @@ def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishH
             print(attacked + ' ' + pronoun + ' un-mutated!')
             breakForUnMutation = True
     elif attack == 'Raise the Dead':
-        secondFishHP = raiseDead(firstFishStats, secondFishStats, secondFishHP, attacker, xenon, angle, cashmere)
+        secondFishHP, firstFishHP = raiseDead(firstFishStats, secondFishStats, secondFishHP, firstFishHP, attacker, xenon, angle, cashmere)
 
     return firstFishHP, secondFishHP, breakForUnMutation
 
 
-def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP, enemyStratagems):
+def battle(firstFishStats, firstFishHP, firstFishCap, secondFishStats, secondFishHP, secondFishCap, enemyStratagems):
     # Strength (xxxFishStats.strength) is the dealt damage. It tastes like
     # Intelligence is the probability that the dealt attack is a crit hit. It tastes like ginger lemon chews.
     # Agility is the probability that the attack will be dodged. It tastes like
@@ -475,13 +488,13 @@ def battle(firstFishStats, firstFishHP, secondFishStats, secondFishHP, enemyStra
                 attack = input('What kind of attack do you want to do? (Enter in full.)')
             attacker = 'You'
             firstFishHP, secondFishHP, breakForUnMutation = simulateAttack(attacker, attack, firstFishStats,
-                                                                           secondFishStats, firstFishHP, secondFishHP)
+                                                                           secondFishStats, firstFishHP, secondFishHP, secondFishCap)
             yourturn = False
         else:
             attack = enemyStratagems[numStratagem]
             attacker = 'The fish'
             secondFishHP, firstFishHP, breakForUnMutation = simulateAttack(attacker, attack, secondFishStats,
-                                                                           firstFishStats, secondFishHP, firstFishHP)
+                                                                           firstFishStats, secondFishHP, firstFishHP, firstFishCap)
             yourturn = True
             numStratagem += 1
         if breakForUnMutation == True:
@@ -843,6 +856,7 @@ def meetArco(Team, gotArco):
             addFish(fishArray, arco)
         '''
         for i in Team:
+            print(i+' steps up: \'You better watch out: I\'demolish you!\'')
             nothing, loser = battle(arco, 200, fishArray[i], 120, normalEnemyStratagems)
             if loser == 'the fish': break
         if loser == 'you':
@@ -886,8 +900,7 @@ def meetIodine(Team, items, metIodine):
         print('Then, Kale leaps towards Iodine and traps her in a fish hug.')
         print('\'Kale...I thought you\'d died.\'')
         print('Kale takes Iodine\'s fin. \'But I survived.\'')
-        print(
-            'Iodine does not pull away, but instead hugs Kale harder. \n \'This is for you, for helping me love again.\'')
+        print('Iodine does not pull away, but instead hugs Kale harder. \n \'This is for you, for helping me love again.\'')
         print('She leaves you a small crystal sphere, and with a final longing glance at Kale, she leaves.')
         items['Iodine\'s Sphere'] = ['orb', 'intelligence', 16]
         metIodine = True
@@ -1234,7 +1247,19 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
             print('\'Ha.\' ' + Team[1] + ' says. \'You don\'t even have any weapons!\'')
             print('The fish looks fearful for some reason.')
             print('\'So you won\'t go? Then die.\'')
-            # battle mechanism
+            yay = personAttributes('Yay', 'the Fish', 6, 19, 4, 16, 34, 'Male', 'bright orange', 'grass green', 'mint green')
+            for i in Team:
+                print(i+' steps up. \'I don\'t know about you, but I know I will win.\'')
+                yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Un-Mutate', 'Raise the Dead'])
+                breakForUnMutation, loser = battle(yay, 500, 1000, fishArray[i], 200, 200, yayStratagems)
+                if loser == 'the fish':
+                    break
+            if loser == 'the fish':
+                print('The fish gapes at you.')
+                print('\'So you\'re not with Dab?\'')
+                print('\'Yeah.\' you reply.')
+                print('\'I\'m Yay. Mind if I join you?\'')
+                addFish(fishArray, yay)
 
     return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood
 
@@ -1597,4 +1622,4 @@ if gameType == "y":
 else:
     print("Invalid input!")
     printMap(fishMap)
-    battle(fidget, 200, bob, 200, normalEnemyStratagems)
+    battle(fidget, 200, 200, bob, 200, 200, normalEnemyStratagems)
