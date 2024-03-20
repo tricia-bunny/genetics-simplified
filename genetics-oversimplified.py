@@ -532,8 +532,9 @@ gotMoreGold = False
 borderCrossed = False
 guardsDefeated = False
 metEndurance = False
+gotOrb = False
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance]
+cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb]
 kingdomStuff = [yourKingdomStuff, cloudMountainStuff]
 
 
@@ -856,8 +857,8 @@ def meetArco(Team, gotArco):
             addFish(fishArray, arco)
         '''
         for i in Team:
-            print(i+' steps up: \'You better watch out: I\'demolish you!\'')
-            nothing, loser = battle(arco, 200, fishArray[i], 120, normalEnemyStratagems)
+            print(i+' steps up: \'You better watch out: I\'ll demolish you!\'')
+            nothing, loser = battle(fishArray[i], 200, 200, arco, 120, 120, normalEnemyStratagems)
             if loser == 'the fish': break
         if loser == 'you':
             print('The fish has defeated all. Sadly you retreat back to the safety of your camp.')
@@ -1251,7 +1252,7 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
             for i in Team:
                 print(i+' steps up. \'I don\'t know about you, but I know I will win.\'')
                 yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Un-Mutate', 'Raise the Dead'])
-                breakForUnMutation, loser = battle(yay, 500, 1000, fishArray[i], 200, 200, yayStratagems)
+                breakForUnMutation, loser = battle(fishArray[i], 200, 200, yay, 500, 1000, yayStratagems)
                 if loser == 'the fish':
                     break
             if loser == 'the fish':
@@ -1261,7 +1262,7 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                 print('\'I\'m Yay. Mind if I join you?\'')
                 addFish(fishArray, yay)
 
-    return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood
+    return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood
 
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
@@ -1277,6 +1278,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     borderCrossed = cloudMountainStuff[1]
     guardsDefeated = cloudMountainStuff[2]
     metEndurance = cloudMountainStuff[3]
+    gotOrb = cloudMountainStuff[4]
     print(borderCrossed)
     if guardsDefeated == False:
         if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
@@ -1286,11 +1288,11 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
                                                                                                 metIodine, items)
             elif place == 'Cloud Mountains':
                 # print('Ah! Dab\'s guards are here! Come back later...')
-                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, fishianGold, fishFood = cloudMountainAdventure(
+                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood = cloudMountainAdventure(
                     Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood)
         else:
             print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
-    return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, items, fishFood
+    return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, items, fishFood
 
 
 def fishTutorial():
@@ -1584,10 +1586,10 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items):
                     adventurePlace = findPlace(destinationX, destinationY)
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
-                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, items, fishFood = trueAdventure(
+                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, items, fishFood = trueAdventure(
                         fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items)
                     yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-                    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance]
+                    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb]
                     kingdomStuff = [yourKingdomStuff, cloudMountainStuff]
         elif action == 'look at items' or action == 'l':
             printDict(items)
