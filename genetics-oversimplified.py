@@ -1103,7 +1103,7 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                         print('Then you heave a PUNCH to her STOMACH!')
                         print('She falls unconscious to the cave floor.')
                         print('You grab her knives. They are now yours.')
-                        items['Köyden\'s Twin Knives'] = ['weapon', 'knife', 9]
+                        items['Köyden\'s Twin Knives'] = ['weapon', 'knife', 19]
                         guardsDefeated = True
                         input(' ')
                         print('Silicon steps out of the cave.')
@@ -1253,7 +1253,8 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                 yay = personAttributes('Yay', 'the Fish', 6, 19, 4, 16, 34, 'Male', 'bright orange', 'grass green', 'mint green', None, None)
                 for i in Team:
                     print(i+' steps up. \'I don\'t know about you, but I know I will win.\'')
-                    yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Un-Mutate', 'Raise the Dead'])
+                    yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Raise the Dead'])
+                    yayStratagems[0] = 'Un-Mutate'
                     breakForUnMutation, loser = battle(fishArray[i], 200, 200, yay, 500, 1000, yayStratagems)
                     if loser == 'the fish':
                         break
@@ -1274,6 +1275,54 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
     return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood
 
 
+def mineralValleyAdventure(Team, fishianGold, fishFood):
+    print('Your team treks through the rocky valley to arrive at a crossroads.')
+    print('A rock mine stands to your left, and a towering shale palace soars into the clouds.')
+    print('Then you notice a small hut behind you. A fish peeps out.')
+    decision = input('Do you go to the mine, the palace, or the hut? (m/p/h) ')
+    if decision == 'm':
+        print('The mine has jagged, rocky walls. Two soot-stained fish are digging.')
+        approaching = input('Do you approach the fish? (y/n) ')
+        if approaching == 'y':
+            print('\'Hi!\' you call out. The younger of the two fish looks at you weirdly.')
+            print('The other fish calls out. \'Hey! I\'m Lime and she\'s Shale.\'')
+            print('Shale glares at you and resumes poking around with her pickaxe.')
+            print('\'What\'s your name?\' Lime asks inquisitively.')
+            print('\'My name is '+Team[0]+'.\' you reply.')
+            print('\'Nice to meet you.\' he winks.')
+            print('Shale pokes Lime with her pickaxe. \'Shut up!\'')
+            print('\'If we could talk in PRIVATE?\' Shale asks.')
+            print('You back away politely. \'Oh of course!\'')
+            print('The two fish jabber away. You can hear some shreds of conversation.')
+            print('\'Conspiracy\'...\'Dab\'...\'Can\'t trust them\'...')
+            print('You decide to leave.')
+        else:
+            print('You decide against approaching the fish.')
+            print('You catch the younger one watching you, then whispering to the other.')
+            print('Feeling weird, you decide to leave.')
+    elif decision == 'p':
+        print('You see the palace gates are thrown wide open.')
+        print('A carmine fish is sitting on the throne, with another smaller jet black fish beside.')
+        print('With a flick of his fin, the carmine fish welcomes you in.')
+        input('')
+        print('You approach the fish with caution.')
+        print('\'Welcome to Mineral Valley!\' the carmine fish exclaims.')
+        print('The jet-black fish slaps the carmine one. \'Don\'t mind Valor. The leader thing is getting into his head.\'')
+        print('\'Valor?\' you echo.')
+        print('\'Yes, he\'s Valor.\' the jet-black fish sniffs. \'He\'s overrated.\'')
+        print('Upon looking at the jet-black fish, you are filled with a strong sense of déjà vu.')
+        print('Have you seen her before?')
+        print('You cock your head. \'What is your name, then?\'')
+        print('\'My name is Andesite.\' she responds. \'What are you here for?\'')
+        print('\'Nothing really.\' you say.')
+        print('Andesite points a fin at Valor. \'Then he\'ll be able to help you.\'')
+        print('She promptly exits the room.')
+        print('\'Has your kingdom been taken by Dab?\' you ask Valor.')
+        print('\'Ah...\' Valor slurs. \'Maybe.\'')
+        print('Hopefully, you think, this Maybe means no.')
+        
+    return fishianGold, fishFood
+
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     Team = team
     yourKingdomStuff = kingdomStuff[0]
@@ -1290,18 +1339,20 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     gotOrb = cloudMountainStuff[4]
     gotYay = cloudMountainStuff[5]
     print(borderCrossed)
-    if guardsDefeated == False:
-        if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
-            if place == 'Your Kingdom':
-                gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
-                                                                                                metPizz, fishianGold,
-                                                                                                metIodine, items)
-            elif place == 'Cloud Mountains':
-                # print('Ah! Dab\'s guards are here! Come back later...')
-                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood = cloudMountainAdventure(
-                    Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood)
-        else:
-            print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
+    if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
+        if place == 'Your Kingdom':
+            gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
+                metPizz, fishianGold, metIodine, items)
+        elif place == 'Cloud Mountains':
+            # print('Ah! Dab\'s guards are here! Come back later...')
+            borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood = cloudMountainAdventure(
+                Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood)
+   	if guardsDefeated == False:
+        print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
+    else:
+        if place == 'Mineral Valley':
+            fishianGold, fishFood = mineralValleyAdventure(Team, fishianGold, fishFood)
+        print('Ah! Dab\'s guards are here! Come back later...')
     return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, items, fishFood
 
 
