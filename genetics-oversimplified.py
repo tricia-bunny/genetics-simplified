@@ -366,7 +366,7 @@ def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats,
     return secondFishHP
 
 
-def unMutate(secondFishStats, secondFishHP, attacker):
+def unMutate(secondFishStats, secondFishHP, secondFishCap, attacker):
     if attacker != 'You':
         extraS = 's'
         attacked = 'you'
@@ -533,8 +533,9 @@ borderCrossed = False
 guardsDefeated = False
 metEndurance = False
 gotOrb = False
+gotYay = False
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb]
+cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 kingdomStuff = [yourKingdomStuff, cloudMountainStuff]
 
 
@@ -930,7 +931,7 @@ def meetPizzicato(Team, fishianGold, metPizz):
             print('\'Pizzicato!\' Arco says.')
             print('\'I  will join you... for Arco.\' the fish(presumably Pizzicato) says.')
             pizzicato = personAttributes('Pizzicato', 'the Fish', 8, 18, 15, 17, 6, 'Female', 'jet black', 'light gray',
-                                         'grass green')
+                                         'grass green', None, None)
             addFish(fishArray, pizzicato)
             fishianGold += 250
         else:
@@ -1016,7 +1017,7 @@ def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine
     return gotGold, gotArco, metPizz, fishianGold, metIodine, items
 
 
-def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood):
+def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood):
     print(
         'Ahh. The snowy breeze blows past you at the foot of the mountains, \n and above you there are beautiful snow-studded peaks.')
     input('Press enter to continue. ')
@@ -1237,32 +1238,40 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
         print('But it may as well be a trap.')
         pick = input('Do you pick them? (y/n) ')
         if pick == 'y':
-            print('You and your team tug hard at the carrots, ')
-            print(' but then you feel something truly fishy: scales!')
-            print('You pull, and...')
-            input(" ")
-            print('BOOM! It\'s a fish for sure. The fish who\'s been stalking you!')
-            print('\'Who are you?\' you screech.')
-            print('The fish looks from you to the carrots then back to you.')
-            print('\'Go away!\' he yells. \'Go away if you don\'t want to die!\'')
-            print('\'Ha.\' ' + Team[1] + ' says. \'You don\'t even have any weapons!\'')
-            print('The fish looks fearful for some reason.')
-            print('\'So you won\'t go? Then die.\'')
-            yay = personAttributes('Yay', 'the Fish', 6, 19, 4, 16, 34, 'Male', 'bright orange', 'grass green', 'mint green')
-            for i in Team:
-                print(i+' steps up. \'I don\'t know about you, but I know I will win.\'')
-                yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Un-Mutate', 'Raise the Dead'])
-                breakForUnMutation, loser = battle(fishArray[i], 200, 200, yay, 500, 1000, yayStratagems)
+            if gotYay == False:
+                print('You and your team tug hard at the carrots, ')
+                print(' but then you feel something truly fishy: scales!')
+                print('You pull, and...')
+                input(" ")
+                print('BOOM! It\'s a fish for sure. The fish who\'s been stalking you!')
+                print('\'Who are you?\' you screech.')
+                print('The fish looks from you to the carrots then back to you.')
+                print('\'Go away!\' he yells. \'Go away if you don\'t want to die!\'')
+                print('\'Ha.\' ' + Team[1] + ' says. \'You don\'t even have any weapons!\'')
+                print('The fish looks fearful for some reason.')
+                print('\'So you won\'t go? Then die.\'')
+                yay = personAttributes('Yay', 'the Fish', 6, 19, 4, 16, 34, 'Male', 'bright orange', 'grass green', 'mint green', None, None)
+                for i in Team:
+                    print(i+' steps up. \'I don\'t know about you, but I know I will win.\'')
+                    yayStratagems = createStratagemList(1000, ['Sweep', 'Ambush', 'Un-Mutate', 'Raise the Dead'])
+                    breakForUnMutation, loser = battle(fishArray[i], 200, 200, yay, 500, 1000, yayStratagems)
+                    if loser == 'the fish':
+                        break
                 if loser == 'the fish':
-                    break
-            if loser == 'the fish':
-                print('The fish gapes at you.')
-                print('\'So you\'re not with Dab?\'')
-                print('\'Yeah.\' you reply.')
-                print('\'I\'m Yay. Mind if I join you?\'')
-                addFish(fishArray, yay)
+                    print('The fish gapes at you.')
+                    print('\'So you\'re not with Dab?\'')
+                    print('\'Yeah.\' you reply.')
+                    print('\'I\'m Yay. Mind if I join you?\'')
+                    gotYay = True
+                    addFish(fishArray, yay)
+            else:
+                print('You pick the carrots and eat, relishing their taste.')
+                print('In these times, food is scarce, but here there is so so much!!')
+                fishFood += random.randint(5, 100)
+        elif pick == 'n':
+            print('You don\'t pick the carrots.')
 
-    return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood
+    return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood
 
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
@@ -1279,6 +1288,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     guardsDefeated = cloudMountainStuff[2]
     metEndurance = cloudMountainStuff[3]
     gotOrb = cloudMountainStuff[4]
+    gotYay = cloudMountainStuff[5]
     print(borderCrossed)
     if guardsDefeated == False:
         if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
@@ -1288,11 +1298,11 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
                                                                                                 metIodine, items)
             elif place == 'Cloud Mountains':
                 # print('Ah! Dab\'s guards are here! Come back later...')
-                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood = cloudMountainAdventure(
-                    Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, fishianGold, fishFood)
+                borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood = cloudMountainAdventure(
+                    Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood)
         else:
             print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
-    return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, items, fishFood
+    return gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, items, fishFood
 
 
 def fishTutorial():
@@ -1586,10 +1596,10 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items):
                     adventurePlace = findPlace(destinationX, destinationY)
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
-                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, items, fishFood = trueAdventure(
+                    gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, items, fishFood = trueAdventure(
                         fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items)
                     yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-                    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb]
+                    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
                     kingdomStuff = [yourKingdomStuff, cloudMountainStuff]
         elif action == 'look at items' or action == 'l':
             printDict(items)
