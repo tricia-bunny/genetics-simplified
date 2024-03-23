@@ -1328,7 +1328,7 @@ def mineralValleyAdventure(Team, metShale, valorAsked, andesiteRAWR, fishianGold
         print('You see the palace gates are thrown wide open.')
         if andesiteRAWR == False:
             print('A carmine fish is sitting on the throne, with another smaller jet black fish beside.')
-        	print('With a flick of his fin, the carmine fish welcomes you in.')
+            print('With a flick of his fin, the carmine fish welcomes you in.')
         input('')
         if valorAsked == False:
             print('You approach the fish with caution.')
@@ -1600,6 +1600,7 @@ if palaceBreakAdded == 'no':
 """
 
 ded = False
+equippedItems = []
 def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     maxMapX = 47
     maxMapY = 22
@@ -1610,6 +1611,8 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     findSiliconAdded = False
     fishlandMap = fishMap
     while True:
+        while len(equippedItems) > 3:
+            print('TOO.MANY.ITEMS')
         if ded == True:
             print('You are dead.')
             break
@@ -1618,7 +1621,6 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
         mineralValleyStuff = kingdomStuff[2]
         print("These are your fish!")
         printDict(fishArray)
-        print(" ")
         print("These are your missions!")
         printDict(missionArray)
         print("These are your items!")
@@ -1788,7 +1790,17 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
             if item in items.keys():
                 print('This Item Exists!!')
                 print('Sorry, the item update is not on yet. Check later versions.')
-
+                if items[item][0] == 'orb':
+                    print('A orb is a type of item that can elevate a fish\'s base stat.')
+                    print('This orb can elevate '+items[item][1]+' by '+str(items[item][2])+'.')
+                elif items[item][0] == 'weapon':
+                    print('A weapon is a item that can make an attack deal more damage.')
+                    print('This weapon is a '+items[item][1]+' that can raise attack by '+str(items[item][2])+'.')
+                if item not in equippedItems:
+                    equip = input('Equip this item? ')
+                    equip = equip + 'placeholder'
+                    if equip[0] == 'y':
+                        equippedItems.append(item)
         else:
             break
 
