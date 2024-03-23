@@ -1302,14 +1302,33 @@ def mineralValleyAdventure(Team, metShale, valorAsked, andesiteRAWR, fishianGold
                 print('\'Conspiracy\'...\'Dab\'...\'Can\'t trust them\'...')
                 print('You decide to leave.')
                 metShale = True
+            elif 'Find Lime' not in completedMissions:
+                print('\'Hi!\' you call out to the fish you know are named Lime and Shale.')
+                print('\'Hi..?\' Shale replies.')
+                print('You edge closer. \'How is the mining going?\'')
+                print('\'Horrible,\' Shale says. \'Go away.\'')
+                print('\'Where\'s Lime?\' you question.')
+                print('\'Lime ran off.\' she replies sadly. \'If you could find him...\'')
+                print('\'Oh yes I can!\' you say.')
+                print('Shale\'s eyes go wide. \'You can find him?\'')
+                print('\'I can!\'')
+                if 'Find Lime' not in missionArray:
+                    missionArray['Find Lime'] = 'Find Lime, a fish who ran away. Reward: 1 piece of shale ore'
+            else:
+                print('\'Hi!\' you call out to the fish you know are named Lime and Shale.')
+                print('\'Hi..?\' Shale replies.')
+                print('\'How\'s it going?\' you ask.')
+                print('\'Boring.\' Shale says. \'Now go away.\'')
+                print('You leave.')
         else:
             print('You decide against approaching the fish.')
             print('You catch the younger one watching you, then whispering to the other.')
             print('Feeling weird, you decide to leave.')
     elif decision == 'p':
         print('You see the palace gates are thrown wide open.')
-        print('A carmine fish is sitting on the throne, with another smaller jet black fish beside.')
-        print('With a flick of his fin, the carmine fish welcomes you in.')
+        if andesiteRAWR == False:
+            print('A carmine fish is sitting on the throne, with another smaller jet black fish beside.')
+        	print('With a flick of his fin, the carmine fish welcomes you in.')
         input('')
         if valorAsked == False:
             print('You approach the fish with caution.')
