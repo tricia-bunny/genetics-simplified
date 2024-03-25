@@ -1279,11 +1279,11 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
     return borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood
 
 
-def mineralValleyAdventure(Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood):
+def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood):
     print('Your team treks through the rocky valley to arrive at a crossroads.')
     print('A rock mine stands to your left, and a towering shale palace soars into the clouds.')
-    print('Then you notice a small hut behind you. A fish peeps out.')
-    decision = input('Do you go to the mine, the palace, or the hut? (m/p/h) ')
+    print('Then you notice a small wood. A fish peeps out.')
+    decision = input('Do you go to the mine, the palace, or the wood? (m/p/w) ')
     if decision == 'm':
         print('The mine has jagged, rocky walls. Two soot-stained fish are digging.')
         approaching = input('Do you approach the fish? (y/n) ')
@@ -1425,26 +1425,100 @@ def mineralValleyAdventure(Team, metShale, valorAsked, andesiteRAWR, fishianGold
                 print('Andesite gasps. \'Evda.\'')
             else:
                 print('The palace is deserted. A small jet-black fish lingers at the side.')
-    elif desicion == 'h':
-        print('You make your way to the hut.')
-        print('A small fish peeks out.')
-        print('\'Hi! I\'m Talc!\' he says. \'If you beat me in a duel, I will join you.\'')
-        talc = personAttributes('Talc', 'the Fish', 15, 9, 12, 16, 7, 'Male', 'coral pink', 'neon pink', 'forest green', None, None)
-        duel = input('Do you accept? (y/n) ')
-        if duel == 'y':
-            print('Talc steps up.')
-            
-            breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, talc, 200, 400, normalEnemyStratagems)
-            if loser == 'the fish':
-                print('\'Fine, you won.\' Talc says. \'I\'ll join you.\'')
-                addFish(fishArray, talc)
+    elif desicion == 'w':
+        print('You make your way to the wood.')
+        print('Tangled vines poke out from the dark brush.')
+        stat = random.randint(9, 19)
+        print('A fish must have at least '+str(stat)+' instinct to pass safely.')
+        for i in Team:
+            if fishArray[i].instinct >= stat:
+                print(i+' has made it out safely.')
             else:
-                print('\'You...couldn\'t even defeat a lowly fish like me...what the heck..\'')
-        else:
-            print('You decline the offer. Talc goes away.')
+                print(i+' could not make it and returned to the camp.')
+                Team.remove(i)
+        if len(Team) > 0:
+            if 'Talc the Fish' not in fishArray.keys():
+                print('You come out in a small clearing where there is a small hut.')
+        		print('A small fish peeks out.')
+        		print('\'Hi! I\'m Talc!\' he says. \'If you beat me in a duel, I will join you.\'')
+        		talc = personAttributes('Talc', 'the Fish', 15, 9, 12, 16, 7, 'Male', 'coral pink', 'neon pink', 'forest green', None, None)
+        		duel = input('Do you accept? (y/n) ')
+        		if duel == 'y':
+            		print('Talc steps up.')
+            
+            		breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, talc, 200, 400, normalEnemyStratagems)
+            		if loser == 'the fish':
+                		print('\'Fine, you won.\' Talc says. \'I\'ll join you.\'')
+                		addFish(fishArray, talc)
+            		else:
+                		print('\'You...couldn\'t even defeat a lowly fish like me...what the heck..\'')
+        		else:
+            		print('You decline the offer. Talc goes away.')
+            elif metAkuma == False:
+                print('You come out in a small clearing.')
+                print('Suddenly a fish jumps out, holding a katana.')
+                print('\'Hey! Who are you?\' she asks.')
+                print('\'I\'m '+Team[0]+'.\' you reply.')
+                print('She tosses her katana into the air. \'Haven\'t met you.\'')
+                print('\'Me neither.\' you reply as the fish catches her katana with a flourish.')
+                print('\'Wait, who are you?\' you ask.')
+                print('The fish again twirls her katana. \'My name?\'')
+                print('\'Your name.\'')
+                print('\'Well, I\'m Akuma. I don\'t have any friends, but if I did...')
+                print('..they\'d call me Aku for short.\'')
+                print('You furrow your brow. \'Akuma what?\'')
+                print('Akuma rolls her eyes. \'Kelp. Now shut the eff up or I\'ll kill you.\'')
+                print('\'Okay, then will you join us?\' you ask.')
+                print('\'You? You puny fish? Hell no.\' Akuma sheaths her katana.')
+                print('\'And being a devil, I have quite the experience with hell.\'')
+                keep = input('Do you keep pushing Akuma to join you? (y/n) ')
+                if keep == 'y':
+                    print('\'Okay, great.\' you say.')
+                    print('Akuma glares. \'That was your cue to go away.\'')
+                    print('You glare back. \'No, it was not.\'')
+                    print('\'Was that a glare?\' she asks cooly.')
+                    print('\'Yes, it was.\' you answer.')
+                    print('\'No fish dares glare at me, kelp-brain.\' she slowly draws her katana.')
+                    print('You explode. \'WELL JUST COME ON! COULD YOU JOIN US?? WE COULD DEFEAT DAB! KÖYDEN EVEN!\'')
+                    print('Akuma cocks her head. \'Köyden? Now that\'s a fish I\'d like to meet.\'')
+                    print('\'But nooo.\' she continues. \'Not with you.\'')
+                    print('Your hopes shattered, you leave.')
+                else:
+                    print('You leave.')
+                metAkuma = True
+            elif 'Akuma \'Aku\' Kelp' not in fishArray.keys():
+                print('You come out in a small clearing.')
+                print('Akuma is standing in the center, katana flying as she demolishes a wall of thick brush.')
+                print('She spots you, and glares in your direction.')
+                fight = input('Do you challenge her to a fight? ')
+                fight = fight + 'placeholder'
+                if fight[0] == 'y':
+                    print('You edge closer. \'Akuma!\'')
+                    print('She swings her katana in your direction. \'what.\'')
+                    print('\'I\'ll challenge you to a duel.\'')
+                    print('\'Huh.\' Akuma murmurs. \'If you lose, I get to kill you.\'')
+                    print('\'And if I win...\' you say. \'Then you have to join me.\'')
+                    print('\'Fine.\' Akuma says. \'Bring it on.\'')
+                    akuma = personAttributes('Akuma \'Aku\'', 'Kelp', 22, 34, 17, 12, 7, "Female", "aku indigo", 'aku blue', 'aku blue')
+                    for i in Team:
+                        breakForUnMutation, loser = battle(fishArray[i], 200, 200, akuma, 1260, 1728000, normalEnemyStratagems)
+                        if loser == 'the fish':
+                            print('\'Fine.\' Akuma sulks. \'You won.\'')
+                            break
+                    if loser == 'the fish':
+                        print('\'I\'ll join your team...\'')
+                        addFish(fishArray, akuma)
+                    else:
+                        print('\'Ha! I told you you were no match for me...\'')
+            else:
+                print('You come out in a small clearing.')
+                print('An unused sheath lies on the ground.')
+                print('But other than that, there is nothing.')
+                
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
+    ded = False
     Team = team
     yourKingdomStuff = kingdomStuff[0]
     cloudMountainStuff = kingdomStuff[1]
@@ -1476,7 +1550,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
         print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
     else:
         if place == 'Mineral Valley':
-            ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood = mineralValleyAdventure(Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood)
+            ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood = mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood)
         print('Ah! Dab\'s guards are here! Come back later...')
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
@@ -1712,7 +1786,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                         crossBorderAdded = 'yes'
                     if defeatGuardsAdded == 'no':
                         missionArray[
-                            'Defeat Dab\'s Guards'] = 'Defeat the guards that have captured Silicon! Reward: 10 Fish Food'
+                            'Defeat Dab\'s Guards'] = 'Defeat the guards that have captured Silicon! Reward: Something Special'
                         defeatGuardsAdded = 'yes'
                 elif whichMission == 'Breed a Powerful Fish':
                     # make function to determine if there is a fish
@@ -1734,8 +1808,8 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 elif whichMission == 'Defeat Dab\'s Guards':
                     if (guardsDefeated == True) and ('Cross the Border' in completedMissions):
                         print('You have completed this mission!')
-                        fishFood += 10
-                        print('You have recieved 10 Fish Food, \n and now have ' + str(fishFood) + ' Fish Food.')
+                        items['Köyden\'s Perseverance'] = ['spirit', 'köyden', 'evda']
+                        print('You have recieved a spirit. Check it out in the Items tab!')
                         completedMissions['Defeat Dab\'s Guards'] = missionArray['Defeat Dab\'s Guards']
                         del missionArray['Defeat Dab\'s Guards']
                     print('To complete this mission, you must first cross the border.')
@@ -1744,6 +1818,14 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                         missionArray[
                             'Cross the Border'] = 'Cross the border to dangerous territory. Reward: 15 Fishian gold'
                         crossBorderAdded = 'yes'
+                elif whichMission == 'Find Lime':
+                    if limeFound == True:
+                        print('You have completed this mission!')
+                        items['Shale Ore'] = ['ore', 'shale', 'shale']
+                        print('You have recieved a piece of shale ore! Check it out in the Items tab!')
+                        completedMissions['Find Lime'] = missionArray['Find Lime']
+                        del missionArray['Find Lime']
+                    print('To complete this mission, you must find Lime the Fish.')
             else:
                 print('This mission does not exist or is already completed! (or is a typo.)')
                 continue
