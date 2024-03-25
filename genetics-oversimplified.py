@@ -521,6 +521,8 @@ missionArray = {}
 missionArray['Defeat Dab'] = 'Defeat Dab and save Fishland! Reward: Unknown'
 #                                                                   Shif's crystal spearhead
 completedMissions = {}
+invasionsList = {'Cloud Mountains'}
+completedInvasions = {}
 fishianGold = 0
 fishFood = 0
 items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', '3']}
@@ -552,7 +554,7 @@ def createFish():
         myGenetics = personAttributes(myFName, myLName, random.choice(numlist), random.choice(numlist),
                                       random.choice(numlist), random.choice(numlist), random.choice(numlist),
                                       random.choice(gendlist), random.choice(colors), random.choice(colors),
-                                      random.choice(colors))
+                                      random.choice(colors), None, None)
     elif randomValues == "n":
         print("These are your color choices")
         print(colors)
@@ -563,7 +565,7 @@ def createFish():
                                       input("Enter " + myFName + "'s Instinct value: "), random.choice(gendlist),
                                       input("Enter " + myFName + "'s body color: "),
                                       input("Enter " + MyFName + "'s fin color: "),
-                                      input("Enter " + myFName + "'s eye color: "))
+                                      input("Enter " + myFName + "'s eye color: "), None, None)
     myFish = myGenetics.firstname + " " + myGenetics.lastname
     fishArray[myFish] = myGenetics
     print(fishArray)
@@ -593,7 +595,8 @@ def createFromAquarium():
         firstPeepGenetics = personAttributes(firstPeepGenes.firstname, firstPeepGenes.lastname, firstPeepGenes.strength,
                                              firstPeepGenes.intelligence, firstPeepGenes.agility,
                                              firstPeepGenes.charisma, firstPeepGenes.instinct, gen,
-                                             firstPeepGenes.bodyColor, firstPeepGenes.finColor, firstPeepGenes.eyeColor)
+                                             firstPeepGenes.bodyColor, firstPeepGenes.finColor, firstPeepGenes.eyeColor, 
+                                            firstPeepGenes.momGenetics, firstPeepGenes.dadGenetics)
         if nextPeepGenes.gender == "Female":
             gen = "X"
         else:
@@ -601,8 +604,9 @@ def createFromAquarium():
         nextPeepGenetics = personAttributes(nextPeepGenes.firstname, nextPeepGenes.lastname, nextPeepGenes.strength,
                                             nextPeepGenes.intelligence, nextPeepGenes.agility, nextPeepGenes.charisma,
                                             nextPeepGenes.instinct, gen, nextPeepGenes.bodyColor,
-                                            nextPeepGenes.finColor, nextPeepGenes.eyeColor)
-        offspring = make_Offspring(firstPeepGenetics, nextPeepGenetics)
+                                            nextPeepGenes.finColor, nextPeepGenes.eyeColor,
+                                            nextPeepGenes.momGenetics, nextPeepGenes.dadGenetics)
+        offspring = makeoffspring(firstPeepGenetics, nextPeepGenetics)
         return offspring
 
 
@@ -616,11 +620,11 @@ def makeNewFish():
         # list = [female strength, male strength, female intel, male intel, female agility, male agility...]
         femaleGenetics = personAttributes(nameFemale, lnameFemale, random.choice(numlist), random.choice(numlist),
                                           random.choice(numlist), random.choice(numlist), random.choice(numlist), "X",
-                                          random.choice(colors), random.choice(colors), random.choice(colors))
+                                          random.choice(colors), random.choice(colors), random.choice(colors)), None, None
         maleGenetics = personAttributes(nameMale, lnameMale, random.choice(numlist), random.choice(numlist),
                                         random.choice(numlist), random.choice(numlist), random.choice(numlist),
                                         random.choice(genlist), random.choice(colors), random.choice(colors),
-                                        random.choice(colors))
+                                        random.choice(colors)), None, None
         # nameList = [nameF, lnameF, nameM, lnameM]
         # geneticsList = [random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), random.choice(numlist), "X", random.choice(genlist)]
 
@@ -634,7 +638,7 @@ def makeNewFish():
                                           input("Enter " + nameFemale + "'s Instinct value: "), "X",
                                           input("Enter " + nameFemale + "'s body color: "),
                                           input("Enter " + nameFemale + "'s fin color: "),
-                                          input("Enter " + nameFemale + "'s eye color: "))
+                                          input("Enter " + nameFemale + "'s eye color: "), None, None)
         maleGenetics = personAttributes(nameMale, lnameMale, input("Enter " + nameMale + "'s Strength value: "),
                                         input("Enter " + nameMale + "'s Intelligence value: "),
                                         input("Enter " + nameMale + "'s Agility value: "),
@@ -642,17 +646,17 @@ def makeNewFish():
                                         input("Enter " + nameMale + "'s Instinct value: "), random.choice(genlist),
                                         input("Enter " + nameMale + "'s body color: "),
                                         input("Enter " + nameMale + "'s fin color: "),
-                                        input("Enter " + nameMale + "'s eye color: "))
+                                        input("Enter " + nameMale + "'s eye color: "), None, None)
 
         # geneticsList = [input("Enter "+nameFemale+"'s Strength value: "), input("Enter "+nameMale+"'s Strength value: "), input("Enter "+nameFemale+"'s Intelligence value: "), input("Enter "+nameMale+"'s Intelligence value: "), input("Enter "+nameFemale+"'s Agility value: "), ]
 
     print("Your aquarium:")
     femaleGenes = personAttributes(nameFemale, lnameFemale, femaleGenetics.strength, femaleGenetics.intelligence,
                                    femaleGenetics.agility, femaleGenetics.charisma, femaleGenetics.instinct, "Female",
-                                   femaleGenetics.bodyColor, femaleGenetics.finColor, femaleGenetics.eyeColor)
+                                   femaleGenetics.bodyColor, femaleGenetics.finColor, femaleGenetics.eyeColor, None, None)
     maleGenes = personAttributes(nameMale, lnameMale, maleGenetics.strength, maleGenetics.intelligence,
                                  maleGenetics.agility, maleGenetics.charisma, maleGenetics.instinct, "Male",
-                                 maleGenetics.bodyColor, maleGenetics.finColor, maleGenetics.eyeColor)
+                                 maleGenetics.bodyColor, maleGenetics.finColor, maleGenetics.eyeColor, None, None)
     createMoreFish(nameFemale, lnameFemale, femaleGenes, False)
     createMoreFish(nameMale, lnameMale, maleGenes, True)
     print("Your randomly generated Genetic offspring is: ")
@@ -1439,21 +1443,21 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
         if len(Team) > 0:
             if 'Talc the Fish' not in fishArray.keys():
                 print('You come out in a small clearing where there is a small hut.')
-        		print('A small fish peeks out.')
-        		print('\'Hi! I\'m Talc!\' he says. \'If you beat me in a duel, I will join you.\'')
-        		talc = personAttributes('Talc', 'the Fish', 15, 9, 12, 16, 7, 'Male', 'coral pink', 'neon pink', 'forest green', None, None)
-        		duel = input('Do you accept? (y/n) ')
-        		if duel == 'y':
-            		print('Talc steps up.')
+                print('A small fish peeks out.')
+                print('\'Hi! I\'m Talc!\' he says. \'If you beat me in a duel, I will join you.\'')
+                talc = personAttributes('Talc', 'the Fish', 15, 9, 12, 16, 7, 'Male', 'coral pink', 'neon pink', 'forest green', None, None)
+                duel = input('Do you accept? (y/n) ')
+                if duel == 'y':
+                    print('Talc steps up.')
             
-            		breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, talc, 200, 400, normalEnemyStratagems)
-            		if loser == 'the fish':
-                		print('\'Fine, you won.\' Talc says. \'I\'ll join you.\'')
-                		addFish(fishArray, talc)
-            		else:
-                		print('\'You...couldn\'t even defeat a lowly fish like me...what the heck..\'')
-        		else:
-            		print('You decline the offer. Talc goes away.')
+                    breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, talc, 200, 400, normalEnemyStratagems)
+                    if loser == 'the fish':
+                        print('\'Fine, you won.\' Talc says. \'I\'ll join you.\'')
+                        addFish(fishArray, talc)
+                    else:
+                        print('\'You...couldn\'t even defeat a lowly fish like me...what the heck..\'')
+                else:
+                    print('You decline the offer. Talc goes away.')
             elif metAkuma == False:
                 print('You come out in a small clearing.')
                 print('Suddenly a fish jumps out, holding a katana.')
@@ -1517,7 +1521,15 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                 
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
-def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
+def peakDepthsAdventure(Team):
+    print('Your team makes their way to Peak Depths.')
+    print('Deep ravines stretch deep into the rocky ground, ')
+    print('and towering peaks climb into the clouds.')
+    choice = input('Do you go into the ravine or up towards the peak? (r/p) ')
+    if choice == 'r':
+        print('You climb down into the ravine.')
+
+def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
     Team = team
     yourKingdomStuff = kingdomStuff[0]
@@ -1538,20 +1550,21 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items):
     valorAsked = mineralValleyStuff[1]
     andesiteRAWR = mineralValleyStuff[2]
     print(borderCrossed)
-    if (place == 'Your Kingdom') or (place == 'Cloud Mountains'):
-        if place == 'Your Kingdom':
-            gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
-                metPizz, fishianGold, metIodine, items)
-        elif place == 'Cloud Mountains':
+    if place == 'Your Kingdom':
+        gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
+            metPizz, fishianGold, metIodine, items)
+    elif place == 'Cloud Mountains':
+        if 'Cloud Mountains: Invasion' in completedInvasions:
             # print('Ah! Dab\'s guards are here! Come back later...')
             borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood = cloudMountainAdventure(
-                Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood)
-    if guardsDefeated == False:
-        print('Sorry, you cannot adventure here... \n Dab\'s control is too strong.')
-    else:
-        if place == 'Mineral Valley':
+                Team, borderCrossed, guardsDefeated, gotMoreGold, metEndurance, gotOrb, gotYay, fishianGold, fishFood)    
+        else:
+            print('Dab\'s control is too strong! You can go here after completing \'Cloud Mountains: Invasion\'')
+    elif place == 'Mineral Valley':
+        if 'Mineral Valley: Invasion' in completedInvasions:
             ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood = mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood)
-        print('Ah! Dab\'s guards are here! Come back later...')
+        else:
+            print('Dab\'s control is too strong! You can go here after completing \'Mineral Valley: Invasion\'')
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
 
@@ -1656,6 +1669,10 @@ def storyline(urName):
     addFish(fishArray, theBoys_Sikell)
     addFish(fishArray, bob)
 
+def splitprint(message):
+    splitmessage = message.split()
+    finalmessage = ' '.join(splitmessage)
+    print(finalmessage)
 
 """
 Adding Stuff
@@ -1883,6 +1900,104 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     equip = equip + 'placeholder'
                     if equip[0] == 'y':
                         equippedItems.append(item)
+        elif action == 'invade' or action == 'i':
+            print('    Invasions 101')
+            print('''
+			Invasions are rounds of 4 battles in which
+			when your team wins, you unlock either a new
+            Invasion stage or access to a Adventuring region.''')
+            print(invasionsList)
+            print('These are the list of stages you can challenge.')
+            stage = input('Which stage would you like to challenge? ')
+            if stage in invasionsList:
+                print('Invasion!')
+                invasionTeam = []
+                while len(invasionTeam) < 4:
+                    fish = ''
+                    while fish not in fishArray:
+                        fish = input('Which fish do you want to bring? (Enter in full.) ')
+                    invasionTeam.append(fish)
+                splitprint(stage)
+                print('In this stage, you must fight some fish. (duh)')
+                input('Ready? ')
+                input('Set: ')
+                input('GO!!')
+                random.shuffle(invasionTeam)
+                losers = []
+                # Normal Stages
+                if stage == 'Cloud Mountains':
+                    for i in range(len(invasionTeam)):
+                        print('ROUND '+str(i))
+                        print(invasionTeam[i]+' VS Guard')
+                        guard = personAttributes('Random', 'Guard', random.choice(numlist), random.choice(numlist),
+                                      random.choice(numlist), random.choice(numlist), random.choice(numlist),
+                                      random.choice(gendlist), random.choice(colors), random.choice(colors),
+                                      random.choice(colors), None, None)
+                        breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
+                        print('You have completed \'Cloud Mountains\'!')
+                        completedInvasions.append('Cloud Mountains')
+                        invasionsList.append('Cloud Mountains: Invasion')
+                        invasionsList.append('Mineral Valley')
+                        invasionsList.remove('Cloud Mountains')
+                elif stage == 'Mineral Valley':
+                    for i in range(len(invasionTeam)):
+                        print('ROUND '+str(i))
+                        print(invasionTeam[i]+' VS Guard')
+                        nums = range(3, 19)
+                        guard = personAttributes('Random', 'Guard', random.choice(numlist), random.choice(numlist),
+                                      random.choice(nums), random.choice(numlist), random.choice(numlist),
+                                      random.choice(gendlist), random.choice(colors), random.choice(colors),
+                                      random.choice(colors), None, None)
+                        breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
+                        print('You have completed \'Mineral Valley\'!')
+                        completedInvasions.append('Mineral Valley')
+                        invasionsList.append('Mineral Valley: Invasion')
+                        invasionsList.append('Peak Depths')
+                        invasionsList.remove('Mineral Valley')
+                # Invasion Stages
+                elif stage == 'Cloud Mountains: Invasion':
+                    for i in range(len(invasionTeam) - 1):
+                        print('ROUND '+str(i))
+                        print(invasionTeam[i]+' VS Guard')
+                        guard = personAttributes('Random', 'Guard', random.choice(numlist), random.choice(numlist),
+                                      random.choice(numlist), random.choice(numlist), random.choice(numlist),
+                                      random.choice(gendlist), random.choice(colors), random.choice(colors),
+                                      random.choice(colors), None, None)
+                        breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    print('ROUND 3')
+                    print(invasionTeam[i-1]+' VS General Kobuta')
+                    kobuta = personAttributes('Kobuta', 'Chisai', 18, 32, 13, 7, 15, 'Male', 'crimson', 'carmine', 'sea blue', None, None)
+                    breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, kobuta, 200, 400, normalEnemyStratagems)
+                    losers.append(loser)
+                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
+                        print('You have completed \'Cloud Mountains: Invasion\'!')
+                        completedInvasions.append('Cloud Mountains: Invasion')
+                        invasionsList.remove('Cloud Mountains: Invasion')
+                elif stage == 'Mineral Valley: Invasion':
+                    for i in range(len(invasionTeam) - 1):
+                        print('ROUND '+str(i))
+                        print(invasionTeam[i]+' VS Guard')
+                        nums = range(6, 19)
+                        guard = personAttributes('Random', 'Guard', random.choice(numlist), random.choice(numlist),
+                                      random.choice(nums), random.choice(numlist), random.choice(numlist),
+                                      random.choice(gendlist), random.choice(colors), random.choice(colors),
+                                      random.choice(colors), None, None)
+                        breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    print('ROUND 3')
+                    print(invasionTeam[i-1]+' VS Warrior Starlight')
+                    starlight = personAttributes('Starlight', 'Kelp', 18, 30, 17, 16, 8, 'Female', 'dark gray', 'dark gray', 'sunrise yellow', None, None)
+                    breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, starlight, 200, 400, normalEnemyStratagems)
+                    losers.append(loser)
+                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
+                        print('You have completed \'Mineral Valley: Invasion\'!')
+                        completedInvasions.append('Mineral Valley: Invasion')
+                        invasionsList.remove('Mineral Valley: Invasion')
         else:
             break
 
