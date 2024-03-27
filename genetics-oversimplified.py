@@ -1521,13 +1521,50 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                 
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
-def peakDepthsAdventure(Team):
+def peakDepthsAdventure(Team, items):
     print('Your team makes their way to Peak Depths.')
     print('Deep ravines stretch deep into the rocky ground, ')
     print('and towering peaks climb into the clouds.')
     choice = input('Do you go into the ravine or up towards the peak? (r/p) ')
     if choice == 'r':
         print('You climb down into the ravine.')
+        if 'Akuma the Fish' not in Team:
+            print('A fish jumps out at you. \'HA! Found you, Aku..whaa?\'')
+            print('\'I\'m not whoever you think I am.\' you reply.')
+            print('\'Oh dang it.\' says the fish. \'Anyways! Give me all your Fishian gold!\'')
+            if 'Pizzicato the Fish' in Team:
+                print('Pizzicato rolls her eyes. \'You\'re doing it all wrong.\'')
+                print('\'What?\' the fish asks.')
+                print('\'Well first--\' Pizzicato stops abruptly. \'What is your name?\'')
+                print('\'Cinnabar... Cinnabar Kelp.\'')
+                print('\'Cinnabar?\' Pizzicato asks. \'Cinnabar?\'')
+                print('Cinnabar looks uncomfortable. \'Yeah..\'')
+                print('Pizzicato gazes in the direction of Kelp Ridge. \'I know you.\'')
+                print('Pizzicato continues: \'You were there, when Dab and Köyden took over Coral Shallows.\'')
+                print('\'You were there, in the midst of the turmoil, collecting coral. What was it?\'')
+                print('Cinnabar smiles.\'It was the only bit of Kydian Coral left.\'')
+                print('\'Kydian Coral?\'')
+                print('\'It\'s one of the components of the immortality formula.\'')
+                print('Cinnabar looks peaceful. \'And now I finally have a fish to give it to.\'')
+                print('She holds out her fin, and from it Pizzicato takes a tiny slab of coral.')
+                print('\'Hey--I forgot to ask!\' Cinnabar says. \'Who are you?\'')
+                print('Pizzicato looks sad. \'Pizzicato of Kelp Ridge.\'')
+                items['Kydian Coral'] = ['ingredient', 'coral', 'kydian']
+            else:
+                print('\'Uh..no.\' you say. And with a flourish of your knife, the fish is bleeding, ')
+                print('but the wound is not deep enough to kill her.')
+                print('Looking at you in fear, the fish retreats into the ravine.')
+        else:
+            print('A fish jumps out at you. \'HA! Found you, Aku...wait, is it you?\'')
+            print('Akuma\'s eyes instantly light up. \'..Cinnabar...Cinna?\'')
+            print('\'Aku!\' the fish, presumably Cinnabar, yells happily.')
+            print('Then the two fish turn and look at you. \'Uh...\'')
+            print('\'It\'s okay, you can leave.\' you reluctantly say.')
+            print('\'You sure...?\' asks Cinnabar.')
+            print('\'Yeah...\' you say, looking away. \'Go. Go before I change my mind.\'')
+            print('Akuma and Cinnabare head off into the distance. Akuma waves.')
+            del fishArray['Akuma \'Aku\' Kelp']
+    return items
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -1565,6 +1602,9 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood = mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Mineral Valley: Invasion\'')
+    elif place == 'Peak Depths':
+        if 'Peak Depths: Invasion' in completedInvasions:
+            items = peakDepthsAdventure(Team, items)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
 
@@ -1901,10 +1941,9 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     if equip[0] == 'y':
                         equippedItems.append(item)
         elif action == 'invade' or action == 'i':
-            print('    Invasions 101')
-            print('''
-			Invasions are rounds of 4 battles in which
-			when your team wins, you unlock either a new
+            print('''	Invasions 101
+            Invasions are rounds of 4 battles in which
+            when your team wins, you unlock either a new
             Invasion stage or access to a Adventuring region.''')
             print(invasionsList)
             print('These are the list of stages you can challenge.')
@@ -1958,6 +1997,23 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                         invasionsList.append('Mineral Valley: Invasion')
                         invasionsList.append('Peak Depths')
                         invasionsList.remove('Mineral Valley')
+                elif stage == 'Mineral Valley':
+                    for i in range(len(invasionTeam)):
+                        print('ROUND '+str(i))
+                        print(invasionTeam[i]+' VS Guard')
+                        nums = range(8, 20)
+                        guard = personAttributes('Random', 'Guard', random.choice(numlist), random.choice(numlist),
+                                      random.choice(nums), random.choice(numlist), random.choice(numlist),
+                                      random.choice(gendlist), random.choice(colors), random.choice(colors),
+                                      random.choice(colors), None, None)
+                        breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
+                        print('You have completed \'Peak Depths\'!')
+                        completedInvasions.append('Peak Depths')
+                        #invasionsList.append('Peak Depths: Invasion')
+                        #invasionsList.append('WE NEED TO DO THIS')
+                        invasionsList.remove('Peak Depths')
                 # Invasion Stages
                 elif stage == 'Cloud Mountains: Invasion':
                     for i in range(len(invasionTeam) - 1):
