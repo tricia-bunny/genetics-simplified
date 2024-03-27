@@ -1878,7 +1878,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
                     ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood = trueAdventure(
-                        fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items)
+                        fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
                     yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
                     cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
                     mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
