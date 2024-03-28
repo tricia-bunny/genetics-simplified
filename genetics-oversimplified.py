@@ -525,7 +525,7 @@ invasionsList = {'Cloud Mountains'}
 completedInvasions = {}
 fishianGold = 0
 fishFood = 0
-items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', '3']}
+items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3]}
 gotGold = False
 gotArco = False
 metPizz = False
@@ -1741,7 +1741,19 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     palaceBreakAdded = 'no'
     findSiliconAdded = False
     fishlandMap = fishMap
+    # (Cut-)Scenes
+    akuScene = False
     while True:
+        # Random dialogue scenes
+        if random.randint(0, 10) == 1: # If the scene will even play
+            if 'Akuma \'Aku\' Kelp' in fishArray and akuScene == False:
+                print('Akuma heads in your direction.')
+                print('\'Hey-\' she calls out. \'There\'s been something I\'ve wanted to tell you.\'')
+                print('\'I had a friend- her name was Usagi-Ko.\'')
+                print('\'Köyden had horribly injured her, and I know she\'s dead')
+                print('but it would do me some comfort to know she is still alive.\'')
+                missionArray['Find Usagi-Ko'] = 'Find Akuma\'s long-gone friend, Usagi-Ko. Reward: Unknown'
+                akuScene = True
         while len(equippedItems) > 3:
             print('TOO.MANY.ITEMS')
         if ded == True:
@@ -1883,6 +1895,14 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                         completedMissions['Find Lime'] = missionArray['Find Lime']
                         del missionArray['Find Lime']
                     print('To complete this mission, you must find Lime the Fish.')
+                elif whichMission == 'Find Usagi-Ko':
+                    if usaFound == True:
+                        print('You have completed this mission!')
+                        items['Usagi-Ko\'s Staff'] = ['staff', 'luminite', 28]
+                        print('You have recieved Usagi-Ko\'s Staff! Check it out in the Items tab!')
+                        completedMissions['Find Usagi-Ko'] = missionArray['Find Usagi-Ko']
+                        del missionArray['Find Usagi-Ko']
+                    print('To complete this mission, you must find Usagi-Ko Chisai.')
             else:
                 print('This mission does not exist or is already completed! (or is a typo.)')
                 continue
