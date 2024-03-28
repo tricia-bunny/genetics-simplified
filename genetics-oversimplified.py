@@ -149,18 +149,18 @@ fidget = personAttributes("Fidget", "the Fish", 19, 6, 19, 19, 3, "Female", 'sun
 theBoys_Sikell = personAttributes("'The Boys'", "the Fish", 3, 19, 16, 19, 19, "Male", 0, 0, 0, radone, sys_fish)
 bob = personAttributes("Bob", "the Fish", 19, 20, 9, 8, 38, "Male", 0, 0, 0, cashmere, ellipse)
 scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 0, 0, 0, perimeter, area)
-isosceles = personAttributes("Isosceles", "the Fish", 19, 12, 15, 1, 20, "Female", 0, 0, 0, angle, degree)
+isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 0, 0, 0, angle, degree)
 # SECOND GENERATION
 kale = personAttributes("Kale", "the Fish", 19, 8, 9, 19, 19, "Female", 'grass green', 'mint green', 'twilight', fidget,
                         bob)
-triangle = personAttributes("Triangle", "the Fish", 19, 12, 15, 1, 10, "Male", 0, 0, 0, isosceles, scalene)
-radius = personAttributes("Radius", "the Fish", 19, 12, 15, 10, 10, "Male", 0, 0, 0, isosceles, scalene)
+triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 0, 0, 0, isosceles, scalene)
+radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 0, 0, 0, isosceles, scalene)
 # THIRD GENERATION
 fish = personAttributes("Fish", "the Fish", 29, 38, 16, 19, 19, "Male", 0, 0, 0, kale, theBoys_Sikell)
 pi = personAttributes("π", "the Fish", 29, 38, 16, 19, 10, "Female", 0, 0, 0, kale, theBoys_Sikell)
 # FOURTH GENERATION
 circle = personAttributes("Circle", "the Fish", 19, 24, 16, 19, 10, "Male", 0, 0, 0, pi, radius)
-diameter = personAttributes("Diameter", "the Fish", 24, 24, 15, 10, 10, "Female", 0, 0, 0, pi, radius)
+diameter = personAttributes("Diameter", "Polygon", 24, 24, 15, 10, 10, "Female", 0, 0, 0, pi, radius)
 # This is our aquarium
 fidgetFamilyArray = {}
 addFish(fidgetFamilyArray, fidget)
@@ -324,6 +324,7 @@ battleStratagems = {
     'Slash': 'Slash at the enemy',  # 13% chance of dodge
     'Ambush': 'Ambush the enemy',  # 30% chance of dodge, 30% ch of crit
     'Sweep': 'Sweep sword below enemy',  # 50% chance of dodge, 40% ch of crit
+    '360 Degree Slash': 'Spin in a complete circle, slashing all around you.', # 70% chance of dodge, 100% chance of crit
     'Un-Mutate': 'Something only fish-necromancers can do. Turns an undead fish into a live one.',  # 0% ch of evryding
     'Raise the Dead': '''Something only fishcromancers can do. Raises the spirits of 5 dead fish to attack...but they m
     ay attack you''',  # 70% chance of crit
@@ -332,7 +333,7 @@ stabDodgeChance, stabCritChance = 7, 0
 slashDodgeChance, slashCritChance = 13, 0
 ambushDodgeChance, ambushCritChance = 30, 30
 sweepDodgeChance, sweepCritChance = 50, 40
-
+_360DodgeChance, _360CritChance = 85, 100
 
 def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, attackType):
     if attackType == 'Ambush':
@@ -342,7 +343,7 @@ def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats,
 
     if attackType == 'Stab':
         motion = 'stab' + extraS + ' towards'
-    elif attackType == 'Slash':
+    elif attackType == 'Slash' or attackType == '360 Degree Slash':
         motion = 'slash' + extraS + ' towards'
     elif attackType == 'Ambush':
         motion = 'ambush' + extraS
@@ -359,7 +360,7 @@ def Attack(attackDodgeChance, attackCritChance, firstFishStats, secondFishStats,
         critChance = random.randint(0, 100)
         attackDamage = firstFishStats.strength
         criticalChance = firstFishStats.intelligence + attackCritChance
-        if critChance <= firstFishStats.intelligence:
+        if critChance <= criticalChance:
             print('It is a critical hit!!!')
             attackDamage *= 2
         secondFishHP -= attackDamage
@@ -449,9 +450,20 @@ def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishH
     else:
         attacked = 'the fish'
     breakForUnMutation = False
-    if attack != 'Un-Mutate' and attack != 'Raise the Dead':
-        secondFishHP = Attack(stabDodgeChance, stabCritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, 
+    if attack == 'Stab':
+        dodgeChance, critChance = stabDodgeChance, stabCritChance
+    elif attack == 'Slash':
+        dodgeChance, critChance = slashDodgeChance, slashCritChance
+    elif attack == 'Ambush':
+        dodgeChance, critChance = ambushDodgeChance, ambushCritChance
+    elif attack == 'Sweep':
+        dodgeChance, critChance = sweepDodgeChance, sweepCritChance
+    if attack != 'Un-Mutate' and attack != 'Raise the Dead' and attack != '360 Degree Slash':
+        secondFishHP = Attack(dodgeChance, critChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, 
                               attack)
+    elif attack == '360 Degree Slash':
+        for i in range(random.randint(0, 6)):
+            secondFishHP = Attack(_360DodgeChance, _360CritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, attack)
     elif attack == 'Un-Mutate':
         secondFishHP, secFishStats = unMutate(secondFishStats, secondFishHP, secondFishCap, attacker)
         if secondFishStats != secFishStats:
@@ -539,10 +551,12 @@ gotYay = False
 metShale = False
 valorAsked = False
 andesiteRAWR = False
+metCinnabar = False
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
 cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
-kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff]
+peakDepthsStuff = [metCinnabar]
+kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff]
 
 
 # start of program
@@ -1484,7 +1498,7 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                     print('\'Yes, it was.\' you answer.')
                     print('\'No fish dares glare at me, kelp-brain.\' she slowly draws her katana.')
                     print('You explode. \'WELL JUST COME ON! COULD YOU JOIN US?? WE COULD DEFEAT DAB! KÖYDEN EVEN!\'')
-                    print('Akuma cocks her head. \'Köyden? Now that\'s a fish I\'d like to meet.\'')
+                    print('Akuma cocks her head. \'Köyden? Now that\'s a fish I\'d like to kill.\'')
                     print('\'But nooo.\' she continues. \'Not with you.\'')
                     print('Your hopes shattered, you leave.')
                 else:
@@ -1521,50 +1535,59 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                 
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
-def peakDepthsAdventure(Team, items):
+def peakDepthsAdventure(Team, items, metCinnabar):
     print('Your team makes their way to Peak Depths.')
     print('Deep ravines stretch deep into the rocky ground, ')
     print('and towering peaks climb into the clouds.')
     choice = input('Do you go into the ravine or up towards the peak? (r/p) ')
     if choice == 'r':
         print('You climb down into the ravine.')
-        if 'Akuma the Fish' not in Team:
-            print('A fish jumps out at you. \'HA! Found you, Aku..whaa?\'')
-            print('\'I\'m not whoever you think I am.\' you reply.')
-            print('\'Oh dang it.\' says the fish. \'Anyways! Give me all your Fishian gold!\'')
-            if 'Pizzicato the Fish' in Team:
-                print('Pizzicato rolls her eyes. \'You\'re doing it all wrong.\'')
-                print('\'What?\' the fish asks.')
-                print('\'Well first--\' Pizzicato stops abruptly. \'What is your name?\'')
-                print('\'Cinnabar... Cinnabar Kelp.\'')
-                print('\'Cinnabar?\' Pizzicato asks. \'Cinnabar?\'')
-                print('Cinnabar looks uncomfortable. \'Yeah..\'')
-                print('Pizzicato gazes in the direction of Kelp Ridge. \'I know you.\'')
-                print('Pizzicato continues: \'You were there, when Dab and Köyden took over Coral Shallows.\'')
-                print('\'You were there, in the midst of the turmoil, collecting coral. What was it?\'')
-                print('Cinnabar smiles.\'It was the only bit of Kydian Coral left.\'')
-                print('\'Kydian Coral?\'')
-                print('\'It\'s one of the components of the immortality formula.\'')
-                print('Cinnabar looks peaceful. \'And now I finally have a fish to give it to.\'')
-                print('She holds out her fin, and from it Pizzicato takes a tiny slab of coral.')
-                print('\'Hey--I forgot to ask!\' Cinnabar says. \'Who are you?\'')
-                print('Pizzicato looks sad. \'Pizzicato of Kelp Ridge.\'')
-                items['Kydian Coral'] = ['ingredient', 'coral', 'kydian']
+        if metCinnabar == False:
+            if 'Akuma the Fish' not in Team:
+                print('A fish jumps out at you. \'HA! Found you, Aku..whaa?\'')
+                print('\'I\'m not whoever you think I am.\' you reply.')
+                print('\'Oh dang it.\' says the fish. \'Anyways! Give me all your Fishian gold!\'')
+                if 'Pizzicato the Fish' in Team:
+                    print('Pizzicato rolls her eyes. \'You\'re doing it all wrong.\'')
+                    print('\'What?\' the fish asks.')
+                    print('\'Well first--\' Pizzicato stops abruptly. \'What is your name?\'')
+                    print('\'Cinnabar... Cinnabar Kelp.\'')
+                    print('\'Cinnabar?\' Pizzicato asks. \'Cinnabar?\'')
+                    print('Cinnabar looks uncomfortable. \'Yeah..\'')
+                    print('Pizzicato gazes in the direction of Kelp Ridge. \'I know you.\'')
+                    print('Pizzicato continues: \'You were there, when Dab and Köyden took over Coral Shallows.\'')
+                    print('\'You were there, in the midst of the turmoil, collecting coral. What was it?\'')
+                    print('Cinnabar smiles.\'It was the only bit of Kydian Coral left.\'')
+                    print('\'Kydian Coral?\'')
+                    print('\'It\'s one of the components of the immortality formula.\'')
+                    print('Cinnabar looks peaceful. \'And now I finally have a fish to give it to.\'')
+                    print('She holds out her fin, and from it Pizzicato takes a tiny slab of coral.')
+                    print('\'Hey--I forgot to ask!\' Cinnabar says. \'Who are you?\'')
+                    print('Pizzicato looks sad. \'Pizzicato of Kelp Ridge.\'')
+                    items['Kydian Coral'] = ['ingredient', 'coral', 'kydian']
+                else:
+                    print('\'Uh..no.\' you say. And with a flourish of your knife, the fish is bleeding, ')
+                    print('but the wound is not deep enough to kill her.')
+                    print('Looking at you in fear, the fish retreats into the ravine.')
             else:
-                print('\'Uh..no.\' you say. And with a flourish of your knife, the fish is bleeding, ')
-                print('but the wound is not deep enough to kill her.')
-                print('Looking at you in fear, the fish retreats into the ravine.')
-        else:
-            print('A fish jumps out at you. \'HA! Found you, Aku...wait, is it you?\'')
-            print('Akuma\'s eyes instantly light up. \'..Cinnabar...Cinna?\'')
-            print('\'Aku!\' the fish, presumably Cinnabar, yells happily.')
-            print('Then the two fish turn and look at you. \'Uh...\'')
-            print('\'It\'s okay, you can leave.\' you reluctantly say.')
-            print('\'You sure...?\' asks Cinnabar.')
-            print('\'Yeah...\' you say, looking away. \'Go. Go before I change my mind.\'')
-            print('Akuma and Cinnabare head off into the distance. Akuma waves.')
-            del fishArray['Akuma \'Aku\' Kelp']
-    return items
+                print('A fish jumps out at you. \'HA! Found you, Aku...wait, is it you?\'')
+                print('Akuma\'s eyes instantly light up. \'..Cinnabar...Cinna?\'')
+                print('\'Aku!\' the fish, presumably Cinnabar, yells happily.')
+                print('Then the two fish turn and look at you. \'Uh...\'')
+                print('\'It\'s okay, you can leave.\' you reluctantly say.')
+                print('\'You sure...?\' asks Cinnabar.')
+                print('\'Yeah...\' you say, looking away. \'Go. Go before I change my mind.\'')
+                print('Akuma and Cinnabare head off into the distance. Akuma waves.')
+                del fishArray['Akuma \'Aku\' Kelp']
+                metCinnabar = True
+        elif gotIrn == False:
+            print('Ah! You see the glint of Fishian iron.')
+            print('It is a great hard slab and you pick it up happily.')
+            print('A fish comes running towards you!!!')
+            print('He is crimson with vermillion fins')
+            print('and sparkling soft gray eyes')
+            print('and when he ')
+    return items, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -1572,6 +1595,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     yourKingdomStuff = kingdomStuff[0]
     cloudMountainStuff = kingdomStuff[1]
     mineralValleyStuff = kingdomStuff[2]
+    peakDepthsStuff = kingdomStuff[3]
     print(cloudMountainStuff)
     gotGold = yourKingdomStuff[0]
     gotArco = yourKingdomStuff[1]
@@ -1586,6 +1610,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     metShale = mineralValleyStuff[0]
     valorAsked = mineralValleyStuff[1]
     andesiteRAWR = mineralValleyStuff[2]
+    metCinnabar = peakDepthsStuff[0]
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -1604,7 +1629,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Mineral Valley: Invasion\'')
     elif place == 'Peak Depths':
         if 'Peak Depths: Invasion' in completedInvasions:
-            items = peakDepthsAdventure(Team, items)
+            items, metCinnabar = peakDepthsAdventure(Team, items, metCinnabar)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
 
@@ -1762,6 +1787,21 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
         yourKingdomStuff = kingdomStuff[0]
         cloudMountainStuff = kingdomStuff[1]
         mineralValleyStuff = kingdomStuff[2]
+        peakDepthsStuff = kingdomStuff[3]
+        gotGold = yourKingdomStuff[0]
+        gotArco = yourKingdomStuff[1]
+        metPizz = yourKingdomStuff[2]
+        metIodine = yourKingdomStuff[3]
+        gotMoreGold = cloudMountainStuff[0]
+        borderCrossed = cloudMountainStuff[1]
+        guardsDefeated = cloudMountainStuff[2]
+        metEndurance = cloudMountainStuff[3]
+        gotOrb = cloudMountainStuff[4]
+        gotYay = cloudMountainStuff[5]
+        metShale = mineralValleyStuff[0]
+        valorAsked = mineralValleyStuff[1]
+        andesiteRAWR = mineralValleyStuff[2]
+        metCinnabar = peakDepthsStuff[3]
         print("These are your fish!")
         printDict(fishArray)
         print("These are your missions!")
