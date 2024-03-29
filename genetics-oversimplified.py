@@ -1424,6 +1424,7 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                             print('She gets up, tucking her blade into her sheath.')
                             if random.randint(0, 2) == 0:
                                 print('But then her weapon flashes, and everything goes black.')
+                                print('\'You\'re too trusting. Now, goodbye.\'')
                                 ded = True
                             else:
                                 print('Looking back at her homeland, Andesite smiles softly.')
@@ -1535,6 +1536,7 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
                 
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
+
 def peakDepthsAdventure(Team, items, metCinnabar):
     print('Your team makes their way to Peak Depths.')
     print('Deep ravines stretch deep into the rocky ground, ')
@@ -1585,8 +1587,18 @@ def peakDepthsAdventure(Team, items, metCinnabar):
             print('It is a great hard slab and you pick it up happily.')
             print('A fish comes running towards you!!!')
             print('He is crimson with vermillion fins')
-            print('and sparkling soft gray eyes')
-            print('and when he ')
+            print('and sparkling gray-white eyes.')
+            print('\'Hey\' he says. \'Are you lost?\'')
+            print('\'Nah.\' you reply. \'What\'s your name?\'')
+            print('\'Arkai.\' the fish replies.')
+            print('\'Oh, nice to meet you.\' you respond, scanning Arkai for any concealed weapons.')
+            print('You grip the Fishian iron harder. \'Bye we have to go.\'')
+            print('\'Bye!\' Arkai calls back.')
+            try:
+            	items['Fishian Iron'][2] += 1
+            except KeyError as error:
+                items['Fishian Iron'] = ['material', 'fishian iron', 1]
+            gotIrn = True
     return items, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
@@ -1779,6 +1791,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 print('but it would do me some comfort to know she is still alive.\'')
                 missionArray['Find Usagi-Ko'] = 'Find Akuma\'s long-gone friend, Usagi-Ko. Reward: Unknown'
                 akuScene = True
+            
         while len(equippedItems) > 3:
             print('TOO.MANY.ITEMS')
         if ded == True:
@@ -1995,6 +2008,13 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 elif items[item][0] == 'weapon':
                     print('A weapon is a item that can make an attack deal more damage.')
                     print('This weapon is a '+items[item][1]+' that can raise attack by '+str(items[item][2])+'.')
+                elif items[item][0] == 'ingredient':
+                    print('A ingredient is similar to a material, but is used mainly in potions and elixirs.')
+                    print('This ingredient is a piece of 'items[item][2]+' '+items[item][1]+'.')
+                    if items[item][1] == 'coral':
+                        if items[item][2] == 'kydian':
+                            print('Kydian coral is one of the key ingredients of the Immortality potion.')
+                    elif items[item][1]
                 if item not in equippedItems:
                     equip = input('Equip this item? ')
                     equip = equip + 'placeholder'
