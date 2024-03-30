@@ -462,7 +462,7 @@ def simulateAttack(attacker, attack, firstFishStats, secondFishStats, firstFishH
         secondFishHP = Attack(dodgeChance, critChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, 
                               attack)
     elif attack == '360 Degree Slash':
-        for i in range(random.randint(0, 6)):
+        for i in range(random.randint(2, 10)):
             secondFishHP = Attack(_360DodgeChance, _360CritChance, firstFishStats, secondFishStats, secondFishHP, attacker, attacked, attack)
     elif attack == 'Un-Mutate':
         secondFishHP, secFishStats = unMutate(secondFishStats, secondFishHP, secondFishCap, attacker)
@@ -1595,7 +1595,7 @@ def peakDepthsAdventure(Team, items, metCinnabar):
             print('You grip the Fishian iron harder. \'Bye we have to go.\'')
             print('\'Bye!\' Arkai calls back.')
             try:
-            	items['Fishian Iron'][2] += 1
+                items['Fishian Iron'][2] += 1
             except KeyError as error:
                 items['Fishian Iron'] = ['material', 'fishian iron', 1]
             gotIrn = True
@@ -1769,6 +1769,7 @@ if palaceBreakAdded == 'no':
 
 ded = False
 equippedItems = []
+weapons = namedtuple('weapons', 'fishianIron, seaGlass, wood, coral, stone, mineral')
 def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     maxMapX = 47
     maxMapY = 22
@@ -1814,7 +1815,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
         metShale = mineralValleyStuff[0]
         valorAsked = mineralValleyStuff[1]
         andesiteRAWR = mineralValleyStuff[2]
-        metCinnabar = peakDepthsStuff[3]
+        metCinnabar = peakDepthsStuff[0]
         print("These are your fish!")
         printDict(fishArray)
         print("These are your missions!")
@@ -1823,7 +1824,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
         printDict(items)
         print('You have ' + str(fishianGold) + ' Fishian gold,')
         print('and ' + str(fishFood) + ' fish food.')
-        action = input("What would you like to do? breed, invade, adventure, hatch, look at items, or mission?")
+        action = input("What would you like to do? breed, invade, adventure, hatch, look at items, craft, or mission?")
         action = action.lower()
         if action == 'hatch' or action == 'h':
             print("You can buy a fish egg for 100 Fishian gold!")
@@ -2010,12 +2011,17 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     print('This weapon is a '+items[item][1]+' that can raise attack by '+str(items[item][2])+'.')
                 elif items[item][0] == 'ingredient':
                     print('A ingredient is similar to a material, but is used mainly in potions and elixirs.')
-                    print('This ingredient is a piece of 'items[item][2]+' '+items[item][1]+'.')
+                    print('This ingredient is a piece of '+items[item][2]+' '+items[item][1]+'.')
                     if items[item][1] == 'coral':
                         if items[item][2] == 'kydian':
                             print('Kydian coral is one of the key ingredients of the Immortality potion.')
-                    elif items[item][1]
-                if item not in equippedItems:
+                    elif items[item][1] == 'stone':
+                        if items[item][2] == 'chisian':
+                            print('Chisian stone, otherwise known as Nyachi, is the other key ingredient in the Immortality potion.')
+                elif items[item][0] == 'material':
+                    print('A material is a thing that is used to craft things such as swords daggers and staffs.')
+                    print('This is a piece of '+items[item][1]+'. You have '+str(items[item][i])+' of it.')
+                if item not in equippedItems and item[items][0] != 'ingredient' and item[items][0] != 'material':
                     equip = input('Equip this item? ')
                     equip = equip + 'placeholder'
                     if equip[0] == 'y':
@@ -2134,6 +2140,25 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                         print('You have completed \'Mineral Valley: Invasion\'!')
                         completedInvasions.append('Mineral Valley: Invasion')
                         invasionsList.remove('Mineral Valley: Invasion')
+        elif action == 'craft' or action == 'c':
+            splitprint('CRAFT')
+            print('''		Crafting 101
+            To craft a item is to combine several materials to create
+            a weapon or item.''')
+            # remember weapons(fishianIron, seaGlass, wood, coral, stone, mineral)
+            _Knife = weapons(2, 4, 0, 1, 2, 0)
+            Dagger = weapons(3, 3, 0, 2, 0, 1)
+            ___Bow = weapons(1, 3, 5, 0, 1, 0)
+            Arrow2 = weapons(2, 0, 2, 2, 3, 1)
+            _Staff = weapons(0, 2, 0, 0, 6, 1)
+            _Spear = weapons(7, 1, 0, 7, 0, 0)
+            crafts = {'Knife': _Knife, 
+                     'Dagger': Dagger, 
+                     'Bow': ___Bow,
+                     '2 Arrows': Arrow2,
+                     'Staff': _Staff,
+                     'Spear': _Spear}
+            printDict(crafts)
         else:
             break
 
