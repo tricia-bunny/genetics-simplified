@@ -537,7 +537,7 @@ invasionsList = {'Cloud Mountains'}
 completedInvasions = {}
 fishianGold = 0
 fishFood = 0
-items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3]}
+items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3], 'Fishian Iron': ['material', 'fishian iron', 0], 'Sea Glass': ['material', 'sea glass', 0], 'Wood': ['material', 'wood', 0], 'Coral': ['material', 'coral', 0], 'Stone': ['material', 'stone', 0], 'Mineral': ['material', 'mineral', 0]}
 gotGold = False
 gotArco = False
 metPizz = False
@@ -1751,6 +1751,25 @@ def splitprint(message):
     finalmessage = ' '.join(splitmessage)
     print(finalmessage)
 
+def craft(item, fi, sg, w, c, s, m):
+    if (item.fishianIron <= fi and item.seaGlass <= sg 
+       and item.wood <= w and item.coral <= c
+       and item.stone <= s and item.mineral <= s):
+        items['Fishian Iron'][2] -= item.fishianIron
+        items['Sea Glass'][2] -= item.seaGlass
+        items['Wood'][2] -= item.wood
+        items['Coral'][2] -= item.coral
+        items['Stone'][2] -= item.stone
+        items['Mineral'][2] -= item.mineral
+        if not item.name == 'Arrow':
+            items[item.name] = ['weapon', (item.name).lower(), random.randint(1, 10)]
+        else:
+            try: 
+                items[item.name][2] += 2
+            except KeyError as error:
+                items[item.name] = ['weapon', 'arrow', 2]
+    return items
+
 """
 Adding Stuff
 if breedPowerfulFishAdded == 'no':
@@ -1769,7 +1788,7 @@ if palaceBreakAdded == 'no':
 
 ded = False
 equippedItems = []
-weapons = namedtuple('weapons', 'fishianIron, seaGlass, wood, coral, stone, mineral')
+weapons = namedtuple('weapons', 'name, fishianIron, seaGlass, wood, coral, stone, mineral')
 def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     maxMapX = 47
     maxMapY = 22
@@ -2145,13 +2164,19 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
             print('''		Crafting 101
             To craft a item is to combine several materials to create
             a weapon or item.''')
-            # remember weapons(fishianIron, seaGlass, wood, coral, stone, mineral)
-            _Knife = weapons(2, 4, 0, 1, 2, 0)
-            Dagger = weapons(3, 3, 0, 2, 0, 1)
-            ___Bow = weapons(1, 3, 5, 0, 1, 0)
-            Arrow2 = weapons(2, 0, 2, 2, 3, 1)
-            _Staff = weapons(0, 2, 0, 0, 6, 1)
-            _Spear = weapons(7, 1, 0, 7, 0, 0)
+            # remember weapons(name, fishianIron, seaGlass, wood, coral, stone, mineral)
+            _Knife = weapons('Knife', 2, 4, 0, 1, 2, 0)
+            Dagger = weapons('Dagger', 3, 3, 0, 2, 0, 1)
+            ___Bow = weapons('Bow', 1, 3, 5, 0, 1, 0)
+            Arrow2 = weapons('Arrow', 2, 0, 2, 2, 3, 1)
+            _Staff = weapons('Staff', 0, 2, 0, 0, 6, 1)
+            _Spear = weapons('Spear', 7, 1, 0, 7, 0, 0)
+            Fishian_Iron = items['Fishian Iron'][2]
+            Sea_Glass = items['Sea Glass'][2]
+            Wood = items['Wood'][2]
+            Coral = items['Coral'][2]
+            Stone = items['Stone'][2]
+            Mineral = items['Mineral'][2]
             crafts = {'Knife': _Knife, 
                      'Dagger': Dagger, 
                      'Bow': ___Bow,
@@ -2159,6 +2184,11 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                      'Staff': _Staff,
                      'Spear': _Spear}
             printDict(crafts)
+            print('You have '+str(Fishian_Iron)+' Fishian iron, '+str(Sea_Glass)+' sea glass, ')
+            print(str(Wood)+' wood, '+str(Coral)+' coral, '+str(Stone)+' stone, and '+str(Mineral)+' mineral.')
+            what = input('What would you like to craft? Enter in full. ')
+            if what in crafts.keys():
+                items = craft(crafts[what], Fishian_Iron, Sea_Glass, Wood, Coral, Stone, Mineral)
         else:
             break
 
