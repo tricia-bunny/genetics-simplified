@@ -1537,7 +1537,7 @@ def mineralValleyAdventure(ded, Team, metShale, valorAsked, andesiteRAWR, fishia
     return ded, metShale, valorAsked, andesiteRAWR, fishianGold, fishFood
 
 
-def peakDepthsAdventure(Team, items, metCinnabar):
+def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
     print('Your team makes their way to Peak Depths.')
     print('Deep ravines stretch deep into the rocky ground, ')
     print('and towering peaks climb into the clouds.')
@@ -1599,7 +1599,32 @@ def peakDepthsAdventure(Team, items, metCinnabar):
             except KeyError as error:
                 items['Fishian Iron'] = ['material', 'fishian iron', 1]
             gotIrn = True
-    return items, metCinnabar
+        else:
+            print('You see a fish, it\'s Arkai.')
+            mats = ['Fishian Iron', 'Wood', 'Stone', 'Mineral']
+            mat = random.choice(mats)
+            print('\'Hey!\' Arkai calls. \'Want to buy some '+mat+'?\'')
+            print('\'Naw.\' you reply.')
+            print('\'But the price of '+mat+' has never been so low~ \'')
+            matnums = createStratagemList(100, [1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7])
+            matnum = random.choice(matnums)
+            print('\'~ It\'s only 1 Fishian gold per '+matnum+' pieces!\'')
+            buy = input('Do you buy '+mat+'? (y/n) ')
+            if buy == 'y':
+                gold = input('How much?')
+                try:
+                    gold = int(gold)
+                except:
+                    gold = len(gold)
+                    print('\'What?\' Arkai asks. \'I\'ll take that as a '+gold+'\'')
+                if gold > fishianGold:
+                    print('You don\'t have that much!')
+                else:
+                    youget = gold * matnum
+                    print('You get '+str(matnum)+' pieces of '+mat+'!')
+                    fishianGold -= gold
+                    items[mat][2] += matnum
+    return items, fishianGold, gotIrn, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -1641,7 +1666,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Mineral Valley: Invasion\'')
     elif place == 'Peak Depths':
         if 'Peak Depths: Invasion' in completedInvasions:
-            items, metCinnabar = peakDepthsAdventure(Team, items, metCinnabar)
+            items, fishianGold, gotIrn, metCinnabar = peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
 
