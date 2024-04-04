@@ -243,7 +243,8 @@ And this story starts with you.""")
     print("Your eyes are " + urGenes.eyeColor + ".")
     return urName, urFullName
 
-intro = '''
+def printintro():
+  print('''
 The camp is bustling with activity, the sun is setting its last rays upon the plain.
 You climb into your kelp bed with your bunkmate, Fish. She is also your adoptive niece.
 The sky fades to dark, with only the moon to guide one's way.
@@ -291,7 +292,7 @@ You must stop him by destroying his kingdom before he can reach yours."
 Your eyes bulge. "WHAT?"
 The messenger nods. "Yes."
 Feeling conflicted, you gather some good people, and with them you start the long journey towards Dabdom.
-'''
+''')
 
 def gameLoop():
     print('Your team: '+team)
@@ -302,4 +303,4 @@ print(title)
 gameStart = input('Play? (y/n) ')
 if gameStart == 'y':
     urName, urFullName = start()
-    global urName, urFullName
+    printintro(urName)
