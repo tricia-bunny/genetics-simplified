@@ -148,13 +148,13 @@ fidget = personAttributes("Fidget", "the Fish", 19, 6, 19, 19, 3, "Female", 'sun
                           xenon, pygame)
 theBoys_Sikell = personAttributes("'The Boys'", "the Fish", 3, 19, 16, 19, 19, "Male", 0, 0, 0, radone, sys_fish)
 bob = personAttributes("Bob", "the Fish", 19, 20, 9, 8, 38, "Male", 0, 0, 0, cashmere, ellipse)
-scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 0, 0, 0, perimeter, area)
-isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 0, 0, 0, angle, degree)
+scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 'light gray', 'dark gray', 'hazel', perimeter, area)
+isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 'forest green', 'carmine', 'ice blue', angle, degree)
 # SECOND GENERATION
 kale = personAttributes("Kale", "the Fish", 19, 8, 9, 19, 19, "Female", 'grass green', 'mint green', 'twilight', fidget,
                         bob)
-triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 0, 0, 0, isosceles, scalene)
-radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 0, 0, 0, isosceles, scalene)
+triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
+radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 'vermillion', 'carmine', 'hazel', isosceles, scalene)
 # THIRD GENERATION
 fish = personAttributes("Fish", "the Fish", 29, 38, 16, 19, 19, "Male", 0, 0, 0, kale, theBoys_Sikell)
 pi = personAttributes("π", "the Fish", 29, 38, 16, 19, 10, "Female", 0, 0, 0, kale, theBoys_Sikell)
@@ -1626,11 +1626,22 @@ def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
                     items[mat][2] += matnum
     elif decision == 'p':
         print('You climb up towards the peak.')
+        num = random.randint(15, 19)
         print('But, the winds are hella strong, and a fish must have '+num+' strength to successfully pass.')
         print('A crude dagger is embedded in the snowy underbrush.')
         print('And then you see: a fish has snuck up behind you!!')
         print('\'AIYAA!\' you bray, flipping around like a fish out of water. (fish?)')
-        print('The fish facepalms(facefin?). He is a vermillion fish with crimson fins and hazel eyes.')
+        scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 'light gray', 'dark gray', 'hazel', perimeter, area)
+		isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 'forest green', 'carmine', 'ice blue', angle, degree)
+		triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
+		radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 'vermillion', 'carmine', 'hazel', isosceles, scalene)
+        print('The fish is a light gray fish with dark gray fins and hazel eyes.')
+        print('He is cradling another, smaller fish.')
+        print('\'Who are you?\' you ask.')
+        print('\'My name is Scalene. This is my son Triangle, and we need a home...\'')
+        print('You take them back to your camp...')
+        addFish(fishArray, scalene)
+        addFish(fishArray, triangle)
     return items, fishianGold, gotIrn, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
