@@ -5,6 +5,7 @@ personAttributes = namedtuple('personAttributes',
 title = "Fishland: A Role-Play Game"
 
 fishArray = {}
+team = {}
 missionArray = {}
 items = {}
 """
@@ -188,7 +189,11 @@ def makeoffspring(femaleGenetics, maleGenetics):
     femaleINS = [femaleFemaleGenes.instinct, femaleMaleGenes.instinct]
     maleINS = [maleFemaleGenes.instinct, maleMaleGenes.instinct]
     INSpair = [random.choice(femaleINS), random.choice(maleINS)]
-    offspring = personAttributes(str(input("What is your first name?")), maleGenetics.lastname,
+    NAME = str(input("What is your first name? "))
+    if len(NAME) < 2:
+        NAMES = ['Taylor', 'Sky', 'Kelp', 'Cloud', 'Wing']
+        NAME = random.choice(NAMES)
+    offspring = personAttributes(NAME, maleGenetics.lastname,
                                  determineValue(STRpair[0], STRpair[1]), determineValue(INTpair[0], INTpair[1]),
                                  determineValue(AGLpair[0], AGLpair[1]), determineValue(CHRpair[0], CHRpair[1]),
                                  determineValue(INSpair[0], INSpair[1]), determineGender(maleGenetics.gender),
@@ -226,7 +231,7 @@ And this story starts with you.""")
         noun = 'girl'
     else:
         noun = 'boy'
-    print("You are a young "+noun+", at around 14 years old.")
+    print("You are a young "+noun+", at around 22 years old.")
     print("Your name is " + urFullName + ".")
     print("You have a strength value of " + str(urGenes.strength) + ".")
     print("Your intelligence is " + str(urGenes.intelligence) + ", ")
@@ -238,7 +243,63 @@ And this story starts with you.""")
     print("Your eyes are " + urGenes.eyeColor + ".")
     return urName, urFullName
 
+intro = '''
+The camp is bustling with activity, the sun is setting its last rays upon the plain.
+You climb into your kelp bed with your bunkmate, Fish. She is also your adoptive niece.
+The sky fades to dark, with only the moon to guide one's way.
+But in the condescending darkness, an army lies in wait.
+"We have to go." you can hear the lead general say. "It's getting dark."
+The troops shuffle into the shelter of the brush, cracking and rustling.
+You fear, that the place they are attacking is your home.
+><
+The skies are bright, without a cloud. Hopefully the peace means that there will be no invasion.
+But then Carrot, the scout, comes running. "There are troops coming this way!"
+The whole camp gasps simutaneously, except for Sikell, nicknamed 'The Boys', who is still asleep.
+The camp leader, Tuple, starts ordering fish around. "'''+urName+''', Fidget, Sikell, Bob, and Carrot, you stay.
+You must protect the camp and the young in case it is a distraction."
+The rest of the camp follows Tuple towards where the enemy forces are.
+Once they are out of view, you start ordering people around. 
+"Carrot, go out on patrol. Fidget and Sikell'The Boys' can defend the frontlines, 
+and Bob and I can guard the camp border."
+><
+A few minutes later, Fidget comes running back. "One of the enemy soldiers came this way.
+He caught 'The Boys' off guard, and he knocked Carrot out. Now he's taken Carrot to his camp."
+You gasp. "Oh my fish!---Tell all fish to stay back at the camp.
+We need to protect ourselves."
+When all the fish come gathering, you see that Sikell'The Boys' 
+has a black eye and a gash on his right calf.
+Keeping a watchful eye on the border of the camp, you gather around the younger kids, π and Fish.
+Nothing comes, thankfully...
+><
+Then you see a fish: Kale, your adoptive sister. She is bloody and terribly wounded.
+"We lost. Tuple, Xenon, Angle and Cashmere died."
+Fidget's eyes fill with tears and her voice is shaky. "The rest?"
+"Perimeter, Degree, Sys, and some others ran off... and we don't know 
+what happened to the rest."
+"I guess, though," 'The Boys' cuts in. "that you are the leader, '''+urName+'''.
+But there's no time to savor being the leader.
+You have a kingdom to protect, and a tyrant to slay.
+Your journey is just beginning.
+><
+Later, a bit more people come to your kingdom, for it is the only kingdom not taken
+ice over by the all-conquering tyrant, the emperor of Dabdom, Dab.
+The first one is Scalene, a fish who has been divorced and wants a 
+safe place to live with his son, Triangle. You accept them in.
+><
+But one day a messenger comes running. "Dab is readying to attack your kingdom.
+You must stop him by destroying his kingdom before he can reach yours."
+Your eyes bulge. "WHAT?"
+The messenger nods. "Yes."
+Feeling conflicted, you gather some good people, and with them you start the long journey towards Dabdom.
+'''
+
+def gameLoop():
+    print('Your team: '+team)
+    print('Your fish: '+fishArray)
+    
+
 print(title)
 gameStart = input('Play? (y/n) ')
 if gameStart == 'y':
     urName, urFullName = start()
+    global urName, urFullName
