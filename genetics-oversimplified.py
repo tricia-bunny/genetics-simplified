@@ -1541,8 +1541,8 @@ def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
     print('Your team makes their way to Peak Depths.')
     print('Deep ravines stretch deep into the rocky ground, ')
     print('and towering peaks climb into the clouds.')
-    choice = input('Do you go into the ravine or up towards the peak? (r/p) ')
-    if choice == 'r':
+    decision = input('Do you go into the ravine or up towards the peak? (r/p) ')
+    if decision == 'r':
         print('You climb down into the ravine.')
         if metCinnabar == False:
             if 'Akuma the Fish' not in Team:
@@ -1624,6 +1624,13 @@ def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
                     print('You get '+str(matnum)+' pieces of '+mat+'!')
                     fishianGold -= gold
                     items[mat][2] += matnum
+    elif decision == 'p':
+        print('You climb up towards the peak.')
+        print('But, the winds are hella strong, and a fish must have '+num+' strength to successfully pass.')
+        print('A crude dagger is embedded in the snowy underbrush.')
+        print('And then you see: a fish has snuck up behind you!!')
+        print('\'AIYAA!\' you bray, flipping around like a fish out of water. (fish?)')
+        print('The fish facepalms(facefin?). He is a vermillion fish with crimson fins and hazel eyes.')
     return items, fishianGold, gotIrn, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
@@ -1795,6 +1802,22 @@ def craft(item, fi, sg, w, c, s, m):
                 items[item.name] = ['weapon', 'arrow', 2]
     return items
 
+def determineWin(losers, stage, nextstage, invasion):
+    sortedLosers = losers
+    sortedLosers.sort(reverse=True)
+    if not sortedLosers[2] == 'you':
+        if invasion == True and (not sortedLosers[3] == 'you'):
+        	print('You have completed \''+stage+'\'!')
+        	completedInvasions.append(stage)
+        	invasionsList.remove(stage)
+        elif invasion == False:
+            print('You have completed \''+stage+'\'!')
+            completedInvasions.append(stage)
+            invasionsList.append(stage+': Invasion')
+            invasionsList.append(nextstage)
+            invasionsList.remove(stage)
+    return completedInvasions, invasionsList
+
 """
 Adding Stuff
 if breedPowerfulFishAdded == 'no':
@@ -1825,17 +1848,30 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
     fishlandMap = fishMap
     # (Cut-)Scenes
     akuScene = False
+    kaleegg = False
+    pifishborn = False
+    triraborn = False
     while True:
-        # Random dialogue scenes
+        # Random scenes
         if random.randint(0, 10) == 1: # If the scene will even play
             if 'Akuma \'Aku\' Kelp' in fishArray and akuScene == False:
                 print('Akuma heads in your direction.')
                 print('\'Hey-\' she calls out. \'There\'s been something I\'ve wanted to tell you.\'')
                 print('\'I had a friend- her name was Usagi-Ko.\'')
-                print('\'Köyden had horribly injured her, and I know she\'s dead')
+                print('\'Köyden had horribly injured her, and I\'m pretty sure she\'s dead')
                 print('but it would do me some comfort to know she is still alive.\'')
                 missionArray['Find Usagi-Ko'] = 'Find Akuma\'s long-gone friend, Usagi-Ko. Reward: Unknown'
                 akuScene = True
+            elif kaleegg == False:
+                print('Kale and \'The Boys\' have mated and have fish-eggs.')
+                kaleegg = True
+            elif pifishborn == False:
+                print('\'!!!\' you hear Kale scream. \'My eggs are hatching!\'')
+                print('You quickly run over, to see two tiny fry.')
+                print('\'I think I will name them (insert pi symbol) and Fish.\'')
+                addFish(fishArray, pi)
+                addFish(fishArray, fish)
+                pifishborn = True
             
         while len(equippedItems) > 3:
             print('TOO.MANY.ITEMS')
@@ -2104,12 +2140,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                                       random.choice(colors), None, None)
                         breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
                         losers.append(loser)
-                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
-                        print('You have completed \'Cloud Mountains\'!')
-                        completedInvasions.append('Cloud Mountains')
-                        invasionsList.append('Cloud Mountains: Invasion')
-                        invasionsList.append('Mineral Valley')
-                        invasionsList.remove('Cloud Mountains')
+                    completedInvasions, invasionsList = determineWin(losers, stage, 'Mineral Valley', False)
                 elif stage == 'Mineral Valley':
                     for i in range(len(invasionTeam)):
                         print('ROUND '+str(i))
@@ -2121,13 +2152,9 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                                       random.choice(colors), None, None)
                         breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
                         losers.append(loser)
-                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
-                        print('You have completed \'Mineral Valley\'!')
-                        completedInvasions.append('Mineral Valley')
-                        invasionsList.append('Mineral Valley: Invasion')
-                        invasionsList.append('Peak Depths')
-                        invasionsList.remove('Mineral Valley')
-                elif stage == 'Mineral Valley':
+                    completedInvasions, invasionsList = determineWin(losers, stage, 'Peak Depths', False)
+
+                elif stage == 'Peak Depths':
                     for i in range(len(invasionTeam)):
                         print('ROUND '+str(i))
                         print(invasionTeam[i]+' VS Guard')
@@ -2137,13 +2164,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                                       random.choice(gendlist), random.choice(colors), random.choice(colors),
                                       random.choice(colors), None, None)
                         breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
-                        losers.append(loser)
-                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
-                        print('You have completed \'Peak Depths\'!')
-                        completedInvasions.append('Peak Depths')
-                        #invasionsList.append('Peak Depths: Invasion')
-                        #invasionsList.append('WE NEED TO DO THIS')
-                        invasionsList.remove('Peak Depths')
+                    completedInvasions, invasionsList = determineWin(losers, stage, 'THIS STAGE DOES NOT EXIST', False)
                 # Invasion Stages
                 elif stage == 'Cloud Mountains: Invasion':
                     for i in range(len(invasionTeam) - 1):
@@ -2160,10 +2181,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     kobuta = personAttributes('Kobuta', 'Chisai', 18, 32, 13, 7, 15, 'Male', 'crimson', 'carmine', 'sea blue', None, None)
                     breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, kobuta, 200, 400, normalEnemyStratagems)
                     losers.append(loser)
-                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
-                        print('You have completed \'Cloud Mountains: Invasion\'!')
-                        completedInvasions.append('Cloud Mountains: Invasion')
-                        invasionsList.remove('Cloud Mountains: Invasion')
+                    completedInvasions, invasionsList = determineWin(losers, stage, None, True)
                 elif stage == 'Mineral Valley: Invasion':
                     for i in range(len(invasionTeam) - 1):
                         print('ROUND '+str(i))
@@ -2180,10 +2198,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     starlight = personAttributes('Starlight', 'Kelp', 18, 30, 17, 16, 8, 'Female', 'dark gray', 'dark gray', 'sunrise yellow', None, None)
                     breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, starlight, 200, 400, normalEnemyStratagems)
                     losers.append(loser)
-                    if not (losers[0] == 'you') and (losers[1] == 'you') and (losers[2] == 'you') and (losers[3] == 'you'):
-                        print('You have completed \'Mineral Valley: Invasion\'!')
-                        completedInvasions.append('Mineral Valley: Invasion')
-                        invasionsList.remove('Mineral Valley: Invasion')
+                    completedInvasions, invasionsList = determineWin(losers, stage, None, True)
         elif action == 'craft' or action == 'c':
             splitprint('CRAFT')
             print('''		Crafting 101
