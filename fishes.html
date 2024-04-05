@@ -11,13 +11,36 @@
     </style>
     <script>
         var STATEMENT = "I HAVE NO IDEA?"
-        function newStatement() {
-          if STATEMENT == "I HAVE NO IDEA?" {
-            STATEMENT == "I HAVE A IDEA, BUT ONLY THE TEENIEST"
+        var OPTION_A = "Don't Click Me"
+        var OPTION_B = "Just Click the D Button"
+        var OPTION_C = "See, The One Under Me?"
+        var OPTION_D = "This is the Continue Button, Click Me"
+        function newStatement(option) {
+          // These are the start thing
+          if (STATEMENT == "I HAVE NO IDEA?" && option == "D") {
+            STATEMENT = "I HAVE A IDEA, BUT ONLY THE TEENIEST"
+          } else if (STATEMENT == "I HAVE A IDEA, BUT ONLY THE TEENIEST" && option == "D") {
+            STATEMENT = "OH WELL... WHAT SHOULD I DO?"
+            OPTION_A = "Sleep(Now Click Me)"
+            OPTION_B = "Eat Ramen(Click Me, OK?)"
+            OPTION_C = "No, Not The One Under Me(Click Me Instead!)"
+            OPTION_D = "I Say Drink A Milkshake. C is Messing Around."
+          } else if (STATEMENT == "OH WELL... WHAT SHOULD I DO?") {
+            if (option == "A") {
+              STATEMENT = "ZZZ"
+              OPTION_A = "ZZZ"
+              OPTION_B = "ZZZ"
+              OPTION_C = "ZZZ"
+              OPTION_D = "Now Look What You've Done! You've Made Everyone Fall Asleep."
+            }
           }
         }
         function regenerateStatement() {
             document.getElementById("statement").innerHTML = STATEMENT;
+            document.getElementById("optionA").innerHTML = OPTION_A;
+            document.getElementById("optionB").innerHTML = OPTION_B;
+            document.getElementById("optionC").innerHTML = OPTION_C;
+            document.getElementById("optionD").innerHTML = OPTION_D;
         }
     </script>
   </head>
@@ -31,18 +54,23 @@
     <span id="statement">Placeholder</span>
     <br/>
     <button type="button" onclick="dostuff('A')">A</button>
+    <span id="optionA">There's Nothing Here</span>
     <br/>
     <button type="button" onclick="dostuff('B')">B</button>
+    <span id="optionB">Nope, Not A Thing</span>
     <br/>
     <button type="button" onclick="dostuff('C')">C</button>
+    <span id="optionC">Can you eat me?</span>
     <br/>
     <button type="button" onclick="dostuff('D')">D</button>
+    <span id="optionD">Continue(CLICK ME!!!)</span>
     <br/>
     </div>
     <br/>
     <script>
         function dostuff(option) {
           alert("What am I doing?")
+          newStatement(option);
           regenerateStatement();
         }
     </script>
