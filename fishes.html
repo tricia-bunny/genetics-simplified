@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>A Legend of...Dabs?</title>
+      <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans">
+    <style>
+        body {
+            font-family:Noto Sans;
+        }
+    </style>
+    <script>
+        var STATEMENT = "I HAVE NO IDEA?"
+        function regenerateValues() {
+            document.getElementById("statement").innerHTML = STATEMENT;
+        }
+    </script>
+  </head>
+  <body onload="regenerateStatement()">
+    <div style="font-size: 17px;">A Legend of...Dabs?</div>
+    <br/>
+    <br/>
+    <br/>
+    <div style="background-color: lightblue;">
+    <br/>
+    <span id="statement">Placeholder</span>
+    <br/>
+    <button type="button" onclick="dostuff('A')">A</button>
+    <br/>
+    <button type="button" onclick="dostuff('B')">B</button>
+    <br/>
+    <button type="button" onclick="dostuff('C')">C</button>
+    <br/>
+    <button type="button" onclick="dostuff('D')">D</button>
+    <br/>
+    </div>
+    <br/>
+    <script>
+        function dostuff(option) {
+          alert("What am I doing?")
+          regenerateStatement();
+        }
+    </script>
+  </body>
+</html>
