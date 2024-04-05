@@ -697,6 +697,18 @@ def testprogram():
 
 # Game
 
+radiusflashback = '''
+>Flashback<
+You, Pi, and Triangle were on a small patrol to aid the rebelling Coral
+Shallows fish against Dab's army. 
+"Pi..?" Triangle had whispered upon seeing a vermillion fish with carmine
+fins and blazing hazel eyes.
+"Triangle? What's wrong?" Pi had asked.
+When Dab's army charged, you'd seen the vermillion fish's eyes
+go wide upon seeing the threesome. "Triangle!" he had shouted.
+Triangle froze, then ran faster than a tumblekelp. "Radius!"
+Then Dab screamed. "Radius, you insolent fish! Kill him!"
+'''
 
 def adventure(x, y):
     x += 3
@@ -1628,21 +1640,54 @@ def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
         print('You climb up towards the peak.')
         num = random.randint(15, 19)
         print('But, the winds are hella strong, and a fish must have '+num+' strength to successfully pass.')
-        print('A crude dagger is embedded in the snowy underbrush.')
-        print('And then you see: a fish has snuck up behind you!!')
-        print('\'AIYAA!\' you bray, flipping around like a fish out of water. (fish?)')
-        scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 'light gray', 'dark gray', 'hazel', perimeter, area)
-        isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 'forest green', 'carmine', 'ice blue', angle, degree)
-        triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
-        radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 'vermillion', 'carmine', 'hazel', isosceles, scalene)
-        print('The fish is a light gray fish with dark gray fins and hazel eyes.')
-        print('He is cradling another, smaller fish.')
-        print('\'Who are you?\' you ask.')
-        print('\'My name is Scalene. This is my son Triangle, and we need a home...\'')
-        print('You take them back to your camp...')
-        addFish(fishArray, scalene)
-        addFish(fishArray, triangle)
-    return items, fishianGold, gotIrn, metCinnabar
+        for i in Team:
+            if fishArray[i].strength >= num:
+                print(i+' has made it up!')
+            else:
+                print(i+' could not make it and returned to camp.')
+                Team.remove(i)
+        if not len(Team) < 1:
+            if 'Scalene the Fish' not in fishArray.keys() and 'Triangle Polygon' not in fishArray.keys():
+        		print('A crude dagger is embedded in the snowy underbrush.')
+        		print('And then you see: a fish has snuck up behind you!!')
+        		print('\'AIYAA!\' you bray, flipping around like a fish out of water. (fish?)')
+        		scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 'light gray', 'dark gray', 'hazel', perimeter, area)
+        		triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
+        		print('The fish is a light gray fish with dark gray fins and hazel eyes.')
+        		print('He is cradling another, smaller fish.')
+        		print('\'Who are you?\' you ask.')
+        		print('\'My name is Scalene. This is my son Triangle, and we need a home...\'')
+        		print('You take them back to your camp...')
+        		addFish(fishArray, scalene)
+        		addFish(fishArray, triangle)
+            elif 'Triangle Polygon' not in Team and 'Scalene the Fish' not in Team:
+                print('A crude dagger is embedded in the snowy underbrush.')
+                print('Picking it up, you see a fish behind you.')
+                print('He looks vaguely familiar, but you can\'t figure out who he is.')
+                if random.randint(0, 1) == 1:
+                	print('And then a gnarly branch slams into your head, and you blank out...')
+                	input('Many hours later ')
+                	print('You wake up in a dark cell. The fish is sitting beside you, chained.')
+                	print('\'Who are you? Where are we?\' you ask, in a frenzy.')
+                	print('The fish tries to say something, you can tell, but he doesn\'t.')
+                	print('He points at the cell door, where a fish stands.')
+                	print('As you are not chained, you get up off the floor, grab the crude dagger(why is it even there), ')
+                	print('and leap at the guard, who is looking the other way.')
+                	print('She deflects the dagger, but tosses it back to you.')
+                	print('\'You could escape. I would let you, but it\'s too late.\' she murmurs.')
+                    print('And when you see the HORRIBLE TYRANT DAB open the cell door, your chest twists.')
+                    print('The last thing you see is a bloody excutioner\'s knife swinging towards you...')
+                    ded = True
+                else:
+                    print('\'Who are you?\' you ask.')
+                    print('He looks calm. \'Triangle was here. Where is he now?\'')
+                    print('\'Triangle?\' you gasp.')
+                    print('\'Triangle? Yeah.\' he replies.')
+                    print('You squirm, thinking if you should tell him. \'Er...\'')
+                    print('And then you remember where you\'d seen this fish before.')
+                    print('In the battle of Coral Shallows...')
+                    print()
+    return ded, items, fishianGold, gotIrn, metCinnabar
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -1685,7 +1730,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Mineral Valley: Invasion\'')
     elif place == 'Peak Depths':
         if 'Peak Depths: Invasion' in completedInvasions:
-            items, fishianGold, gotIrn, metCinnabar = peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar)
+            ded, items, fishianGold, gotIrn, metCinnabar = peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, items, fishFood
 
 
