@@ -1743,6 +1743,8 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     elif place == 'Peak Depths':
         if 'Peak Depths: Invasion' in completedInvasions:
             ded, items, fishianGold, gotIrn, metCinnabar = peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar)
+        else:
+            print('Dab\'s control is too strong! You can go here after completing \'Peak Depths: Invasion\'')
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, items, fishFood
 
 
@@ -1938,6 +1940,8 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 print('\'!!!\' you hear Kale scream. \'My eggs are hatching!\'')
                 print('You quickly run over, to see two tiny fry.')
                 print('\'I think I will name them (insert pi symbol) and Fish.\'')
+                fish = personAttributes("Fish", "the Fish", 29, 38, 16, 19, 19, "Male", 0, 0, 0, kale, theBoys_Sikell)
+				pi = personAttributes("π", "the Fish", 29, 38, 16, 19, 10, "Female", 0, 0, 0, kale, theBoys_Sikell)
                 addFish(fishArray, pi)
                 addFish(fishArray, fish)
                 pifishborn = True
