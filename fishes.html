@@ -11,7 +11,12 @@
     </style>
     <script>
         var STATEMENT = "I HAVE NO IDEA?"
-        function regenerateValues() {
+        function newStatement() {
+          if STATEMENT == "I HAVE NO IDEA?" {
+            STATEMENT == "I HAVE A IDEA, BUT ONLY THE TEENIEST"
+          }
+        }
+        function regenerateStatement() {
             document.getElementById("statement").innerHTML = STATEMENT;
         }
     </script>
