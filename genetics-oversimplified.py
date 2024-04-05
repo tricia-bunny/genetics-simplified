@@ -533,8 +533,8 @@ missionArray = {}
 missionArray['Defeat Dab'] = 'Defeat Dab and save Fishland! Reward: Unknown'
 #                                                                   Shif's crystal spearhead
 completedMissions = {}
-invasionsList = {'Cloud Mountains'}
-completedInvasions = {}
+invasionsList = ['Cloud Mountains']
+completedInvasions = []
 fishianGold = 0
 fishFood = 0
 items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3], 'Fishian Iron': ['material', 'fishian iron', 0], 'Sea Glass': ['material', 'sea glass', 0], 'Wood': ['material', 'wood', 0], 'Coral': ['material', 'coral', 0], 'Stone': ['material', 'stone', 0], 'Mineral': ['material', 'mineral', 0]}
@@ -1632,9 +1632,9 @@ def peakDepthsAdventure(Team, items, fishianGold, gotIrn, metCinnabar):
         print('And then you see: a fish has snuck up behind you!!')
         print('\'AIYAA!\' you bray, flipping around like a fish out of water. (fish?)')
         scalene = personAttributes("Scalene", "the Fish", 16, 24, 15, 29, 8, "Male", 'light gray', 'dark gray', 'hazel', perimeter, area)
-		isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 'forest green', 'carmine', 'ice blue', angle, degree)
-		triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
-		radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 'vermillion', 'carmine', 'hazel', isosceles, scalene)
+        isosceles = personAttributes("Isosceles", "Polygon", 19, 12, 15, 1, 20, "Female", 'forest green', 'carmine', 'ice blue', angle, degree)
+        triangle = personAttributes("Triangle", "Polygon", 19, 12, 15, 1, 10, "Male", 'light gray', 'pale yellow', 'ice blue', isosceles, scalene)
+        radius = personAttributes("Radius", "Polygon", 19, 12, 15, 10, 10, "Male", 'vermillion', 'carmine', 'hazel', isosceles, scalene)
         print('The fish is a light gray fish with dark gray fins and hazel eyes.')
         print('He is cradling another, smaller fish.')
         print('\'Who are you?\' you ask.')
@@ -1666,6 +1666,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     valorAsked = mineralValleyStuff[1]
     andesiteRAWR = mineralValleyStuff[2]
     metCinnabar = peakDepthsStuff[0]
+    global completedInvasions
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -1818,16 +1819,16 @@ def determineWin(losers, stage, nextstage, invasion):
     sortedLosers.sort(reverse=True)
     if not sortedLosers[2] == 'you':
         if invasion == True and (not sortedLosers[3] == 'you'):
-        	print('You have completed \''+stage+'\'!')
-        	completedInvasions.append(stage)
-        	invasionsList.remove(stage)
+            print('You have completed \''+stage+'\'!')
+            completedInvasions.append(stage)
+            invasionsList.remove(stage)
         elif invasion == False:
             print('You have completed \''+stage+'\'!')
             completedInvasions.append(stage)
             invasionsList.append(stage+': Invasion')
             invasionsList.append(nextstage)
             invasionsList.remove(stage)
-    return completedInvasions, invasionsList
+#    return completedInvasions, invasionsList
 
 """
 Adding Stuff
@@ -2122,6 +2123,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
             Invasions are rounds of 4 battles in which
             when your team wins, you unlock either a new
             Invasion stage or access to a Adventuring region.''')
+            global invasionsList
             print(invasionsList)
             print('These are the list of stages you can challenge.')
             stage = input('Which stage would you like to challenge? ')
@@ -2151,7 +2153,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                                       random.choice(colors), None, None)
                         breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
                         losers.append(loser)
-                    completedInvasions, invasionsList = determineWin(losers, stage, 'Mineral Valley', False)
+                    determineWin(losers, stage, 'Mineral Valley', False)
                 elif stage == 'Mineral Valley':
                     for i in range(len(invasionTeam)):
                         print('ROUND '+str(i))
@@ -2163,7 +2165,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                                       random.choice(colors), None, None)
                         breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, guard, 200, 200, normalEnemyStratagems)
                         losers.append(loser)
-                    completedInvasions, invasionsList = determineWin(losers, stage, 'Peak Depths', False)
+                    determineWin(losers, stage, 'Peak Depths', False)
 
                 elif stage == 'Peak Depths':
                     for i in range(len(invasionTeam)):
@@ -2192,7 +2194,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     kobuta = personAttributes('Kobuta', 'Chisai', 18, 32, 13, 7, 15, 'Male', 'crimson', 'carmine', 'sea blue', None, None)
                     breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, kobuta, 200, 400, normalEnemyStratagems)
                     losers.append(loser)
-                    completedInvasions, invasionsList = determineWin(losers, stage, None, True)
+                    determineWin(losers, stage, None, True)
                 elif stage == 'Mineral Valley: Invasion':
                     for i in range(len(invasionTeam) - 1):
                         print('ROUND '+str(i))
@@ -2209,7 +2211,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     starlight = personAttributes('Starlight', 'Kelp', 18, 30, 17, 16, 8, 'Female', 'dark gray', 'dark gray', 'sunrise yellow', None, None)
                     breakForUnMutation, loser = battle(fishArray[invasionTeam[i-1]], 200, 200, starlight, 200, 400, normalEnemyStratagems)
                     losers.append(loser)
-                    completedInvasions, invasionsList = determineWin(losers, stage, None, True)
+                    determineWin(losers, stage, None, True)
         elif action == 'craft' or action == 'c':
             splitprint('CRAFT')
             print('''		Crafting 101
