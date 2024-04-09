@@ -1712,7 +1712,12 @@ def blossomAdventure(Team, items, fishianGold):
         print('Your team heads towards the palace, wary of incoming danger.')
         print('Suddenly, a fish assaults your team, pinning down '+sadPeep'.')
         print('\'Gah!\' you shout, leaping onto the pile of fish.')
-        print('The fish ')
+        print('The fish flips you over and leaps onto you. Now 2 fish are under him.')
+        print('You wriggle away, then draw a dagger. \'Who are you?\' you yell.')
+        print('The fish smiles darkly. \'Why would I tell you?\'')
+        print('\'I am the leader of Peach Springs!\' you shout.')
+        print('\'But this is not Peach Springs.\' he smirks. \'This is Blossom.\'')
+        print('')
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
