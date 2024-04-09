@@ -1701,6 +1701,20 @@ def peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar):
                     print('Dropping the dagger, you back away, going back to your camp.')
     return ded, items, fishianGold, gotIrn, metCinnabar
 
+def blossomAdventure(Team, items, fishianGold):
+    print('Blossom, a place where trees bloom year-round...')
+    print('The soft path is lined with petals: rose, cherry, peach...')
+    print('A rose-glass palace stands to the north, and a dark graveyard is to the west.')
+    print('To the southwest, a collecting of small worker\'s huts lie.')
+    decision = input('Where do you want to go? (p/g/h) ')
+    if decision == 'p':
+        sadPeep = Team[len(Team) - 1]
+        print('Your team heads towards the palace, wary of incoming danger.')
+        print('Suddenly, a fish assaults your team, pinning down '+sadPeep'.')
+        print('\'Gah!\' you shout, leaping onto the pile of fish.')
+        print('The fish ')
+    return items, fishianGold
+
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
     Team = team
@@ -1745,6 +1759,11 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             ded, items, fishianGold, gotIrn, metCinnabar = peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Peak Depths: Invasion\'')
+    elif place == 'Blossom':
+        if 'Blossom: Invasion' in completedInvasions:
+            items, fishianGold = blossomAventure(Team, items, fishianGold)
+        else:
+            print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, items, fishFood
 
 
@@ -1941,7 +1960,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 print('You quickly run over, to see two tiny fry.')
                 print('\'I think I will name them (insert pi symbol) and Fish.\'')
                 fish = personAttributes("Fish", "the Fish", 29, 38, 16, 19, 19, "Male", 0, 0, 0, kale, theBoys_Sikell)
-				pi = personAttributes("π", "the Fish", 29, 38, 16, 19, 10, "Female", 0, 0, 0, kale, theBoys_Sikell)
+                pi = personAttributes("π", "the Fish", 29, 38, 16, 19, 10, "Female", 0, 0, 0, kale, theBoys_Sikell)
                 addFish(fishArray, pi)
                 addFish(fishArray, fish)
                 pifishborn = True
