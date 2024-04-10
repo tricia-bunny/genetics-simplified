@@ -1741,7 +1741,15 @@ def blossomAdventure(Team, items, fishianGold):
         print('\'No!\' You stab the dagger at Skyfall, hoping you can wound him.')
         print('Skyfall dodges the attack. \'You looking for a fight? Bring it on.\'')
         skyfall = personAttributes('Skyfall', 'Shade', 8, 9, 17, 16, 8, "Male", "yellow green", "lime green", 'yellow orange', None, None)
-        battle(fishArray[Team[0]], 200, 200, skyfall, 1050, 5040)
+        breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, skyfall, 1050, 5040)
+        if loser == 'the fish':
+            print('\'Impossible.\' Skyfall huffs, gasping for breath.')
+            print('\'Possible.\' you say, taking the crown. \'Very possible.\'')
+            items['The Crown of Blossom'] = ['artifact', 'blossom', False]
+        else:
+            print('\'Leader of Peach Springs...\' Skyfall crows. \'Not so strong after all.\'')
+            print('\'Shut up.\' you gasp. \'You have that really nice armor thing!\'')
+            print('\'Bring your own nezt time.\' he says, knocking '+sadPeep+' out and bringing them to his palace.')
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
