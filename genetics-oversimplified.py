@@ -1601,7 +1601,7 @@ def peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar):
                 print('\'It\'s okay, you can leave.\' you reluctantly say.')
                 print('\'You sure...?\' asks Cinnabar.')
                 print('\'Yeah...\' you say, looking away. \'Go. Go before I change my mind.\'')
-                print('Akuma and Cinnabare head off into the distance. Akuma waves.')
+                print('Akuma and Cinnabar head off into the distance. Akuma waves.')
                 del fishArray['Akuma \'Aku\' Kelp']
                 metCinnabar = True
         elif gotIrn == False:
@@ -1708,48 +1708,65 @@ def blossomAdventure(Team, items, fishianGold):
     print('To the southwest, a collecting of small worker\'s huts lie.')
     decision = input('Where do you want to go? (p/g/h) ')
     if decision == 'p':
-        sadPeep = Team[len(Team) - 1]
         print('Your team heads towards the palace, wary of incoming danger.')
-        print('Suddenly, a fish assaults your team, pinning down '+sadPeep+'.')
-        print('\'Gah!\' you shout, leaping onto the pile of fish.')
-        print('The fish flips you over and leaps onto you. Now 2 fish are under him.')
-        print('You wriggle away, then draw a dagger. \'Who are you?\' you yell.')
-        print('The fish smiles darkly. \'Why would I tell you?\'')
-        print('\'I am the leader of Peach Springs!\' you shout.')
-        print('\'But this is not Peach Springs.\' he smirks. \'This is Blossom.\'')
-        print('\'It\'s not like you\'re leader of Blossom.\' you say.')
-        print('The fish grins. \'Oh, but I am. Skyfall Shade, King of Blossom.\'')
-        if not sadPeep == 'Silicon the Fish':
-            print('You sputter. \'You are not!\'')
-            print('Skyfall\'s grin darkens. \'You want proof?\'')
-            print('He pulls out a rose gold crown with sea glass swirls.')
-            print('You gape. \'That cannot be legit.\'')
-            print('Skyfall points at a small engraving on the back of the crown.')
-            print('It reads: Forever this crown shall rest in Blossom.')
-            print('\'That is not legit.\' you say.')
-            print('\'It is.\' Skyfall replies, stuffing it back into a small bag.')
-            print('\'So what are you doing with '+sadPeep+'?\' you ask.')
-        else:
-            print('Silicon wriggles. \'Skyfall... SHADE? Do you know where Eclipse is?\'')
-            print('Skyfall\'s eyes go wide. \'Eclipse? He went missing a few years ago.\'')
-            print('\'I\'m pretty sure there was another Shade. What was their name?\' Silicon asks.')
-            print('\'I don\'t remember.\' Skyfall murmurs, distant. \'She was exiled when I was very young...\'')
-            print('\'But.\' Silicon cuts in. \'Let me go.\'')
-            print('\'No.\' Skyfall replies. His voice is now laced with a dark edge.')
-            print('Then Skyfall turns to you.')
-        print('\'If you give me your place as leader, I\'ll free this fish.\'')
-        print('\'No!\' You stab the dagger at Skyfall, hoping you can wound him.')
-        print('Skyfall dodges the attack. \'You looking for a fight? Bring it on.\'')
-        skyfall = personAttributes('Skyfall', 'Shade', 8, 9, 17, 16, 8, "Male", "yellow green", "lime green", 'yellow orange', None, None)
-        breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, skyfall, 1050, 5040)
-        if loser == 'the fish':
-            print('\'Impossible.\' Skyfall huffs, gasping for breath.')
-            print('\'Possible.\' you say, taking the crown. \'Very possible.\'')
-            items['The Crown of Blossom'] = ['artifact', 'blossom', False]
-        else:
-            print('\'Leader of Peach Springs...\' Skyfall crows. \'Not so strong after all.\'')
-            print('\'Shut up.\' you gasp. \'You have that really nice armor thing!\'')
-            print('\'Bring your own nezt time.\' he says, knocking '+sadPeep+' out and bringing them to his palace.')
+        if metSkyfall == False:
+            sadPeep = Team[len(Team) - 1]
+            print('Suddenly, a fish assaults your team, pinning down '+sadPeep+'.')
+            print('\'Gah!\' you shout, leaping onto the pile of fish.')
+            print('The fish flips you over and leaps onto you. Now 2 fish are under him.')
+            print('You wriggle away, then draw a dagger. \'Who are you?\' you yell.')
+            print('The fish smiles darkly. \'Why would I tell you?\'')
+            print('\'I am the leader of Peach Springs!\' you shout.')
+            print('\'But this is not Peach Springs.\' he smirks. \'This is Blossom.\'')
+            print('\'It\'s not like you\'re leader of Blossom.\' you say.')
+            print('The fish grins. \'Oh, but I am. Skyfall Shade, King of Blossom.\'')
+            if not sadPeep == 'Silicon the Fish':
+                print('You sputter. \'You are not!\'')
+                print('Skyfall\'s grin darkens. \'You want proof?\'')
+                print('He pulls out a rose gold crown with sea glass swirls.')
+                print('You gape. \'That cannot be legit.\'')
+                print('Skyfall points at a small engraving on the back of the crown.')
+                print('It reads: Forever this crown shall rest in Blossom.')
+                print('\'That is not legit.\' you say.')
+                print('\'It is.\' Skyfall replies, stuffing it back into a small bag.')
+                print('\'So what are you doing with '+sadPeep+'?\' you ask.')
+            else:
+                print('Silicon wriggles. \'Skyfall... SHADE? Do you know where Eclipse is?\'')
+                print('Skyfall\'s eyes go wide. \'Eclipse? He went missing a few years ago.\'')
+                print('\'I\'m pretty sure there was another Shade. What was their name?\' Silicon asks.')
+                print('\'I don\'t remember.\' Skyfall murmurs, distant. \'She was exiled when I was very young...\'')
+                print('\'But.\' Silicon cuts in. \'Let me go.\'')
+                print('\'No.\' Skyfall replies. His voice is now laced with a dark edge.')
+                print('Then Skyfall turns to you.')
+                print('\'If you give me your place as leader, I\'ll free this fish.\'')
+                print('\'No!\' You stab the dagger at Skyfall, hoping you can wound him.')
+            print('Skyfall dodges the attack. \'You looking for a fight? Bring it on.\'')
+            skyfall = personAttributes('Skyfall', 'Shade', 8, 9, 17, 16, 8, "Male", "yellow green", "lime green", 'yellow orange', None, None)
+            breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, skyfall, 1050, 5040)
+            if loser == 'the fish':
+                print('\'Impossible.\' Skyfall huffs, gasping for breath.')
+                print('\'Possible.\' you say, taking the crown. \'Very possible.\'')
+                items['The Crown of Blossom'] = ['artifact', 'blossom', False]
+            else:
+                print('\'Leader of Peach Springs...\' Skyfall crows. \'Not so strong after all.\'')
+                print('\'Shut up.\' you gasp. \'You have that really nice armor thing!\'')
+                print('\'Bring your own next time.\' he says, knocking '+sadPeep+' out and going towards his palace.')
+                print('You watch, filling with guilt, as the two fish disappear into the distance.')
+                del fishArray[sadPeep]
+            metSkyfall = True
+        print('You reach the castle gates, one gate swinging back and forth, the other closed shut.')
+        print('You enter from the open gate, only to see the two sides of the palace have been split apart by a tall glass wall.')
+        print('A tiny gold gate shows you a portion of the other half.')
+        print('You can see, the half you are in has ornate sculptures of a fish, ')
+        print('and the ceiling is a mess of stone and iron.')
+        print('The sculptures of the other half have been torn down, closing off the sky with a ')
+        print('stone arch supporting a glass roof, but that is all you can see.')
+        print('You approach the inner palace door, the one that leads to the throne room.')
+        print('A fish is sitting on the throne. No, not Skyfall.')
+        print('\'Who are you?\' the fish says. \'I am King Llafyks.\'')
+        print('\'I am '+Team[0]+'.\' you respond.')
+        print('\'Do you know a fish named Skylon?\' King Llafyks questions.')
+        print('\'No.\' you say. \'Why do you ask?\'')
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
