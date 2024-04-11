@@ -1774,6 +1774,24 @@ def blossomAdventure(Team, items, fishianGold):
         print('King Llafyks taps his fins against the armrest. \'They said their name was Taro.\'')
         print('\'Talo? Like the great Kydian queen of early Fishland?\' you ask.')
         print('King Llafyks facepalms(facefin?). \'Not Talo, TARO. Taro Fawn.\'')
+        print('You know that the Fawn bloodline is from Kelp Ridge, the Carp clan.')
+        print('So why has this fish wandered so far from his home?')
+        print('\'Ah!\' the king says, looking at the rose-gold clock. \'Better go.\'')
+        print('He hustles out of the throne room, and you decide to leave.')
+    elif decision == 'g':
+        print('Your team makes their way towards the graveyard, mindful of dangers.')
+        print('As you walk closer you can see among the grayness, a single ivory headstone stands.')
+        print('You walk towards, squinting to read the carved text.')
+        print('\'Evol Shiar, Raih\'s Love\'')
+        print('By it, a small sea-glass stone stands.')
+        print('\'Yotta B., daughter of Orethguad Battoy\'')
+        print('You then see a small headstone with a pendant wrapped around.')
+        print('\'Raya Kyda: Forever in my heart -Trae Hymni, Rever of Adykayar\'')
+        print('You feel grateful you are still alive.')
+        print('Suddenly, a fish leaps at you, covered with black cloth so you can see nothing but her brilliant lime eyes.')
+        print('\'It was a mistake to come here, fish.\' she snarls.')
+        print('\'For this is my territory, my domain.\'')
+        print('')
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
