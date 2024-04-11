@@ -1763,10 +1763,17 @@ def blossomAdventure(Team, items, fishianGold):
         print('stone arch supporting a glass roof, but that is all you can see.')
         print('You approach the inner palace door, the one that leads to the throne room.')
         print('A fish is sitting on the throne. No, not Skyfall.')
-        print('\'Who are you?\' the fish says. \'I am King Llafyks.\'')
+        print('\'Who are you?\' the fish says. \'I am King Llafyks(laf-ficks).\'')
         print('\'I am '+Team[0]+'.\' you respond.')
         print('\'Do you know a fish named Skylon?\' King Llafyks questions.')
         print('\'No.\' you say. \'Why do you ask?\'')
+        print('\'She is working with Dab to attack your kingdom.\' he replies.')
+        print('\'Wait-- How do you know it\'s MY kingdom?\' you say.')
+        print('\'Uh...er...ugh...\' the king stutters. \'Someone told me.\'')
+        print('You cock your head. \'Who?\'')
+        print('King Llafyks taps his fins against the armrest. \'They said their name was Taro.\'')
+        print('\'Talo? Like the great Kydian queen of early Fishland?\' you ask.')
+        print('King Llafyks facepalms(facefin?). \'Not Talo, TARO. Taro Fawn.\'')
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
