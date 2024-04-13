@@ -1,3 +1,4 @@
+
 import random
 
 title = "Genetics: Oversimplified"
@@ -1809,7 +1810,23 @@ def blossomAdventure(Team, items, fishianGold):
         print('\'Come on, Kabak Noemoc.\' Mona sighs.')
         print('Retsa B\'Ala turns to you. \'Do you know how long we\'ve waited?\'')
         print('\'For a legendary leader of the Peach.\' Kabak echoes.')
-        print('\'\'')
+        print('\'Well, I won\'t go with you, whatever you say.\' you say.')
+        print('Retsa B\'Ala waves his fin. \'Not us. Them.\'')
+        print('You watch in terror as masses of fish surround you... all with pupil-less crimson eyes.')
+        print(Team[0]+' shudders. \'I\'ve heard of these. Dead fish, brought back to life.\'')
+        print('The fish close in...')
+        for i in Team:
+            print('A cluster of the fish close in on '+i+'...')
+            for i in range(0, random.randint(2, 5)):
+                genders = ['Female', 'Male']
+                names = 'Rain Hall Cloud Pearl Bristle Farol Kiff Shadow Xepta'.split()
+                Names = ['the Fish', 'Kelp', 'Cloud', 'Fern']
+                mutation = personAttributes('Forgotten', 'Fish', 21, 0, 72, 13, 0, random.choice(genders), random.choice(colors), random.choice(colors), random.choice(colors), None, None)
+                breakForUnMutation, loser = battle(fishArray[i], 200, 200, mutation, 200, 200, normalEnemyStratagems)
+                if breakForUnMutation == True:
+                    print('The fish looks around, eyes no longer pupil-less crimson.')
+                    print('The un-mutation has worked.')
+                    # aFish = personAttributes() Note: Edit
     return items, fishianGold
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
