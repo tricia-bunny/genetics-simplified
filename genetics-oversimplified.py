@@ -555,11 +555,15 @@ valorAsked = False
 andesiteRAWR = False
 metCinnabar = False
 gotIrn = False
+metSkyfall = False
+metMona = False
+monaDed = False
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
 cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
 peakDepthsStuff = [metCinnabar, gotIrn]
-kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff]
+blossomStuff = [metSkyfall, metMona, monaDed]
+kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff]
 
 
 # start of program
@@ -1702,7 +1706,14 @@ def peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar):
                     print('Dropping the dagger, you back away, going back to your camp.')
     return ded, items, fishianGold, gotIrn, metCinnabar
 
-def blossomAdventure(Team, items, fishianGold):
+def deterWin(losers):
+    sortedLosers = losers
+    sortedLosers.sort(reverse=True)
+    if not sortedLosers[len(sortedLosers) - 2] == 'you':
+        return True
+    return False
+
+def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed):
     print('Blossom, a place where trees bloom year-round...')
     print('The soft path is lined with petals: rose, cherry, peach...')
     print('A rose-glass palace stands to the north, and a dark graveyard is to the west.')
@@ -1789,45 +1800,135 @@ def blossomAdventure(Team, items, fishianGold):
         print('You then see a small headstone with a pendant wrapped around.')
         print('\'Raya Kyda: Forever in my heart -Trae Hymni, Rever of Adykayar\'')
         print('You feel grateful you are still alive.')
-        print('Suddenly, a fish leaps at you, covered with black cloth so you can see nothing but her brilliant lime green eyes.')
-        print('\'It was a mistake to come here, fish.\' she snarls.')
-        print('\'For this is my territory, my domain.\'')
-        print('Pulling out a dagger in midair, she lands perfectly, pivoting to face you. \'I am Mona Forieh, heir of Anom.\'')
-        print('\'Who--\' you shout, only to have the dagger pressed to your head.')
-        print('\'Try to talk again, and you die.\' Mona hisses.')
-        print(Team[1]+' leaps on top of Mona, pressing her down. You wrest the dagger from her grip.')
-        print('\'Thanks.\' you mutter to '+Team[1]+', then spin to face Mona.')
-        print('Even though she is trapped, Mona sneers at you. \'I see your confidence. Leader, I assume?\'')
-        print('You gape. \'How did you know?\'')
-        print('\'I have my ways. Peach Springs, I presume?\'')
-        print('Your mouth hangs open. \'How?\'')
-        print('Just as Mona is about to reply, you cut in. \'Are you trying to buy time?\'')
-        print('\'I am a loner. I have no allies.\'')
-        print('A shadow sweeps the graveyard. Two fish leap in.')
-        print('\'But we do.\' the larger one smirks.')
-        print('Mona\'s eyes go wide. \'Emuserpi!-- Ah. Retsa B\'Ala Foeht of the Alabaster Ha, I presume?\'')
-        print('\'Hello, Mona.\' the smaller one says.')
-        print('\'Come on, Kabak Noemoc.\' Mona sighs.')
-        print('Retsa B\'Ala turns to you. \'Do you know how long we\'ve waited?\'')
-        print('\'For a legendary leader of the Peach.\' Kabak echoes.')
-        print('\'Well, I won\'t go with you, whatever you say.\' you say.')
-        print('Retsa B\'Ala waves his fin. \'Not us. Them.\'')
-        print('You watch in terror as masses of fish surround you... all with pupil-less crimson eyes.')
-        print(Team[0]+' shudders. \'I\'ve heard of these. Dead fish, brought back to life.\'')
-        print('The fish close in...')
-        for i in Team:
-            print('A cluster of the fish close in on '+i+'...')
-            for i in range(0, random.randint(2, 5)):
-                genders = ['Female', 'Male']
-                names = 'Rain Hall Cloud Pearl Bristle Farol Kiff Shadow Xepta'.split()
-                Names = ['the Fish', 'Kelp', 'Cloud', 'Fern']
-                mutation = personAttributes('Forgotten', 'Fish', 21, 0, 72, 13, 0, random.choice(genders), random.choice(colors), random.choice(colors), random.choice(colors), None, None)
-                breakForUnMutation, loser = battle(fishArray[i], 200, 200, mutation, 200, 200, normalEnemyStratagems)
-                if breakForUnMutation == True:
-                    print('The fish looks around, eyes no longer pupil-less crimson.')
-                    print('The un-mutation has worked.')
-                    # aFish = personAttributes() Note: Edit
-    return items, fishianGold
+        if metMona == False:
+            print('Suddenly, a fish leaps at you, covered with black cloth so you can see nothing but her brilliant lime green eyes.')
+            print('\'It was a mistake to come here, fish.\' she snarls.')
+            print('\'For this is my territory, my domain.\'')
+            print('Pulling out a dagger in midair, she lands perfectly, pivoting to face you. \'I am Mona Forieh, heir of Anom.\'')
+            print('\'Who--\' you shout, only to have the dagger pressed to your head.')
+            print('\'Try to talk again, and you die.\' Mona hisses.')
+            print(Team[1]+' leaps on top of Mona, pressing her down. You wrest the dagger from her grip.')
+            print('\'Thanks.\' you mutter to '+Team[1]+', then spin to face Mona.')
+            print('Even though she is trapped, Mona sneers at you. \'I see your confidence. Leader, I assume?\'')
+            print('You gape. \'How did you know?\'')
+            print('\'I have my ways. Peach Springs, I presume?\'')
+            print('Your mouth hangs open. \'How?\'')
+            print('Just as Mona is about to reply, you cut in. \'Are you trying to buy time?\'')
+            print('\'I am a loner. I have no allies.\'')
+            print('A shadow sweeps the graveyard. Two fish leap in.')
+            print('\'But we do.\' the larger one smirks.')
+            print('Mona\'s eyes go wide. \'Emuserpi!-- Ah. Retsa B\'Ala Foeht of the Alabaster Ha, I presume?\'')
+            print('\'Hello, Mona.\' the smaller one says.')
+            print('\'Come on, Kabak Noemoc.\' Mona sighs.')
+            print('Retsa B\'Ala turns to you. \'Do you know how long we\'ve waited?\'')
+            print('\'For a legendary leader of the Peach.\' Kabak echoes.')
+            print('\'Well, I won\'t go with you, whatever you say.\' you say.')
+            print('Retsa B\'Ala waves his fin. \'Not us. Them.\'')
+            print('You watch in terror as masses of fish surround you... all with pupil-less crimson eyes.')
+            print(Team[0]+' shudders. \'I\'ve heard of these. Dead fish, brought back to life.\'')
+            print('The fish close in...')
+            for i in Team:
+                print('A cluster of the fish close in on '+i+'...')
+                for b in range(0, random.randint(2, 5)):
+                    print('One of the fish approach '+i+'!')
+                    genders = ['Female', 'Male']
+                    names = 'Rain Hall Cloud Pearl Bristle Farol Kiff Shadow Xepta Falon Zes Grass Pomegranate'.split()
+                    Names = ['the Fish', 'Kelp', 'Cloud', 'Fern']
+                    nums = range(1, 20)
+                    intelnums = range(5, 10)
+                    instnums = range(2, 6)
+                    strength = random.choice(nums)
+                    intelligence = random.choice(intelnums)
+                    agility = random.choice(nums)
+                    charisma = random.choice(nums)
+                    instinct = random.choice(instnums)
+                    GeNdEr = random.choice(genders)
+                    body = random.choice(colors)
+                    fin = random.choice(colors)
+                    eye = random.choice(colors)
+                    mutation = personAttributes('Forgotten', 'Fish', strength*3, 0, agility*3, charisma, 0, GeNdEr, body, fin, eye, None, None)
+                    breakForUnMutation, loser = battle(fishArray[i], 200, 200, mutation, 200, 200, normalEnemyStratagems)
+                    if breakForUnMutation == True:
+                        if random.randint(0, 100) < fishArray[i].instinct:
+                            print('The fish looks around, eyes no longer pupil-less crimson.')
+                            print('The un-mutation has worked.')
+                            aFish = personAttributes(random.choice(names), random.choice(Names), strength, intelligence, agility, charisma, instinct, GeNdEr, body, fin, eye, None, None)
+                            addFish(fishArray, aFish)
+                            fishName = aFish.firstname + aFish.lastname
+                            Team.append(fishName)
+                        elif random.randint(0, 1) == 1:
+                            loser = 'you'
+                    losers.append(loser)
+            win = deterWin(losers)
+            if win == True:
+                print('Retsa B\'Ala and Kabak back off, fear in their eyes.')
+                print('\'Truly a leader.\' Kabak whispers.')
+                print('\'Well,\' Retsa B\'Ala says, \'If you truly are the One in the prophecy, we will not stop you.\'')
+                print('\'What prophecy?\' you shout as the two fish-necromancers leave.')
+                print('Retsa B\'Ala turns back. \'You will know.\'')
+                print('You turn, and you see that Mona is gone, with a crumpled piece of paper left in her wake.')
+                readit = input('Do you read it? (y/n) ')
+                if readit == 'y':
+                    print('\'To the Leader of Peach Springs:')
+                    print('As you know, I am Mona Forieh, heir of Anom.')
+                    print('Retsa B\'Ala and Kabak cannot be trusted.')
+                    print('They are speaking lies. There is no prophecy.')
+                    print('If you see them again, please kill them for me.')
+                    print(' -Mona\'')
+                    print('A small pearl stick is clasped to the edge.')
+                    print('You pick it up.')
+                    items['Mona\'s Pearl Stick'] = ['stick', 'pearl', 'goobaGeebaKibbaDooba']
+                else:
+                    print('You do not read it.')
+            else:
+                monaDed = True
+                print('Kabak smirks at you. \'Not so strong after all.\'')
+                print('You back away slowly as the fish close in...')
+                print('\'Maybe the next leader will be better.\' Retsa B\'Ala says.')
+                print('The two fish leap at you, weapons in hand.')
+                print('You close your eyes and await death...')
+                input('')
+                print('\'NO!\' Mona shrieks, throwing herself between you and the two fish.')
+                print('She is fighting hard, but she is still outnumbered, many to 1.')
+                helpMona = input('Do you help Mona, run away, or stay where you are? (h/r/s) ')
+                if helpMona == 'h':
+                    print('You and your team scramble into the fray.')
+                    retsaBAla = personAttributes('Retsa B\'Ala', 'Foeht', 22, 8, 4, 12, 26, 'Male', 'yellow green', 'soft pink', 'crimson', None, None)
+                    kabak = personAttributes('Kabak', 'Noemoc', 14, 11, 7, 7, 17, 'Male', 'coral pink', 'coral pink', 'crimson', None, None)
+                    for i in Team:
+                        if random.randint(0, 1) == 0:
+                            print(i+' VS Retsa B\'Ala Foeht')
+                            breakForUnMutation, loser = battle(fishArray[i], 200, 200, retsaBAla, 200, 200, normalEnemyStratagems)
+                        else:
+                            print(i+' VS Kabak Noemoc')
+                            breakForUnMutation, loser = battle(fishArray[i], 200, 200, kabak, 200, 200, normalEnemyStratagems)
+                        losers.append(loser)
+                    win = deterWin(losers)
+                    if win == True:
+                        print('You have successfully defeated the fishes!')
+                        print('And then you see Mona, bleeding from a mortal wound.')
+                        print('Oh no, you think. OH NO.')
+                        print('You grieve for a long time.')
+                    else:
+                        print('You have lost.')
+                        print('Everything is in slow motion as Retsa B\'Ala\'s sword cuts into your body...')
+                        ded = True
+                elif helpMona == 'r':
+                    print('You run away, ignoring Mona\'s calls for help...')
+                elif helpMona == 's':
+                    print('\'Go!\' Mona snaps, pushing you away.')
+                    print('You run, looking back at Mona and the fishes...')
+        else:
+            print('But then you notice that nothing is here, not even a single fish.')
+            if monaDed == True:
+            	print('A single new gravestone stands among the others.')
+                print('\'Mona Forieh, heir of Anom,')
+                print('killed by her nemesis. Emen rehybdel\'lik.\'')
+                print('You know that \'Emen rehybdel\'lik\' means something along the lines of--')
+                print('\'Rest in peace. You are forever loved.\'')
+            else:
+                print('Not even Mona.')
+    return ded, items, fishianGold, metSkyfall, metMona, monaDed
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -1836,6 +1937,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     cloudMountainStuff = kingdomStuff[1]
     mineralValleyStuff = kingdomStuff[2]
     peakDepthsStuff = kingdomStuff[3]
+    blossomStuff = kingdomStuff[4]
     print(cloudMountainStuff)
     gotGold = yourKingdomStuff[0]
     gotArco = yourKingdomStuff[1]
@@ -1852,6 +1954,9 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     andesiteRAWR = mineralValleyStuff[2]
     metCinnabar = peakDepthsStuff[0]
     gotIrn = peakDepthsStuff[1]
+    metSkyfall = blossomStuff[0]
+    metMona = blossomStuff[1]
+    monaDed = blossomStuff[2]
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -1875,10 +1980,10 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Peak Depths: Invasion\'')
     elif place == 'Blossom':
         if 'Blossom: Invasion' in completedInvasions:
-            items, fishianGold = blossomAventure(Team, items, fishianGold)
+            ded, items, fishianGold, metSkyfall, metMona, monaDed = blossomAventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
-    return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, items, fishFood
+    return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood
 
 
 def fishTutorial():
@@ -2278,13 +2383,16 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
                     global completedInvasions
-                    ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, items, fishFood = trueAdventure(
+                    ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood = trueAdventure(
                         fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
                     yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
                     cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
                     mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
                     peakDepthsStuff = [metCinnabar, gotIrn]
-                    kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff]
+                    blossomStuff = [metSkyfall, metMona, monaDed]
+                    kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff]
+            else:
+                print('Something happened! Try again later.')
         elif action == 'look at items' or action == 'l':
             printDict(items)
             item = input('What item do you want to look at?')
