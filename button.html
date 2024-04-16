@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans">
+    <style>
+        body {
+            font-family:Noto Sans;
+        }
+    </style>
+    <title>Fish Stuff</title>
+    <script>
+        var buttoninfo = '<button type="button" onclick="nextpage()">NEXT</button>';
+        var buttonID = "next";
+        var buttonNum = 0;
+        function switchBUTTON() {
+            if (buttonID == "next") {
+                buttoninfo = '<button type="button" onclick="nextpage()">NEXT</button>';
+                buttonID = "loading";
+            } else if (buttonID == "loading") {
+                buttoninfo = " ";
+            }
+            buttonNum = buttonNum + 1
+        }
+        function nextpage() {
+            switchBUTTON();
+            document.getElementById("BUTTON").innerHTML = buttoninfo;
+        }
+    </script>
+  </head>
+  <body onload="nextpage()">
+      <h1>FISH</h1>
+      <p>The fishes of Fishland are fish.</p>
+      <span id="BUTTON">gliff</span>
+  </body>
+</html>
