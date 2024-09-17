@@ -1,11 +1,18 @@
 <!DOCTYPE html>
+<html>
 <title> PY </title>
 <head>
   <h1> HELLO WORLD </h1>
+  <script type="text/javascript" src=https://cdn.jsdelivr.net/npm/brython@3.9.5/brython.min.js></script>
 </head>
-<body>
-Hello, world!
+<body onload=brython()>
+<button id="clickMe">Click Me!</button>
+<p id="greeting"></p>
 <script type="text/python">
-  print('Hello, Brython!')
+  from browser import document
+  def say_hello(event):
+    document['greeting'].text = 'Hello From Brython!'
+  document['clickMe'].bind('click', say_hello)
 </script>
 </body>
+</html>
