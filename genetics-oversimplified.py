@@ -570,12 +570,16 @@ gotIrn = False
 metSkyfall = False
 metMona = False
 monaDed = False
+metDaphne = False
+foundTreasure = False
+metParadisea = False
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
 cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
 peakDepthsStuff = [metCinnabar, gotIrn]
-blossomStuff = [metSkyfall, metMona, monaDed]
-kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff]
+blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
+seaGlassStuff = [foundTreasure, metParadisea]
+kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
 
 
 # start of program
@@ -1040,6 +1044,11 @@ def meetPizzicato(Team, fishianGold, metPizz):
             print('\'I am Pizzicato! And I am your death.\'')
         metPizz = True
     return fishianGold, metPizz
+
+
+def printAccording(paradisea-shop-stuff, indicator, text):
+    if paradisea-shop-stuff[indicator]:
+        print(text)
 
 
 def yourKingdomAdventure(Team, gotGold, gotArco, metPizz, fishianGold, metIodine, items):
@@ -1730,7 +1739,7 @@ def deterWin(losers):
         return True
     return False
 
-def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed):
+def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne):
     print('Blossom, a place where trees bloom year-round...')
     print('The soft path is lined with petals: rose, cherry, peach...')
     print('A rose-glass palace stands to the north, and a dark graveyard is to the west.')
@@ -2040,17 +2049,29 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
             print('The woman screams, \'Empress Sekushi--!\'')
             print('\'Oh, my cuties~\' she proons. \'Time to hand over the taxes!\'')
             print('She eyes your clothes. \'Otherworldly visitor... You\'ve seen too much!\'')
-            print('Soldiers come, and you are dragged away.')
-            print(' ')
-            print('After you come to, you see that you are in a cell with an attractive young woman.')
-            print('She is working some kind of metal.')
-            print('\'Who are you?\' she asks. \'My name is Daphne Ashe...\'')
-            print('\'...Otherwise known as the Sorceress of Eternity.\'')
-            print('\'I am'+Team[0]+', Leader of Peach Springs.\' you reply.')
-            print('\'How many Sorceresses do you know?\' she muses. \'Eternity, Preservation, Trickery... how many more?\'')
-            print('\'You\'re the first one!\' you exclaim. \'I wanna meet more of them.\'')
-            print('\'Here. I\'ll leave you a list.\' Daphne says, then disappears in a poof of ash.')
-            items['Daphne Ashe\'s List'] = ['interactable', 'printout', '''
+        elif talk == 'm':
+            print('You head over to the man.')
+            print('He takes a look at you, then dials on his phone.')
+            print('After a few seconds, a queenly figure approaches the two of you.')
+            print('\'Soldiers! Take the stranger away!\' she shrieks.')
+        elif talk == 'c':
+            print('You head over to the children.')
+            print('\'OOH!\' one of them exclaim. \'Mommy, tell the queeny person about this guy!\'')
+            print('\'Yeah,\' another joins in. \'Tell Queeny McButtface that there\'s someone uglier than her!\'')
+            print('Suddenly, a queenly figure approaches.')
+            print('You can\'t help but exclaim: \'Oh hi, Queeny McButtface!\'')
+            print('Her face twists in disgust. \'To the dungeon with you!!\'')
+        print('Soldiers come, and you are dragged away.')
+        print(' ')
+        print('After you come to, you see that you are in a cell with an attractive young woman.')
+        print('She is working some kind of metal.')
+        print('\'Who are you?\' she asks. \'My name is Daphne Ashe...\'')
+        print('\'...Otherwise known as the Sorceress of Eternity.\'')
+        print('\'I am'+Team[0]+', Leader of Peach Springs.\' you reply.')
+        print('\'How many Sorceresses do you know?\' she muses. \'Eternity, Preservation, Trickery... how many more?\'')
+        print('\'You\'re the first one!\' you exclaim. \'I wanna meet more of them.\'')
+        print('\'Here. I\'ll leave you a list.\' Daphne says, then disappears in a poof of ash.')
+        items['Daphne Ashe\'s List'] = ['interactable', 'printout', '''
 List of Sorceresses
 Usagi-Ko Chisai - Sorceress of Preservation - MA
 Artemis Kyda - Sorceress of Vengeance - IA
@@ -2064,9 +2085,9 @@ Note: The Sorceresses labeled with 'I' are/was immortal,
 the Sorceresses labeled with 'M' are/was mortal,
 the Sorceresses labeled with 'A' are alive,
 and the Sorceresses labeled with 'D' are dead.
-            ''']
-            print('Daphne\'s list reads:')
-            print('''
+        ''']
+        print('Daphne\'s list reads:')
+        print('''
 List of Sorceresses
 Usagi-Ko Chisai - Sorceress of Preservation - MA
 Artemis Kyda - Sorceress of Vengeance - IA
@@ -2080,10 +2101,98 @@ Note: The Sorceresses labeled with 'I' are/was immortal,
 the Sorceresses labeled with 'M' are/was mortal,
 the Sorceresses labeled with 'A' are alive,
 and the Sorceresses labeled with 'D' are dead.
-            ''')
-            print(' ')
-            print('Suddenly, you too vanish in a poof of smoke, and materialize back into reality.')
-    return ded, items, fishianGold, metSkyfall, metMona, monaDed
+        ''')
+        print(' ')
+        print('Suddenly, you too vanish in a poof of smoke, and materialize back into reality.')
+        metDaphne = True
+    return ded, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne
+
+
+def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea):
+    print('The beaches of Sea-Glass Cliffs glister with the shine of sea glass.')
+    print('Around you, the cliffs drop, vast stretches of beach and highland interchanging.')
+    decision = input('Do you go to the cliffs, beach, or sus cave? (c/b/s) ')
+    if decision == 'c':
+        print('Treasures lie hidden in these cliffs, the legends say.')
+        print('Perhaps this is true...')
+        if foundTreasure == False:
+            if random.randint(1, 100) > 85:
+                print('You spot the faint glimmer of treasure.')
+                print('Steps pounding with happiness, you rush for it.')
+                print('Vast quantities of sea glass, Fishian gold, and Fish Food lie at your feet...')
+                fishianGold += 400
+                fishFood += 150
+                try:
+                	items['Sea Glass'][2] += 40
+            	except KeyError as error:
+                	items['Sea Glass'] = ['material', 'sea glass', 40]
+            	foundTreasure = True
+        print('You reach the end of the cliff. In front of you stands a young woman.')
+        if metDaphne == True:
+            print('You recgonize her from Daphne Ashe\'s List.')
+            print('This is Paradisea Reverie, Sorceress of Hope.')
+        else:
+            print('You don\'t recgonize her, but still ')
+        print('You go up to her.')
+        if metParadisea == False:
+                print('\'Greetings.\' she says.')
+                print('\'Hi!\' you reply.')
+                if metDaphne == True:
+                    print('\'Are you Paradisea Reverie, the Sorceress of Hope?\' you ask.')
+                    print('She blinks in surprise. \'Why yes, I am. What are you doing here?\'')
+                    print('\'I heard about you from Daphne.\' you say.')
+                    print('\'Daphne...\' she muses. \'Did she give you something for me?\'')
+                    print('You are confused. \'No.\'')
+                    print('\'Then I\'ll give you something anyways.\'')
+                    items['Sailing Freedom'] = ['spirit', 'dreams-land-beyond', 'hope']
+                    try:
+                        items['Coral'][2] += 10
+                    except KeyError as error:
+                        items['Coral'] = ['material', 'coral', 10]
+                    try:
+                        items['Paradisea Bond'][2] += 1
+                    except KeyError as error:
+                        items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 1]
+                    items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
+                else:
+                    print('\'My name is Paradisea Reverie.\' she says.')
+                    print('\'And I\'m'+Team[0]+'!\' you exclaim happily.')
+                    print('\'Do you happen to know a "Artemis Kyda"?\' she asks hesitantly.')
+                    print('\'Nope!\' you say.')
+                    print('\'Then I can trust you with this gift.\'')
+                    items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
+        else:
+            print('\'Greetings, wayfaring traveler.\' Paradisea smiles.')
+            print('\'Is there something you\'d wish to buy?\'')
+            paradisea-shop-stuff = {'d1': True, 'd2': True, 'd3': True, 'd4': True, 'd5': True, 'd6': True, 'd7': True, 'd8': True, 'd9': True, 'd10': True,
+                                    's1': True, 's2': True
+                                   }
+            pss = paradisea-shop-stuff
+            print('>> Paradisea\'s Shop <<')
+            print('> Weapon Diagrams <')
+            printAccording(pss, 'd1', 'Diagram: Intertwined Flurry - 10 Paradisea Bond - d1')
+            printAccording(pss, 'd2', 'Diagram: Powerless Mortality - 10 Paradisea Bond - d2')
+            printAccording(pss, 'd3', 'Diagram: Sorceress\'s Dream - 10 Paradisea Bond - d3')
+            printAccording(pss, 'd4','Diagram: Scorched Stone - 7 Paradisea Bond - d4')
+            printAccording(pss, 'd5','Diagram: Flowing Purity - 7 Paradisea Bond - d5')
+            printAccording(pss, 'd6','Diagram: Innocent Guile - 7 Paradisea Bond - d6')
+            printAccording(pss, 'd7','Diagram: Flame-Hardened Sword - 4 Paradisea Bond - d7')
+            printAccording(pss, 'd8','Diagram: Leaf-Woven Bow - 4 Paradisea Bond - d8')
+            printAccording(pss, 'd9','Diagram: Sea-Glass Spear - 4 Paradisea Bond - d9')
+            printAccording(pss, 'd10','Diagram: Simplest Stick - 1 Paradisea Bond - d10')
+            print('> "Spirits" <')
+            printAccording(pss, 's1', 'Nightsky Dovecall  - 4 Paradisea Bond - s1')
+            printAccording(pss, 's2', 'Maiden\'s Remembrance - 5 Paradisea Bond - s2')
+            buy = input('What do you buy? (enter letter/number code to buy, enter anything else to exit) ')
+            if buy == 'd1':
+                pass
+            elif buy == 's1':
+                items['Nightsky Dovecall'] = ['spirit', 'light-of-love', 'cry']
+            elif buy == 's2':
+                items['Maiden\'s Remembrance'] = ['spirit', 'light-of-love', 'soul']
+                
+                
+    return ded, items, fishFood, fishianGold, foundTreasure, metParadisea
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -2093,6 +2202,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     mineralValleyStuff = kingdomStuff[2]
     peakDepthsStuff = kingdomStuff[3]
     blossomStuff = kingdomStuff[4]
+    seaGlassStuff = kingdomStuff[5]
     print(cloudMountainStuff)
     gotGold = yourKingdomStuff[0]
     gotArco = yourKingdomStuff[1]
@@ -2112,6 +2222,9 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     metSkyfall = blossomStuff[0]
     metMona = blossomStuff[1]
     monaDed = blossomStuff[2]
+    metDaphne = blossomStuff[3]
+    foundTreasure = seaGlassStuff[0]
+    metParadisea = seaGlassStuff[1]
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -2135,9 +2248,14 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Peak Depths: Invasion\'')
     elif place == 'Blossom':
         if 'Blossom: Invasion' in completedInvasions:
-            ded, items, fishianGold, metSkyfall, metMona, monaDed = blossomAventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed)
+            ded, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne = blossomAventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
+    elif place == 'Sea-Glass Cliffs':
+        if 'Sea-Glass Cliffs: Invasion' in completedInvasions:
+            ded, items, fishFood, fishianGold, foundTreasure, metParadisea = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea)
+        else:
+            print('Dab\'s control is too strong! You can go here after completing \'Sea-Glass Cliffs: Invasion\'')
     else:
         print('The world is filled with wonders for you to explore,')
         print('but this is not the time for this one.')
@@ -2151,8 +2269,9 @@ Version 0.565 - Added Peak Depths, new features
 Version 0.566 - Added Blossom
 Version 0.567 - Debugged Battle System
 Version 0.568 - Expanded on Blossom
-Version 0.57 - Expanded on Blossom, added Spirits -- CURRENT
-Version Goals: Add Sea-Glass Cliffs, Debug Items
+Version 0.57 - Expanded on Blossom, added Spirits
+Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs -- CURRENT
+Version Goals: Debug Items, Improve Sea-Glass Cliffs
         '''
         print(adventure_updatelog)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood
