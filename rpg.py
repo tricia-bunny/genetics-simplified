@@ -243,7 +243,7 @@ And this story starts with you.""")
     print("Your eyes are " + urGenes.eyeColor + ".")
     return urName, urFullName
 
-def printintro():
+def printintro(urName):
   print('''
 The camp is bustling with activity, the sun is setting its last rays upon the plain.
 You climb into your kelp bed with your bunkmate, Fish. She is also your adoptive niece.
