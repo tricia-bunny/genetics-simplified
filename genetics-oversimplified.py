@@ -204,6 +204,18 @@ silicon = personAttributes('Silicon', 'the Fish', 17, 13, 32, 14, 18, 'Female', 
 #Silicon is known across the land for her skill in Python programming.
 endurance = personAttributes('Endurance', 'the Fish', 11, 12, 5, 9, 7, 'Male', 'dark brown', 'white', 'sunrise')
 #Endurance is a young fish who loves stargazing atop snowy peaks.
+
+
+
+Random Note
+'Spirits' are collections that can greatly improve a fish's stats. They
+consist of 5 items, the Will, Hope, Cry, Loss, and Soul.
+Collections:
+Fallen Fishes: Afterlife Vigilance, Nether Hopelessness, Graveyard Cry, Shadow of Light, Embodiment of Rebirth
+Light of Love: Lovers' Pact, Promise of Reunion, Nightsky Dovecall, Sprinkles of Flowers, Maiden's Remembrance
+Dreams of the Land Beyond: Seaside Memory, Sailing Freedom, Seabird's Sonata, Storms of Sinking, Starlit Slumber
+Withering General: Unbending Perseverance, Youthful Dreams, Soaring Feathers, The Lost Magic, General's Last Stand
+Guide for the Afterlife: Wilting Bloom, Abyssal Darkness, Pitch-Black Nightmare, Everlost Sweetness, Neverending Descent
 '''
 
 
@@ -539,7 +551,7 @@ completedInvasions = []
 # completedInvasions.append('Peak Depths: Invasion')
 fishianGold = 0
 fishFood = 0
-items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3], 'Fishian Iron': ['material', 'fishian iron', 0], 'Sea Glass': ['material', 'sea glass', 0], 'Wood': ['material', 'wood', 0], 'Coral': ['material', 'coral', 0], 'Stone': ['material', 'stone', 0], 'Mineral': ['material', 'mineral', 0]}
+items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3], 'Starlit Slumber': ['spirit', 'dreams-land-beyond', 'soul'], 'Fishian Iron': ['material', 'fishian iron', 0], 'Sea Glass': ['material', 'sea glass', 0], 'Wood': ['material', 'wood', 0], 'Coral': ['material', 'coral', 0], 'Stone': ['material', 'stone', 0], 'Mineral': ['material', 'mineral', 0]}
 gotGold = False
 gotArco = False
 metPizz = False
@@ -786,7 +798,7 @@ adventurePlaces = {'@': 'Frost', 'b': 'Kelp Ridge', 'f': 'Dabdom', '=': 'Ignia',
                    'o': 'Astatine Hills', 'k': 'Coral Shallows', '*': 'Grain Flatlands', '%': 'Blossom',
                    'l': 'Skyfish Coast', 's': 'Sea-Glass Cliffs', 't': 'Your Kingdom', 'q': 'Peak Depths',
                    '$': 'Mineral Valley', ':': 'Carrot Highlands', 'e': 'Starfish Bluff', 'j': 'Echo Caverns',
-                   '&': 'Sky Shore', '^': 'Cloud Mountains', ' ': None}
+                   '&': 'Sky Shore', '^': 'Cloud Mountains', ' ': 'Lazurite Sea'}
 
 
 def findPlace(x, y):
@@ -837,6 +849,8 @@ adventuring = {
     The fish here say, from here you can read the will of the skies.''',
     'Cloud Mountains': '''These snow-glazed mountains peak high into the clouds.
     It is heard that a legendary fishcromancer resides here, between the earth and the skies.''',
+    'Lazurite Sea': '''Crashing waves splash into the sky, shining with otherworldly
+    perfection. What lies beyond this sea? What lies where no fish dares to go?'''
 }
 
 
@@ -1689,10 +1703,13 @@ def peakDepthsAdventure(ded, Team, items, fishianGold, gotIrn, metCinnabar):
                     print('As you are not chained, you get up off the floor, grab the crude dagger(why is it even there), ')
                     print('and leap at the guard, who is looking the other way.')
                     print('She deflects the dagger, but tosses it back to you.')
-                    print('\'You could escape. I would let you, but it\'s too late.\' she murmurs.')
-                    print('And when you see the HORRIBLE TYRANT DAB open the cell door, your chest twists.')
-                    print('The last thing you see is a bloody excutioner\'s knife swinging towards you...')
-                    ded = True
+                    if random.randint(1, 100) > 85:
+                        print('\'You could escape. I would let you, but it\'s too late.\' she murmurs.')
+                        print('And when you see the HORRIBLE TYRANT DAB open the cell door, your chest twists.')
+                        print('The last thing you see is a bloody excutioner\'s knife swinging towards you...')
+                        ded = True
+                    else:
+                        print('\'Leave. Now. I don\'t want to kill you either...\'')
                 else:
                     print('\'Who are you?\' you ask.')
                     print('He looks calm. \'Triangle was here. Where is he now?\'')
@@ -1741,7 +1758,8 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
                 print('It reads: Forever this crown shall rest in Blossom.')
                 print('\'That is not legit.\' you say.')
                 print('\'It is.\' Skyfall replies, stuffing it back into a small bag.')
-                print('\'So what are you doing with '+sadPeep+'?\' you ask.')
+                print('\'So what are you doing with '+sadPeep+'?\' you ask, while swinging a dagger at him,')
+                print('hoping he doesn\'t notice.')
             else:
                 print('Silicon wriggles. \'Skyfall... SHADE? Do you know where Eclipse is?\'')
                 print('Skyfall\'s eyes go wide. \'Eclipse? He went missing a few years ago.\'')
@@ -1754,7 +1772,7 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
                 print('\'No!\' You stab the dagger at Skyfall, hoping you can wound him.')
             print('Skyfall dodges the attack. \'You looking for a fight? Bring it on.\'')
             skyfall = personAttributes('Skyfall', 'Shade', 8, 9, 17, 16, 8, "Male", "yellow green", "lime green", 'yellow orange', None, None)
-            breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, skyfall, 1050, 5040)
+            breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, skyfall, 540, 5040)
             if loser == 'the fish':
                 print('\'Impossible.\' Skyfall huffs, gasping for breath.')
                 print('\'Possible.\' you say, taking the crown. \'Very possible.\'')
@@ -1816,7 +1834,7 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
             print('\'Hello, Mona.\' the smaller one says.')
             print('\'Come on, Kabak Noemoc.\' Mona sighs.')
             print('Retsa B\'Ala turns to you. \'Do you know how long we\'ve waited?\'')
-            print('\'For a legendary leader of the Peach.\' Kabak echoes.')
+            print('\'For a legendary leader of the Peach...\' Kabak echoes.')
             print('\'Well, I won\'t go with you, whatever you say.\' you say.')
             print('Retsa B\'Ala waves his fin. \'Not us. Them.\'')
             print('You watch in terror as masses of fish surround you... all with pupil-less crimson eyes.')
@@ -1827,7 +1845,7 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
                 for b in range(0, random.randint(2, 5)):
                     print('One of the fish approach '+i+'!')
                     genders = ['Female', 'Male']
-                    names = 'Rain Hall Cloud Pearl Bristle Farol Kiff Shadow Xepta Falon Zes Grass Pomegranate'.split()
+                    names = 'Rain Hall Cloud Pearl Bristle Farol Kiff Shadow Xepta Falon Zes Grass Pomegranate Fall Hail'.split()
                     Names = ['the Fish', 'Kelp', 'Cloud', 'Fern']
                     nums = range(1, 20)
                     intelnums = range(5, 10)
@@ -1844,7 +1862,7 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
                     mutation = personAttributes('Forgotten', 'Fish', strength*3, 0, agility*3, charisma, 0, GeNdEr, body, fin, eye, None, None)
                     breakForUnMutation, loser = battle(fishArray[i], 200, 200, mutation, 200, 200, normalEnemyStratagems)
                     if breakForUnMutation == True:
-                        if random.randint(0, 100) < fishArray[i].instinct:
+                        if random.randint(0, 50) < fishArray[i].instinct:
                             print('The fish looks around, eyes no longer pupil-less crimson.')
                             print('The un-mutation has worked.')
                             aFish = personAttributes(random.choice(names), random.choice(Names), strength, intelligence, agility, charisma, instinct, GeNdEr, body, fin, eye, None, None)
@@ -1906,8 +1924,45 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
                         print('You grieve for a long time.')
                     else:
                         print('You have lost.')
-                        print('Everything is in slow motion as Retsa B\'Ala\'s sword cuts into your body...')
-                        ded = True
+                        if random.randint(1, 100) > 60:
+                            print('Everything is in slow motion as Retsa B\'Ala\'s sword cuts into your body...')
+                            ded = True
+                        else:
+                            print('\'Not so great after all...\' Retsa B\' Ala smirks.')
+                            print('You see all the dead fish around you, all of them dead...')
+                            print('dead because of you..?')
+                            if random.randint(1, 100) > 55:
+                                print('Suddenly, a bolt of lightning strikes you, and you fall... dead...')
+                                print('Was this... the price for your sins?')
+                                ded = True
+                            else:
+                                print('Your heart is pounding, fury heating your gaze')
+                                print('For a moment')
+                                print('You can hear the dying cries of the fallen fish')
+                                print("'No'...'Home'...'My family'...'Silica'...")
+                                print('They empower you, filling you with strength')
+                                print('\'No...Retsa B\' Ala... Kabak...\'')
+                                print('\'I won\'t lose! I will avenge the fish you\'ve killed!\'')
+                                print('Both fish smirk. \'You can try.\'')
+                                retsaBAla = personAttributes('Retsa B\'Ala', 'Foeht', 22, 8, 4, 12, 26, 'Male', 'yellow green', 'soft pink', 'crimson', None, None)
+                                kabak = personAttributes('Kabak', 'Noemoc', 14, 11, 7, 7, 17, 'Male', 'coral pink', 'coral pink', 'crimson', None, None)
+                                for i in Team:
+                                    if random.randint(0, 1) == 0:
+                                        print(i+' VS Retsa B\'Ala Foeht')
+                                        breakForUnMutation, loser = battle(fishArray[i], 200, 200, retsaBAla, 200, 200, normalEnemyStratagems)
+                                    else:
+                                        print(i+' VS Kabak Noemoc')
+                                        breakForUnMutation, loser = battle(fishArray[i], 200, 200, kabak, 200, 200, normalEnemyStratagems)
+                                    losers.append(loser)
+                                win = deterWin(losers)
+                                if win == True:
+                                    print('The last cries of the fish fade away, for you have avenged them.')
+                                    items['Afterlife Vigilance'] = ['spirit', 'fallenfishes', 'will']
+                                    items['Graveyard Cry'] = ['spirit', 'fallenfishes', 'cry']
+                                else:
+                                    print('The spirits of the fish swirl around you, then disperse')
+                                    print('\'Even though you have lost... we will...help you\'')
+                                    items['Nether Hopelessness'] = ['spirit', 'fallenfishes', 'hope']
                 elif helpMona == 'r':
                     print('You run away, ignoring Mona\'s calls for help...')
                 elif helpMona == 's':
@@ -1916,13 +1971,118 @@ def blossomAdventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed
         else:
             print('But then you notice that nothing is here, not even a single fish.')
             if monaDed == True:
-            	print('A single new gravestone stands among the others.')
+                print('A single new gravestone stands among the others.')
                 print('\'Mona Forieh, heir of Anom,')
                 print('killed by her nemesis. Emen rehybdel\'lik.\'')
                 print('You know that \'Emen rehybdel\'lik\' means something along the lines of--')
                 print('\'Rest in peace. You are forever loved.\'')
             else:
                 print('Not even Mona.')
+    elif decision == 'h':
+        print('Your team makes their way into the gloom of the workers\' huts.')
+        if random.randint(1, 10) > 6:
+            print('You see a box of stuff on the floor.')
+            pickup = input('Do you investigate the box? (y/n) ')
+            if pickup == 'y':
+                possibilities = {'Seabird\'s Sonata': ['spirit', 'dreams-land-beyond', 'cry'],
+                                 'Promise of Reunion': ['spirit', 'light-of-love', 'hope'],
+                                 'The Lost Magic': ['spirit', 'withering-general', 'loss'],
+                                 'Seaside Memory': ['spirit', 'dreams-land-beyond', 'will'],
+                                 'Neverending Descent': ['spirit', 'guide-afterlife', 'soul']
+                                }
+                if random.randint(0, 3) == 1:
+                    print('You see something in the box!')
+                    if random.randint(0, 3) == 1:
+                        spiritnum = random.randint(1, 20)
+                        if spiritnum <= 5:
+                            print('It is... a \'Spirit\'!')
+                        else:
+                            print('It is... a Material!')
+                        if spiritnum == 1:
+                            items['Seabird\'s Sonata'] = ['spirit', 'dreams-land-beyond', 'cry']
+                        elif spiritnum == 2:
+                            items['Promise of Reunion'] = ['spirit', 'light-of-love', 'hope']
+                        elif spiritnum == 3:
+                            items['The Lost Magic'] = ['spirit', 'withering-general', 'loss']
+                        elif spiritnum == 4:
+                            items['Seaside Memory'] = ['spirit', 'dreams-land-beyond', 'will']
+                        elif spiritnum == 5:
+                            items['Neverending Descent'] = ['spirit', 'guide-afterlife', 'soul']
+                        elif spiritnum >= 6 and spiritnum <= 12:
+                            try:
+                                items['Fishian Iron'][2] += 2
+                            except KeyError as error:
+                                items['Fishian Iron'] = ['material', 'fishian iron', 2]
+                        else:
+                            num = spiritnum - 12
+                            try:
+                                items['Wood'][2] += num
+                            except KeyError as error:
+                                items['Wood'] = ['material', 'fishian iron', num]
+                    else:
+                        print('Ah darn it-- Your eyes have fooled you!')
+                        print('The box was empty after all.')
+                else:
+                    print('Sadly, the box is empty.')
+            else:
+                print('You do not investigate the box.')
+        print('You see some children playing with disgusting greasy paper balls that look like trash.')
+        print('The entire village stinks of rot.')
+        talk = input('You can talk with a woman, a man, or the children. (w/m/c) ')
+        if talk == 'w':
+            print('You head over to the woman.')
+            print('\'AAAA! P-Please spare me and my family...\' she shouts.')
+            print('\'Huh?\' you reply, confused. \'I\'m not whoever you think I am.\'')
+            print('\'D-Don\'t lie to us! You\'ve taken all of our gold, our weapons, our men, our children...\'')
+            print('\'?\'')
+            print('Suddenly, a person approaches the two of you.')
+            print('She is clad in a royal robe, and a crown sits on her head.')
+            print('The woman screams, \'Empress Sekushi--!\'')
+            print('\'Oh, my cuties~\' she proons. \'Time to hand over the taxes!\'')
+            print('She eyes your clothes. \'Otherworldly visitor... You\'ve seen too much!\'')
+            print('Soldiers come, and you are dragged away.')
+            print(' ')
+            print('After you come to, you see that you are in a cell with an attractive young woman.')
+            print('She is working some kind of metal.')
+            print('\'Who are you?\' she asks. \'My name is Daphne Ashe...\'')
+            print('\'...Otherwise known as the Sorceress of Eternity.\'')
+            print('\'I am'+Team[0]+', Leader of Peach Springs.\' you reply.')
+            print('\'How many Sorceresses do you know?\' she muses. \'Eternity, Preservation, Trickery... how many more?\'')
+            print('\'You\'re the first one!\' you exclaim. \'I wanna meet more of them.\'')
+            print('\'Here. I\'ll leave you a list.\' Daphne says, then disappears in a poof of ash.')
+            items['Daphne Ashe\'s List'] = ['interactable', 'printout', '''
+List of Sorceresses
+Usagi-Ko Chisai - Sorceress of Preservation - MA
+Artemis Kyda - Sorceress of Vengeance - IA
+Daphne Ashe - Sorceress of Eternity - IA
+Kitsune-Ko Chisai - Sorceress of Visions - MD
+Sakura Laurel - Sorceress of Revealation - MA
+Lana Laurel - Sorceress of Trickery - MA
+Astris Reverie - Sorceress of Creation - ID
+Paradisea Reverie - Sorceress of Hope - MA
+Note: The Sorceresses labeled with 'I' are/was immortal,
+the Sorceresses labeled with 'M' are/was mortal,
+the Sorceresses labeled with 'A' are alive,
+and the Sorceresses labeled with 'D' are dead.
+            ''']
+            print('Daphne\'s list reads:')
+            print('''
+List of Sorceresses
+Usagi-Ko Chisai - Sorceress of Preservation - MA
+Artemis Kyda - Sorceress of Vengeance - IA
+Daphne Ashe - Sorceress of Eternity - IA
+Kitsune-Ko Chisai - Sorceress of Visions - MD
+Sakura Laurel - Sorceress of Revealation - MA
+Lana Laurel - Sorceress of Trickery - MA
+Astris Reverie - Sorceress of Creation - ID
+Paradisea Reverie - Sorceress of Hope - MA
+Note: The Sorceresses labeled with 'I' are/was immortal,
+the Sorceresses labeled with 'M' are/was mortal,
+the Sorceresses labeled with 'A' are alive,
+and the Sorceresses labeled with 'D' are dead.
+            ''')
+            print(' ')
+            print('Suddenly, you too vanish in a poof of smoke, and materialize back into reality.')
     return ded, items, fishianGold, metSkyfall, metMona, monaDed
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
@@ -1978,6 +2138,23 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             ded, items, fishianGold, metSkyfall, metMona, monaDed = blossomAventure(ded, Team, items, fishianGold, metSkyfall, metMona, monaDed)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
+    else:
+        print('The world is filled with wonders for you to explore,')
+        print('but this is not the time for this one.')
+        adventure_updatelog = '''
+Adventure Update Log
+Version 0.55 - Your Kingdom, Cloud Mountains released
+Version 0.554 - Added new features to Your Kingdom
+Version 0.56 - Moved to Github, added Mineral Valley, Peak Depths
+Version 0.562 - Added new features, added Invasion stages
+Version 0.565 - Added Peak Depths, new features
+Version 0.566 - Added Blossom
+Version 0.567 - Debugged Battle System
+Version 0.568 - Expanded on Blossom
+Version 0.57 - Expanded on Blossom, added Spirits -- CURRENT
+Version Goals: Add Sea-Glass Cliffs, Debug Items
+        '''
+        print(adventure_updatelog)
     return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood
 
 
@@ -2317,7 +2494,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 elif whichMission == 'Defeat Dab\'s Guards':
                     if (guardsDefeated == True) and ('Cross the Border' in completedMissions):
                         print('You have completed this mission!')
-                        items['Köyden\'s Perseverance'] = ['spirit', 'köyden', 'evda']
+                        items['Unbending Perseverance'] = ['spirit', 'withering-general', 'soul']
                         print('You have recieved a spirit. Check it out in the Items tab!')
                         completedMissions['Defeat Dab\'s Guards'] = missionArray['Defeat Dab\'s Guards']
                         del missionArray['Defeat Dab\'s Guards']
@@ -2412,11 +2589,24 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                 elif items[item][0] == 'material':
                     print('A material is a thing that is used to craft things such as swords daggers and staffs.')
                     print('This is a piece of '+items[item][1]+'. You have '+str(items[item][i])+' of it.')
+                elif items[item][0] == 'spirit':
+                    #print('\'Spirits\' are collections that can greatly improve a fish\'s stats. They 
+                    #print('consist of 5 items: the Will, Hope, Cry, Loss, and Soul.')
+                        if items[item][1] == 'fallenfishes':
+                            print('This is an item in the collection \'Fallen Fishes\'.')
+                        elif items[item][1] == 'withering-general':
+                            print('This is an item in the collection \'Withering General\'.')
+                        elif items[item][1] == 'light-of-love':
+                            print('This is an item in the collection \'Light of Love\'.')
+                        elif items[item][1] == 'dreams-land-beyond':
+                            print('This is an item in the collection \'Dreams of the Land Beyond\'.')
+                '''
                 if item not in equippedItems and item[items][0] != 'ingredient' and item[items][0] != 'material':
                     equip = input('Equip this item? ')
                     equip = equip + 'placeholder'
                     if equip[0] == 'y':
                         equippedItems.append(item)
+                        '''
         elif action == 'invade' or action == 'i':
             print('''	Invasions 101
             Invasions are rounds of 4 battles in which
