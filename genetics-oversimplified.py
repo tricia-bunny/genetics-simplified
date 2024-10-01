@@ -573,12 +573,15 @@ monaDed = False
 metDaphne = False
 foundTreasure = False
 metParadisea = False
+paradiseashopstuff = {'d1': True, 'd2': True, 'd3': True, 'd4': True, 'd5': True, 'd6': True, 'd7': True, 'd8': True, 'd9': True, 'd10': True,
+                        's1': True, 's2': True
+                       }
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
 cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
 peakDepthsStuff = [metCinnabar, gotIrn]
 blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
-seaGlassStuff = [foundTreasure, metParadisea]
+seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
 kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
 
 
@@ -1046,8 +1049,8 @@ def meetPizzicato(Team, fishianGold, metPizz):
     return fishianGold, metPizz
 
 
-def printAccording(paradisea-shop-stuff, indicator, text):
-    if paradisea-shop-stuff[indicator]:
+def printAccording(paradiseashopstuff, indicator, text):
+    if paradiseashopstuff[indicator]:
         print(text)
 
 
@@ -2108,7 +2111,7 @@ and the Sorceresses labeled with 'D' are dead.
     return ded, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne
 
 
-def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea):
+def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea, paradiseashopstuff):
     print('The beaches of Sea-Glass Cliffs glister with the shine of sea glass.')
     print('Around you, the cliffs drop, vast stretches of beach and highland interchanging.')
     decision = input('Do you go to the cliffs, beach, or sus cave? (c/b/s) ')
@@ -2123,10 +2126,10 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
                 fishianGold += 400
                 fishFood += 150
                 try:
-                	items['Sea Glass'][2] += 40
-            	except KeyError as error:
-                	items['Sea Glass'] = ['material', 'sea glass', 40]
-            	foundTreasure = True
+                    items['Sea Glass'][2] += 40
+                except KeyError as error:
+                    items['Sea Glass'] = ['material', 'sea glass', 40]
+                foundTreasure = True
         print('You reach the end of the cliff. In front of you stands a young woman.')
         if metDaphne == True:
             print('You recgonize her from Daphne Ashe\'s List.')
@@ -2135,39 +2138,37 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
             print('You don\'t recgonize her, but still ')
         print('You go up to her.')
         if metParadisea == False:
-                print('\'Greetings.\' she says.')
-                print('\'Hi!\' you reply.')
-                if metDaphne == True:
-                    print('\'Are you Paradisea Reverie, the Sorceress of Hope?\' you ask.')
-                    print('She blinks in surprise. \'Why yes, I am. What are you doing here?\'')
-                    print('\'I heard about you from Daphne.\' you say.')
-                    print('\'Daphne...\' she muses. \'Did she give you something for me?\'')
-                    print('You are confused. \'No.\'')
-                    print('\'Then I\'ll give you something anyways.\'')
-                    items['Sailing Freedom'] = ['spirit', 'dreams-land-beyond', 'hope']
-                    try:
-                        items['Coral'][2] += 10
-                    except KeyError as error:
-                        items['Coral'] = ['material', 'coral', 10]
-                    try:
-                        items['Paradisea Bond'][2] += 1
-                    except KeyError as error:
-                        items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 1]
-                    items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
-                else:
-                    print('\'My name is Paradisea Reverie.\' she says.')
-                    print('\'And I\'m'+Team[0]+'!\' you exclaim happily.')
-                    print('\'Do you happen to know a "Artemis Kyda"?\' she asks hesitantly.')
-                    print('\'Nope!\' you say.')
-                    print('\'Then I can trust you with this gift.\'')
-                    items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
+            print('\'Greetings.\' she says.')
+            print('\'Hi!\' you reply.')
+            if metDaphne == True:
+                print('\'Are you Paradisea Reverie, the Sorceress of Hope?\' you ask.')
+                print('She blinks in surprise. \'Why yes, I am. What are you doing here?\'')
+                print('\'I heard about you from Daphne.\' you say.')
+                print('\'Daphne...\' she muses. \'Did she give you something for me?\'')
+                print('You are confused. \'No.\'')
+                print('\'Then I\'ll give you something anyways.\'')
+                items['Sailing Freedom'] = ['spirit', 'dreams-land-beyond', 'hope']
+                try:
+                    items['Coral'][2] += 10
+                except KeyError as error:
+                    items['Coral'] = ['material', 'coral', 10]
+                try:
+                    items['Paradisea Bond'][2] += 1
+                except KeyError as error:
+                    items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 1]
+                items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
+            else:
+                print('\'My name is Paradisea Reverie.\' she says.')
+                print('\'And I\'m'+Team[0]+'!\' you exclaim happily.')
+                print('\'Do you happen to know a "Artemis Kyda"?\' she asks hesitantly.')
+                print('\'Nope!\' you say.')
+                print('\'Then I can trust you with this gift.\'')
+                items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
+            metParadisea = True
         else:
             print('\'Greetings, wayfaring traveler.\' Paradisea smiles.')
             print('\'Is there something you\'d wish to buy?\'')
-            paradisea-shop-stuff = {'d1': True, 'd2': True, 'd3': True, 'd4': True, 'd5': True, 'd6': True, 'd7': True, 'd8': True, 'd9': True, 'd10': True,
-                                    's1': True, 's2': True
-                                   }
-            pss = paradisea-shop-stuff
+            pss = paradiseashopstuff
             print('>> Paradisea\'s Shop <<')
             print('> Weapon Diagrams <')
             printAccording(pss, 'd1', 'Diagram: Intertwined Flurry - 10 Paradisea Bond - d1')
@@ -2192,7 +2193,7 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
                 items['Maiden\'s Remembrance'] = ['spirit', 'light-of-love', 'soul']
                 
                 
-    return ded, items, fishFood, fishianGold, foundTreasure, metParadisea
+    return ded, items, fishFood, fishianGold, foundTreasure, metParadisea, paradiseashopstuff
 
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -2225,6 +2226,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     metDaphne = blossomStuff[3]
     foundTreasure = seaGlassStuff[0]
     metParadisea = seaGlassStuff[1]
+    paradiseashopstuff = seaGlassStuff[2]
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -2253,7 +2255,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
     elif place == 'Sea-Glass Cliffs':
         if 'Sea-Glass Cliffs: Invasion' in completedInvasions:
-            ded, items, fishFood, fishianGold, foundTreasure, metParadisea = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea)
+            ded, items, fishFood, fishianGold, foundTreasure, metParadisea, paradiseashopstuff = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea, paradiseashopstuff)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Sea-Glass Cliffs: Invasion\'')
     else:
@@ -2270,11 +2272,20 @@ Version 0.566 - Added Blossom
 Version 0.567 - Debugged Battle System
 Version 0.568 - Expanded on Blossom
 Version 0.57 - Expanded on Blossom, added Spirits
-Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs -- CURRENT
+Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs
+Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams -- CURRENT
 Version Goals: Debug Items, Improve Sea-Glass Cliffs
         '''
         print(adventure_updatelog)
-    return ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood
+        yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
+        cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
+        mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
+        peakDepthsStuff = [metCinnabar, gotIrn]
+        blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
+        seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
+        kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
+        print(kingdomStuff)
+    return ded, kingdomStuff, fishianGold, items, fishFood
 
 
 def fishTutorial():
@@ -2674,14 +2685,8 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
                     global completedInvasions
-                    ded, gotGold, gotArco, metPizz, fishianGold, metIodine, gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay, metShale, valorAsked, andesiteRAWR, metCinnabar, gotIrn, metSkyfall, metMona, monaDed, items, fishFood = trueAdventure(
+                    ded, kingdomStuff, fishianGold, items, fishFood = trueAdventure(
                         fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
-                    yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-                    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
-                    mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
-                    peakDepthsStuff = [metCinnabar, gotIrn]
-                    blossomStuff = [metSkyfall, metMona, monaDed]
-                    kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff]
             else:
                 print('Something happened! Try again later.')
         elif action == 'look at items' or action == 'l':
@@ -2867,6 +2872,14 @@ print(fishArray)
 print("Hello! This is a game of breeding fish.")
 gameType = input("New game?(y/n) ")
 if gameType == "y":
+    #fakee
+    completedInvasions = ['Sea-Glass Cliffs: Invasion']
+    items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 50]
+    items['Fishian Iron'][2] += 100
+    items['Sea Glass'][2] += 100
+    items['Stone'][2] += 100
+    items['Mineral'][2] += 59
+    #end of fakee
     urName, urFullName = fishTutorial()
     storyline(urName)
     theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded)
