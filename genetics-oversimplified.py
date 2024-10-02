@@ -552,6 +552,19 @@ completedInvasions = []
 fishianGold = 0
 fishFood = 0
 items = {'A Random Orb': ['orb', 'instinct', 10], 'Fidget\'s Pocketknife': ['weapon', 'knife', 3], 'Starlit Slumber': ['spirit', 'dreams-land-beyond', 'soul'], 'Fishian Iron': ['material', 'fishian iron', 0], 'Sea Glass': ['material', 'sea glass', 0], 'Wood': ['material', 'wood', 0], 'Coral': ['material', 'coral', 0], 'Stone': ['material', 'stone', 0], 'Mineral': ['material', 'mineral', 0]}
+weapons = namedtuple('weapons', 'name, fishianIron, seaGlass, wood, coral, stone, mineral')
+_Knife = weapons('Knife', 2, 4, 0, 1, 2, 0)
+Dagger = weapons('Dagger', 3, 3, 0, 2, 0, 1)
+___Bow = weapons('Bow', 1, 3, 5, 0, 1, 0)
+Arrow2 = weapons('Arrow', 2, 0, 2, 2, 3, 1)
+_Staff = weapons('Staff', 0, 2, 0, 0, 6, 1)
+_Spear = weapons('Spear', 7, 1, 0, 7, 0, 0)
+crafts = {'Knife': _Knife, 
+          'Dagger': Dagger, 
+          'Bow': ___Bow,
+          '2 Arrows': Arrow2,
+          'Staff': _Staff,
+          'Spear': _Spear}
 gotGold = False
 gotArco = False
 metPizz = False
@@ -2111,7 +2124,7 @@ and the Sorceresses labeled with 'D' are dead.
     return ded, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne
 
 
-def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea, paradiseashopstuff):
+def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff):
     print('The beaches of Sea-Glass Cliffs glister with the shine of sea glass.')
     print('Around you, the cliffs drop, vast stretches of beach and highland interchanging.')
     decision = input('Do you go to the cliffs, beach, or sus cave? (c/b/s) ')
@@ -2186,17 +2199,48 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
             printAccording(pss, 's1', 'Nightsky Dovecall  - 4 Paradisea Bond - s1')
             printAccording(pss, 's2', 'Maiden\'s Remembrance - 5 Paradisea Bond - s2')
             buy = input('What do you buy? (enter letter/number code to buy, enter anything else to exit) ')
+            d1 = weapons('Intertwined Flurry', 6, 15, 0, 0, 2, 1)
+            d2 = weapons('Powerless Mortality', 4, 15, 2, 2, 1, 0)
+            d3 = weapons('Sorceress\'s Dream', 1, 15, 6, 1, 0, 1)
+            d4 = weapons('Scorched Stone', 4, 10, 1, 1, 3, 1)
+            d5 = weapons('Flowing Purity', 0, 10, 2, 2, 2, 3)
+            d6 = weapons('Innocent Guile', 2, 10, 4, 0, 1, 1)
+            d7 = weapons('Flame-Hardened Sword', 7, 5, 0, 0, 1, 1)
+            d8 = weapons('Leaf-Woven Bow', 0, 5, 7, 1, 0, 1)
+            d9 = weapons('Sea-Glass Spear', 3, 5, 1, 1, 3, 1)
+            d10 = weapons('Simplest Stick', 1, 3, 5, 1, 1, 1)
             if buy == 'd1':
-                pass
+                crafts[d1.name] = d1
+            elif buy == 'd2':
+                crafts[d2.name] = d2
+            elif buy == 'd3':
+                crafts[d3.name] = d3
+            elif buy == 'd3':
+                crafts[d3.name] = d3
+            elif buy == 'd4':
+                crafts[d4.name] = d4
+            elif buy == 'd5':
+                crafts[d5.name] = d5
+            elif buy == 'd6':
+                crafts[d6.name] = d6
+            elif buy == 'd7':
+                crafts[d7.name] = d7
+            elif buy == 'd8':
+                crafts[d8.name] = d8
+            elif buy == 'd9':
+                crafts[d9.name] = d9
+            elif buy == 'd10':
+                crafts[d10.name] = d10
             elif buy == 's1':
                 items['Nightsky Dovecall'] = ['spirit', 'light-of-love', 'cry']
             elif buy == 's2':
                 items['Maiden\'s Remembrance'] = ['spirit', 'light-of-love', 'soul']
                 
                 
-    return ded, items, fishFood, fishianGold, foundTreasure, metParadisea, paradiseashopstuff
+                
+    return ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff
 
-def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
+def trueAdventure(fishianGold, crafts, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
     Team = team
     print(kingdomStuff)
@@ -2257,7 +2301,7 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
     elif place == 'Sea-Glass Cliffs':
         if 'Sea-Glass Cliffs: Invasion' in completedInvasions:
-            ded, items, fishFood, fishianGold, foundTreasure, metParadisea, paradiseashopstuff = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea, paradiseashopstuff)
+            ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff)
             print(metParadisea)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Sea-Glass Cliffs: Invasion\'')
@@ -2277,7 +2321,8 @@ Version 0.568 - Expanded on Blossom
 Version 0.57 - Expanded on Blossom, added Spirits
 Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs
 Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams 
-Version 0.573 - metParadisea now updates correctly. Fixed errors where stuff would not save. -- CURRENT
+Version 0.573 - metParadisea now updates correctly. Fixed errors where stuff would not save. 
+Version 0.574 - Weapon Diagrams now work. -- CURRENT
 Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
         '''
     print(adventure_updatelog)
@@ -2289,7 +2334,7 @@ Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
     seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
     kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
     print(kingdomStuff)
-    return ded, kingdomStuff, fishianGold, items, fishFood
+    return ded, kingdomStuff, fishianGold, crafts, items, fishFood
 
 
 def fishTutorial():
@@ -2452,7 +2497,7 @@ if palaceBreakAdded == 'no':
 ded = False
 equippedItems = []
 weapons = namedtuple('weapons', 'name, fishianIron, seaGlass, wood, coral, stone, mineral')
-def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
+def theLoop(fishFood, fishianGold, crafts, fishMap, gotGold, kingdomStuff, items, ded):
     maxMapX = 47
     maxMapY = 22
     breedPowerfulFishAdded = 'no'
@@ -2689,8 +2734,8 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     print('You are adventuring in ' + str(adventurePlace) + '!')
                     fishTeam = fishAdventure(adventurePlace, urFullName)
                     global completedInvasions
-                    ded, kingdomStuff, fishianGold, items, fishFood = trueAdventure(
-                        fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
+                    ded, kingdomStuff, fishianGold, crafts, items, fishFood = trueAdventure(
+                        fishianGold, crafts, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
                     print(kingdomStuff)
             else:
                 print('Something happened! Try again later.')
@@ -2842,18 +2887,15 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
             Arrow2 = weapons('Arrow', 2, 0, 2, 2, 3, 1)
             _Staff = weapons('Staff', 0, 2, 0, 0, 6, 1)
             _Spear = weapons('Spear', 7, 1, 0, 7, 0, 0)
+            d1 = weapons('Intertwined Flurry', 6, 15, 0, 0, 2, 1)
+            d2 = weapons('Powerless Mortality', 4, 15, 2, 2, 1, 0)
+            d3 = weapons('Sorceress\'s Dream', 1, 15, 6, 1, 0, 1)
             Fishian_Iron = items['Fishian Iron'][2]
             Sea_Glass = items['Sea Glass'][2]
             Wood = items['Wood'][2]
             Coral = items['Coral'][2]
             Stone = items['Stone'][2]
             Mineral = items['Mineral'][2]
-            crafts = {'Knife': _Knife, 
-                     'Dagger': Dagger, 
-                     'Bow': ___Bow,
-                     '2 Arrows': Arrow2,
-                     'Staff': _Staff,
-                     'Spear': _Spear}
             printDict(crafts)
             print('You have '+str(Fishian_Iron)+' Fishian iron, '+str(Sea_Glass)+' sea glass, ')
             print(str(Wood)+' wood, '+str(Coral)+' coral, '+str(Stone)+' stone, and '+str(Mineral)+' mineral.')
@@ -2887,7 +2929,7 @@ if gameType == "y":
     #end of fakee
     urName, urFullName = fishTutorial()
     storyline(urName)
-    theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded)
+    theLoop(fishFood, fishianGold, crafts, fishMap, gotGold, kingdomStuff, items, ded)
 
 # elif gameType == "n":
 #    pass
