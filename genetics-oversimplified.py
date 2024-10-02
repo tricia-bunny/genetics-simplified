@@ -2138,6 +2138,8 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
             print('You don\'t recgonize her, but still ')
         print('You go up to her.')
         if metParadisea == False:
+            print(metParadisea)
+            metParadisea = True
             print('\'Greetings.\' she says.')
             print('\'Hi!\' you reply.')
             if metDaphne == True:
@@ -2164,7 +2166,6 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
                 print('\'Nope!\' you say.')
                 print('\'Then I can trust you with this gift.\'')
                 items['Paradisea\'s Gift'] = ['blessing', 'paradisea-reverie', 'Moonlit Sorcery']
-            metParadisea = True
         else:
             print('\'Greetings, wayfaring traveler.\' Paradisea smiles.')
             print('\'Is there something you\'d wish to buy?\'')
@@ -2198,6 +2199,7 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundT
 def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
     Team = team
+    print(kingdomStuff)
     yourKingdomStuff = kingdomStuff[0]
     cloudMountainStuff = kingdomStuff[1]
     mineralValleyStuff = kingdomStuff[2]
@@ -2256,12 +2258,13 @@ def trueAdventure(fishianGold, fishFood, team, place, kingdomStuff, items, compl
     elif place == 'Sea-Glass Cliffs':
         if 'Sea-Glass Cliffs: Invasion' in completedInvasions:
             ded, items, fishFood, fishianGold, foundTreasure, metParadisea, paradiseashopstuff = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, metDaphne, foundTreasure, metParadisea, paradiseashopstuff)
+            print(metParadisea)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Sea-Glass Cliffs: Invasion\'')
     else:
         print('The world is filled with wonders for you to explore,')
         print('but this is not the time for this one.')
-        adventure_updatelog = '''
+    adventure_updatelog = '''
 Adventure Update Log
 Version 0.55 - Your Kingdom, Cloud Mountains released
 Version 0.554 - Added new features to Your Kingdom
@@ -2273,18 +2276,19 @@ Version 0.567 - Debugged Battle System
 Version 0.568 - Expanded on Blossom
 Version 0.57 - Expanded on Blossom, added Spirits
 Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs
-Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams -- CURRENT
-Version Goals: Debug Items, Improve Sea-Glass Cliffs
+Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams 
+Version 0.573 - metParadisea now updates correctly. Fixed errors where stuff would not save. -- CURRENT
+Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
         '''
-        print(adventure_updatelog)
-        yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
-        cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
-        mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
-        peakDepthsStuff = [metCinnabar, gotIrn]
-        blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
-        seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
-        kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
-        print(kingdomStuff)
+    print(adventure_updatelog)
+    yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
+    cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
+    mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
+    peakDepthsStuff = [metCinnabar, gotIrn]
+    blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
+    seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
+    kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
+    print(kingdomStuff)
     return ded, kingdomStuff, fishianGold, items, fishFood
 
 
@@ -2687,6 +2691,7 @@ def theLoop(fishFood, fishianGold, fishMap, gotGold, kingdomStuff, items, ded):
                     global completedInvasions
                     ded, kingdomStuff, fishianGold, items, fishFood = trueAdventure(
                         fishianGold, fishFood, fishTeam, adventurePlace, kingdomStuff, items, completedInvasions)
+                    print(kingdomStuff)
             else:
                 print('Something happened! Try again later.')
         elif action == 'look at items' or action == 'l':
