@@ -2235,8 +2235,117 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                 items['Nightsky Dovecall'] = ['spirit', 'light-of-love', 'cry']
             elif buy == 's2':
                 items['Maiden\'s Remembrance'] = ['spirit', 'light-of-love', 'soul']
-                
-                
+    elif decision == 'b':
+        print('Your team heads towards the beach.')
+        if metJiXiang == False:
+            print('\'Woohoo!\' you hear. A cloud of sand and dust goes up into your face.')
+            print('\'What the hell!\' you exclaim, seeing that it is a guy on a motorcycle, around your age.')
+            print('He stops the motorcycle, looking at you.')
+            print('\'...Who are you?\' he asks tenatively. \'Are you part of the Rebellion?\'')
+            print('You shake your head. \'What\'s the Rebellion?\'')
+            print('\'The Rebellion... Master said it was the people of the various nation-states,\'')
+            print('\'They didn\'t want to live under King Dab\'s rule, so they started a rebellion.\'')
+            print('\'Personally, I understand-- the King is quite... ignorant sometimes.\'')
+            print('\'Wait.\' you interject. \'Who is your leader?\'')
+            print('\'My leader...\' he murmurs. \'My leader is my Master, and her leader is King Dab.\'')
+            print('Oh no! you think. You can\'t let him know that you\'re against Dab!')
+            print('But if you could get him to your side, you could win!')
+            print('\'You said that you don\'t want to live under your current King?\' you question.')
+            print('\'..Wait.\' he says. \'Who ARE you?\'')
+            lies = input('Do you lie to him? (y/n)')
+            if lies == 'y':
+                morelies = input('Who do you pretend to be, a general or a peasant? (g/p) ')
+                if morelies == 'g':
+                	print('\'I\'m a general.\'')
+                    print('\'A general? From where?\'')
+                    lotsalies = input('Where are \'you\' from, Sea-Glass Cliffs or Mineral Valley? (s/m) ')
+                    if lotsalies == 's':
+                    	print('\'I\'m from Sea-Glass Cliffs. Here.\' you reply.')
+                    	print('\'Oh!\' he says. \'You must be General Perdita!\'')
+                    	lifetimelies = input('Yes or No? (y/n) ')
+                    	if lifetimelies == 'y':
+                    	    print('\'Yeah, I am.\' you say.')
+                    	    print('\'Ahh! I\'m sorry that I didn\'t recgonize you... wuwu...\'')
+                    	    print('\'It\'s okay.\' you say.')
+                    	    print('His expression brightens. \'Do you know where Master is?\'')
+                    	    print('\'Who is your master?\' you ask.')
+                    	    print('\'Huh? You don\'t know?\' he says. \'Should I escort you to Dr. Lorelei?\'')
+                    	    print('\'Ah, no thanks.\' you say. \'If you don\'t mind, I must go.\'')
+                    	elif lifetimelies == 'n':
+                    	    print('\'No, I\'m not.\' you say. \'I\'m General '+Team[0]+'.\'')
+                    	    print('\'Huh? I don\'t recgonize that name.\'')
+                        	print('\'I\'m new.\' you explain.')
+                        	print('\'Oh! So you\'re like me?\' he exclaims. \'What are you doing here?\'')
+                        	print('\'Can\'t tell you. Off-limits.\' you say. \'If you don\'t mind, I must go.\'')
+                    elif lotsalies == 'm':
+                        print('\'I\'m from Mineral Valley.\' you reply.')
+                        print('\'Woah.\' he says. \'Isn\'t Andesite really cool?\'')
+                        print('\'She single-handedly conquered the Sorceresses of Sandy Plains!\'')
+                        print('You don\'t know what the hell he\'s talking about, but you follow along. \'Yeah!\'')
+                        print('\'Do you know her?\' he asks abruptly.')
+                        print('\'No.\' you say. \'If you don\'t mind, I have to go.\'')
+                elif morelies == 'p':
+                    print('\'I\'m a peasant.\'')
+                    print('\'Oh. Bye then.\'')
+                    print('He zooms away on his motorcycle.')
+            elif lies == 'n':
+                print('\'I\'m '+Team[0]+', leader of Peach Springs.\'')
+                print('\'Woah, leader... That\'s really cool.\'')
+                print('\'Where is Peach Springs again?\' he says, interrupting himself.')
+                print('Oh no! If he finds out that you\'re opposed to Dab, bad things will happen!')
+                if fishArray[Team[0]].gender = 'Female':
+                    #I was feeling sussy
+                    ew = input('Do you try to flirt? (y/n)')
+                    if ew == 'y':
+                        print('To change the subject, you try to flirt. (Joanna: What the FUCKING HELL?)')
+                        rizz = random.randint(0, 2)
+                        if rizz == 0:
+                        	print('\'Um... ah... d- do you want to... g- go collect sea glass together..?\'')
+                        	print('Oh no! You have horrible rizz! This is really bad.')
+                        	print('\'Huh?\' he says. \'Sea... glass?\'')
+                        	print('\'Ah... yes... sea glass.\' you reply, embarassed...')
+                            print('\'We can go then.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
+                            print('You two spend an afternoon at the beach. You don\'t collect any intel, though.')
+                        elif rizz == 1:
+                            print('\'Um, do you want to go collect sea glass together?\'')
+                            print('Oh no! You messed up and sounded really squeaky!')
+                            print('\'Hm?\' he says. \'Sea glass?\'')
+                            print('\'Yeah.\' you reply. Good, your voice sounds normal now.')
+                            print('\'Let\'s go then.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
+                            print('You two spend an afternoon at the beach. When he leaves, he hands you a note.')
+                            print('To: Pecche Springs Leader')
+                            print('\'Thanks for helping me collect sea glass.\'')
+                            print('From: Motorcycle Guy')
+                        elif rizz == 2:
+                            print('\'Anyways, do you want to go collect sea glass together?\'')
+                            print('Oh no! You sounded too much like Miss Lovely Flirter from your favorite TV show!')
+                            print('\'Sea glass?\' he says.')
+                            print('\'Yeah.\' you reply.')
+                            print('\'Perfect. Let\'s go.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
+                            print('You two spend an afternoon at the beach. After he leaves, you see a note on the ground.')
+                            print('To: Peache Springs Leader')
+                            print('\'Do you want to meet here tomorrow again? Thanks for the help, but 14 kilos is a lot...\'')
+                            print('From: Motorcycle Guy, \'Da Coolest\' Parkour Master')
+                    else:
+                        #if you don't do extra stuff(just normal)
+                else:
+                    betterthanthefemaleoption = input('Do you ask if you can spar together? (y/n)')
+                    if betterthanthefemaleoption == 'y':
+                        print('To change the subject, you ask him if he wants to spar with you. (The variable lives up to its name.)')
+                        print('\'Anyways, wanna spar together?\'')
+                        print('\'Hm?\' he says. \'Definitely!!\'')
+                        jiXiang = personAttributes('Ji\'Xiang', 'Pendragon', 17, 38, 20, 24, 18, 'Male', 'light gray', 'jet black', 'ice blue', None, None)
+                        breakForUnMutation, loser = battle(fishArray[Team[0]], 200, 200, jiXiang, 200, 200, normalEnemyStratagems)
+                        if loser == 'you':
+                            print('\'You really are good.\' you say.')
+                            print('He smiles. \'Yeah. You are, too.\'')
+                        elif loser == 'the fish':
+                            print('\'Ugh,\' he sighs. \'Even Master\'s extensive combat training is useless...\'')
+                            print('\'You really are good.\' he says, smiling.')
+                            print('\'You are too.\' you reply.')
+                    else:
+                        #if you don't do the extra stuff(just normal, regardless of gender)
+                        
                 
     return ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff
 
@@ -2322,7 +2431,8 @@ Version 0.57 - Expanded on Blossom, added Spirits
 Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs
 Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams 
 Version 0.573 - metParadisea now updates correctly. Fixed errors where stuff would not save. 
-Version 0.574 - Weapon Diagrams now work. -- CURRENT
+Version 0.574 - Weapon Diagrams now work. 
+Version 0.575 - Added Sea-Glass Cliffs Beach, Ji'Xiang -- CURRENT
 Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
         '''
     print(adventure_updatelog)
