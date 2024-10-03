@@ -2256,27 +2256,27 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
             if lies == 'y':
                 morelies = input('Who do you pretend to be, a general or a peasant? (g/p) ')
                 if morelies == 'g':
-                	print('\'I\'m a general.\'')
+                    print('\'I\'m a general.\'')
                     print('\'A general? From where?\'')
                     lotsalies = input('Where are \'you\' from, Sea-Glass Cliffs or Mineral Valley? (s/m) ')
                     if lotsalies == 's':
-                    	print('\'I\'m from Sea-Glass Cliffs. Here.\' you reply.')
-                    	print('\'Oh!\' he says. \'You must be General Perdita!\'')
-                    	lifetimelies = input('Yes or No? (y/n) ')
-                    	if lifetimelies == 'y':
-                    	    print('\'Yeah, I am.\' you say.')
-                    	    print('\'Ahh! I\'m sorry that I didn\'t recgonize you... wuwu...\'')
-                    	    print('\'It\'s okay.\' you say.')
-                    	    print('His expression brightens. \'Do you know where Master is?\'')
-                    	    print('\'Who is your master?\' you ask.')
-                    	    print('\'Huh? You don\'t know?\' he says. \'Should I escort you to Dr. Lorelei?\'')
-                    	    print('\'Ah, no thanks.\' you say. \'If you don\'t mind, I must go.\'')
-                    	elif lifetimelies == 'n':
-                    	    print('\'No, I\'m not.\' you say. \'I\'m General '+Team[0]+'.\'')
-                    	    print('\'Huh? I don\'t recgonize that name.\'')
-                        	print('\'I\'m new.\' you explain.')
-                        	print('\'Oh! So you\'re like me?\' he exclaims. \'What are you doing here?\'')
-                        	print('\'Can\'t tell you. Off-limits.\' you say. \'If you don\'t mind, I must go.\'')
+                        print('\'I\'m from Sea-Glass Cliffs. Here.\' you reply.')
+                        print('\'Oh!\' he says. \'You must be General Perdita!\'')
+                        lifetimelies = input('Yes or No? (y/n) ')
+                        if lifetimelies == 'y':
+                            print('\'Yeah, I am.\' you say.')
+                            print('\'Ahh! I\'m sorry that I didn\'t recgonize you... wuwu...\'')
+                            print('\'It\'s okay.\' you say.')
+                            print('His expression brightens. \'Do you know where Master is?\'')
+                            print('\'Who is your master?\' you ask.')
+                            print('\'Huh? You don\'t know?\' he says. \'Should I escort you to Dr. Lorelei?\'')
+                            print('\'Ah, no thanks.\' you say. \'If you don\'t mind, I must go.\'')
+                        elif lifetimelies == 'n':
+                            print('\'No, I\'m not.\' you say. \'I\'m General '+Team[0]+'.\'')
+                            print('\'Huh? I don\'t recgonize that name.\'')
+                            print('\'I\'m new.\' you explain.')
+                            print('\'Oh! So you\'re like me?\' he exclaims. \'What are you doing here?\'')
+                            print('\'Can\'t tell you. Off-limits.\' you say. \'If you don\'t mind, I must go.\'')
                     elif lotsalies == 'm':
                         print('\'I\'m from Mineral Valley.\' you reply.')
                         print('\'Woah.\' he says. \'Isn\'t Andesite really cool?\'')
@@ -2293,17 +2293,17 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                 print('\'Woah, leader... That\'s really cool.\'')
                 print('\'Where is Peach Springs again?\' he says, interrupting himself.')
                 print('Oh no! If he finds out that you\'re opposed to Dab, bad things will happen!')
-                if fishArray[Team[0]].gender = 'Female':
+                if fishArray[Team[0]].gender == 'Female':
                     #I was feeling sussy
                     ew = input('Do you try to flirt? (y/n)')
                     if ew == 'y':
                         print('To change the subject, you try to flirt. (Joanna: What the FUCKING HELL?)')
                         rizz = random.randint(0, 2)
                         if rizz == 0:
-                        	print('\'Um... ah... d- do you want to... g- go collect sea glass together..?\'')
-                        	print('Oh no! You have horrible rizz! This is really bad.')
-                        	print('\'Huh?\' he says. \'Sea... glass?\'')
-                        	print('\'Ah... yes... sea glass.\' you reply, embarassed...')
+                            print('\'Um... ah... d- do you want to... g- go collect sea glass together..?\'')
+                            print('Oh no! You have horrible rizz! This is really bad.')
+                            print('\'Huh?\' he says. \'Sea... glass?\'')
+                            print('\'Ah... yes... sea glass.\' you reply, embarassed...')
                             print('\'We can go then.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
                             print('You two spend an afternoon at the beach. You don\'t collect any intel, though.')
                         elif rizz == 1:
@@ -2327,6 +2327,7 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                             print('\'Do you want to meet here tomorrow again? Thanks for the help, but 14 kilos is a lot...\'')
                             print('From: Motorcycle Guy, \'Da Coolest\' Parkour Master')
                     else:
+                        pass
                         #if you don't do extra stuff(just normal)
                 else:
                     betterthanthefemaleoption = input('Do you ask if you can spar together? (y/n)')
@@ -2344,6 +2345,7 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                             print('\'You really are good.\' he says, smiling.')
                             print('\'You are too.\' you reply.')
                     else:
+                        pass
                         #if you don't do the extra stuff(just normal, regardless of gender)
                         
                 
