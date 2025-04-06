@@ -1,4 +1,5 @@
 
+
 import random
 
 title = "Genetics: Oversimplified"
@@ -589,12 +590,14 @@ metParadisea = False
 paradiseashopstuff = {'d1': True, 'd2': True, 'd3': True, 'd4': True, 'd5': True, 'd6': True, 'd7': True, 'd8': True, 'd9': True, 'd10': True,
                         's1': True, 's2': True
                        }
+metJiXiang = False
+pity = 0
 yourKingdomStuff = [gotGold, gotArco, metPizz, metIodine]
 cloudMountainStuff = [gotMoreGold, borderCrossed, guardsDefeated, metEndurance, gotOrb, gotYay]
 mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
 peakDepthsStuff = [metCinnabar, gotIrn]
 blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
-seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
+seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity]
 kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
 
 
@@ -822,8 +825,8 @@ adventurePlaces = {'@': 'Frost', 'b': 'Kelp Ridge', 'f': 'Dabdom', '=': 'Ignia',
 
 
 def findPlace(x, y):
-    y += 3
-    x += 1
+    y -= 3
+    x -= 1
     place = adventurePlaces[fishMap[y][x]]
     print(fishMap[y][x])
     print(fishMap[y - 3][x - 1])
@@ -1132,42 +1135,32 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                 # She is also one of Dab's best generals. But loyalty? Maybe not...she has plans for killing Dab and taking over Fishland. Hehe!
                 print('followed by two other fish, both vermillion with orange yellow fins.')
                 print('Weirdly, their eyes are stormy purple, without a trace of pupil.')
-                print('\'Hey! You! You\'ve trespassed on our territory.\' the twilight fish yells.')
-                print('\'Your territory?\' you reply dubiously.')
-                print('\'Not mine. Dab\'s.\' she says.')
+                print('\'Hello, Leader of Peach Springs.\' the twilight fish says sweetly.')
+                print('\'Huh!? How do you know me?\' you exclaim in surprise.')
+                print('\'You don\'t need to know.\' she says.')
                 print('You notice a dark opening behind the three fish. A cave, with a fish trapped inside. ')
-                print(
-                    '\'Go now.\' she threatens. \'Go now, or I\'ll have to kill you. And believe me, I don\'t want to.\'')
-                print('\'Of course not.\' you reply. \'This is MY kingdom! You cannot threaten me here.\'')
-                print('The fish\'s lips curl into a dark smile. \'I\'m sorry. But you have to die.\'')
-                print('In one fluid movement, she grabs the knife from the brush and points it at your eye.')
-                print("'You know too much. And now... ")
-                input(' ')
-                print('you will die!\'')
-                print('She stabs the knife downward, but you evade the attack, throwing her off balance.')
-                print('You grab it from her grasp and press her down onto the ground.')
-                print('\'You will regret this!\' she screams as she wriggles free and runs away. \'I will tell Dab!\'')
-                print('A fish walks out of the cave, soft gray-white with light gray fins and forest green eyes.')
-                print('\'I am Silicon. And I take that you are here to rescue me.\'')
+                print('\'Who is that... Who have you trapped in there!!\'')
+                print('\'She is one of your comrades.\' she smiles. \'Although she may not recgonize you.\'')
+                print('\'Nooo!\' you yell, trying to bash through the wall of fish guarding the cave entrance.')
+                print('A twin pair of crossed knives block your way.')
+                print('One barring you from the cave entrance, the other pointed at your heart...')
+                print('\'Feeble leader, when will you finally give up?\'')
+                print('\'Wait, who are you?!\' you yell, scared.')
+                print('\'Why would I tell you?\' she twirls one of her knives, clearly taunting you.')
+                print('You try to keep your calm, but finally you give in and stab towards her.')
+                print('She easily dodges your strike. \'You want to fight me? Let\'s see if you can survive this first.\'')
+                print('A flurry of quick slashes drives you backwards. Fearing the worst, you run back to the safety of your homeland.')
                 borderCrossed = True
-                input('Press enter to continue.')
-                print('The twilight fish comes racing back, with ten or so purple-eyed fish following.')
-                print('\'Go. Go or die.\'')
-                print('You reluctantly leave, casting one last glance at Silicon.')
-                print(' ')
-                print('A smile slowly tugs at the corners of your mouth.')
-                print('After all, you still have the twilight fish\'s knife.')
-                items['Köyden\'s Knife'] = ['weapon', 'knife', 6]
             elif guardsDefeated == False:
                 print('You and your team explore the brush lining the foot of the mountains.')
                 print('As expected, the twilight fish is back, but with no other fish with her.')
-                print('\'You again!\' she yells.')
+                print('\'You again.\' she says.')
                 print('\'Yes, it\'s me.\' you reply calmly.')
-                print('Her fins grasp the hilt of her weapon. \'Well, if I were you, I would run.\'')
-                print('You smile. \'But you\'re not me. And I WILL FIGHT!\'')
-                print('\'Ah!\' she exclaims. \'But defeating me is not so easy.\'')
+                print('She slowly draws her weapon. \'Not enough? You want to lose again?\'')
+                print('You smile. \'No. I\'m stronger now. I can defeat you!!\'')
+                print('\'You would never guess how wrong you really are...\'')
                 print('\'Wait, who ARE you?\' you question.')
-                print('\'My name...is Köyden. And I am your doom.\'')
+                print('\'My name...is Köyden. Lead General of the Kydian Legion.\'')
                 print('A flurry of raging strikes hits your team. They must have at least 17 agility to dodge.')
                 losses = 0
                 for i in Team:
@@ -1177,32 +1170,34 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                         print(i + ' could not dodge the attack and fell back, wounded.')
                         losses += 1
                 if losses >= 1:
-                    print('\'Ha, you see?\' she smirks. \'Your team will fall when it is time.\'')
-                print('She lowers her twin knives. ')
-                print('\'Leave.\' she threatens. \'Leave, or I will kill you.\'')
-                desision = input('Do you attack or leave? (a/l)')
-                if desision == 'a':
-                    print('You leap towards Köyden, trying to throw her off balance.')
-                    print('It doesn\'t work and she stabs you.')
-                    if (fishArray[Team[0]].strength >= 19) and (fishArray[Team[0]].intelligence >= 19) and (
-                            fishArray[Team[0]].agility >= 19):
-                        print('But you are strong and smart and fast, so you use a fish-karate chop to her face.')
-                        print('Köyden falls back, injured. Then she stabs you again.')
-                        print('Then you heave a PUNCH to her STOMACH!')
-                        print('She falls unconscious to the cave floor.')
-                        print('You grab her knives. They are now yours.')
-                        items['Köyden\'s Twin Knives'] = ['weapon', 'knife', 19]
-                        guardsDefeated = True
-                        input(' ')
-                        print('Silicon steps out of the cave.')
-                        print('\'Thank you...for saving me.\'')
-                        silicon = personAttributes('Silicon', 'the Fish', 17, 13, 32, 14, 18, 'Female',
-                                                   'soft gray-white', 'light gray', 'forest green')
-                        addFish(fishArray, silicon)
+                    print('Köyden smirks. \'This lowly \'Rebellion\' will fall when it is time.\'')
+                print('She lowers her knives. \'Naive leader, step forth. Time to prove your true worth.\'')
+                kEasy = personAttributes('Köyden', 'Kyda', 12, 26, 15, 12, 14, 'Female', 'twilight', 'sky blue',
+                                          'mint green', None, None)
+                kNormal = personAttributes('Köyden', 'Kyda', 16, 36, 19, 12, 14, 'Female', 'twilight', 'sky blue',
+                                          'mint green', None, None)
+                kHard = personAttributes('Köyden', 'Kyda', 22, 46, 25, 12, 14, 'Female', 'twilight', 'sky blue',
+                                          'mint green', None, None)
+                kChallenges = ['Leader\'s Trial I', 'Leader\'s Trial II', 'Leader\'s Trial III', 'Dabdom\'s Revenge']
+                print(kChallenges)
+                while True:
+                    hopeIsMad = input('Which trial would you like to challenge? (type full name) ')
+                    if hopeIsMad == 'Leader\s Trial I':
+                        #Leader's Trial I - Easy/Medium
+                        pass
+                    elif hopeIsMad == 'Leader\'s Trial II':
+                        pass
+                        #Leader's Trial II - Medium/Hard
+                    elif hopeIsMad == 'Leader\'s Trial III':
+                        #Leader's Trial III - Very Hard
+                        pass
+                    elif hopeIsMad == 'Dabdom\'s Revenge':
+                        #Dabdom's Revenge - Hard/Near-Impossible
+                        pass
+                    if hopeIsMad in kChallenges:
+                        break
                     else:
-                        print('You are injured and leave.')
-                elif desision == 'l':
-                    print('You leave, looking back at the fish who has killed and the fish who is imprisoned.')
+                        print('This is not an available trial to challenge. Remember to type the name in full.')
             else:
                 print('You and your team explore the brush lining the foot of the mountain.')
                 print('There is a cave with creepy archaic script all over the walls.')
@@ -1213,7 +1208,9 @@ def cloudMountainAdventure(Team, borderCrossed, guardsDefeated, gotMoreGold, met
                         'A fish will come to save the land.',
                         'There will be a fish one day who will doom Fishland if not stopped.',
                         'Fishes can be good and brave but they can also be evil.',
-                        'Two fish once together will reunite.'
+                        'Two fish once together will reunite.',
+                        'Perfection undulated...',
+                        'The mistletoe loses its former glory, lovers\' oath yet again cast away.'
                     ]
                     print('It is hard to read, but you see something: ')
                     print(random.choice(scripts))
@@ -2123,8 +2120,55 @@ and the Sorceresses labeled with 'D' are dead.
         metDaphne = True
     return ded, items, fishianGold, metSkyfall, metMona, monaDed, metDaphne
 
+def jixiang():
+    ignorance = input('Do you tell the truth or feign ignorance? (t/i)')
+    if ignorance == 't':
+        print('\'Peach Springs is to the southwest of Cloud Mountains...\' you say.')
+        print('A flash of realization strikes across his face.')
+        print('\'Go! Run away, far, far from this place, and never come back!\'')
+        print('\'I\'m not the kind of person that will kill people easily...\'')
+        print('\'...but if you come back... and someone else is here...\'')
+        print('\'...you might not be so lucky.....!!\'')
+        braincell = input('Do you quickly leave? (y/n) ')
+        if braincell == 'y':
+            print('Fearing the worst, you quickly run away.')
+        elif braincell == 'n':
+            print('You do not leave.')
+            print('\'What are you doing?\' he asks. \'Why don\'t you just leave?\'')
+            idTENt = input('Do you say something or ask something? (s/a)')
+            print('\'It\'s the same reason as to why you don\'t leave.\' you murmur.')
+            print('\'You could escape from Dab\'s burning hell and lead a life outside of this.\'')
+            if idTENt == 's':
+                print('\'But you don\'t. So I won\'t leave here, either.\'')
+                print('Awkward silence envelopes the two of you, sitting on the beach.')
+                print('Ji\'Xiang gets up to leave. As he walks away into the rainy distance, he waves to you.')
+                print('\'Farewell, Leader of Peach Springs!\'')
+            elif idTENt == 'a':
+                print('\'But you don\'t. Why?\'')
+                print('\'I don\'t know.\' he replies. \'I\'ve never had a real home.\'')
+                print('\'Maybe my reason... is yearning? Yearning for something I never had?\'')
+                print('\'However cold and cruel we may seem to you, there is a true home woven into the army.\'')
+                print('\'A promise that... no matter how injured we are, there will always be someone that cares...\'')
+                print('\'For me, that someone is \'Master\'.\'')
+                print('Awkward silence envelopes the two of you, sitting on the beach.')
+                print('A home... where is \'your\' home? With Kale and Fidget?')
+                print('Or is it with a enemy, sitting on the stormy beach side by side... ')
+                print('Neither has their weapon drawn. For a moment, you feel like this is perfect.')
+                print('And then your thoughts flash back to Fidget and your home in Peach Springs.')
+                print('What would they think of this?')
+                print('Tears start to well up in your eyes. You don\'t know why.')
+                print('Ji\'Xiang gets up to leave. As he walks off into the rainy distance, you wipe your tears away.')
+                print('\'Farewell, Leader of Peach Springs!\'')
+                print('Then a softly uttered reply: \'Farewell, my friend.\'')
+    elif ignorance == 'i':
+        print('\'Ah... hehe... I forgot.\' you say, scratching your head.')
+        print('\'Oh.\' he says. \'Well, you can always come and join Dab\'s legion if you want...!!\'')
+        print('\'AAA! Lieutenant, why are you here!\' he screams.')
+        print('\'Ji\'Xiang, time to go.\' she instructs in a soft but sharp tone.')
+        print('\'Ah... okay...\'')
+        
 
-def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff):
+def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity):
     print('The beaches of Sea-Glass Cliffs glister with the shine of sea glass.')
     print('Around you, the cliffs drop, vast stretches of beach and highland interchanging.')
     decision = input('Do you go to the cliffs, beach, or sus cave? (c/b/s) ')
@@ -2305,30 +2349,22 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                             print('\'Huh?\' he says. \'Sea... glass?\'')
                             print('\'Ah... yes... sea glass.\' you reply, embarassed...')
                             print('\'We can go then.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
-                            print('You two spend an afternoon at the beach. You don\'t collect any intel, though.')
                         elif rizz == 1:
                             print('\'Um, do you want to go collect sea glass together?\'')
                             print('Oh no! You messed up and sounded really squeaky!')
                             print('\'Hm?\' he says. \'Sea glass?\'')
                             print('\'Yeah.\' you reply. Good, your voice sounds normal now.')
                             print('\'Let\'s go then.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
-                            print('You two spend an afternoon at the beach. When he leaves, he hands you a note.')
-                            print('To: Pecche Springs Leader')
-                            print('\'Thanks for helping me collect sea glass.\'')
-                            print('From: Motorcycle Guy')
                         elif rizz == 2:
                             print('\'Anyways, do you want to go collect sea glass together?\'')
                             print('Oh no! You sounded too much like Miss Lovely Flirter from your favorite TV show!')
                             print('\'Sea glass?\' he says.')
                             print('\'Yeah.\' you reply.')
                             print('\'Perfect. Let\'s go.\' he says. \'I need 14 kilograms of sea glass for my Master.\'')
-                            print('You two spend an afternoon at the beach. After he leaves, you see a note on the ground.')
-                            print('To: Peache Springs Leader')
-                            print('\'Do you want to meet here tomorrow again? Thanks for the help, but 14 kilos is a lot...\'')
-                            print('From: Motorcycle Guy, \'Da Coolest\' Parkour Master')
+                        print('You two spend an afternoon at the beach collecting sea glass. You don\'t collect any intel, though.')
+                        
                     else:
-                        pass
-                        #if you don't do extra stuff(just normal)
+                        jixiang()
                 else:
                     betterthanthefemaleoption = input('Do you ask if you can spar together? (y/n)')
                     if betterthanthefemaleoption == 'y':
@@ -2345,11 +2381,143 @@ def seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne
                             print('\'You really are good.\' he says, smiling.')
                             print('\'You are too.\' you reply.')
                     else:
-                        pass
-                        #if you don't do the extra stuff(just normal, regardless of gender)
-                        
+                        jixiang()
+            metJiXiang = True
+    elif decision == 's':
+        print('Your team heads towards the sus cave.')
+        print('It seems as if dark swirls of shadow are emanating from the entrance...')
+        print('You shudder. It\'s been a long time since you were scared of tiny things like this.')
+        print('Still, you step into the unwavering darkness.')
+        print('...')
+        occurrence = random.choice(['Seduction', 'Fear', 'Memory', 'Poverty', 'Wish'])
+        if occurrence == 'Seduction':
+            if fishArray[Team[0]].gender == 'Female':
+                print('You hear a rizzy voice behind you. Turning, you see the most handsomest guy you have ever seen.')
+                print('He is blushing a lot. \'Hey '+fishArray[Team[0]].firstname+'... I love you.\'')
+                sussyness = input('Do you kiss him or ignore him? (k/i) ')
+                if sussyness == 'k':
+                    print('You lean in for a kiss.')
+                    print('It feels great, but as you touch him, he starts to fade away.')
+                    prinr('You run, fearing the worst, but the memory of first love is already etched into your heart.')
+                elif sussyness == 'i':
+                    print('You ignore him and walk out of the cave.')
+            elif fishArray[Team[0]].gender == 'Male':
+                print('You hear a rizzy voice behind you. Turning, you see the most pretty girl you have ever seen.')
+                print('She is blushing a lot. \'Hey '+fishArray[Team[0]].firstname+'... I love you.\'')
+                sussyness = input('Do you kiss her or ignore her? (k/i) ')
+                if sussyness == 'k':
+                    print('You lean in for a kiss.')
+                    print('It feels great, but as you touch her, she starts to fade away.')
+                    prinr('You run, fearing the worst, but the memory of first love is already etched into your heart.')
+                elif sussyness == 'i':
+                    print('You ignore her and walk out of the cave.')
+        elif occurrence == 'Fear':
+            print('Darkness envelops you. You can see nothing.')
+            print('You do not see it, but you can hear - and feel - the blood')
+            print('splattering onto the dank cave walls, the agonized screams')
+            print('of Kale, Fidget - even your mother.')
+            print('You shudder. You try to block out your senses.')
+            print('But your hands are tied to your back.')
+            print('The metallic scent of freshly spilled blood overwhelms you.')
+            print('A tyrant laughing at his fully-conquered kingdom.')
+            print('A sorceress burned at the stake.')
+            print('You, scratched with many wounds, collapsing to the ground')
+            print('Then everything goes black')
+        elif occurrence == 'Memory':
+            print('\'Hello, Leader of Peach Springs.\'')
+            print('\'Nice to meet you. Now die.\'')
+            print('\'Happy birthday, '+fishArray[Team[0]].firstname+'!!\'')
+            print('The soaking rain drenches the world outside. You don\'t know where it came from.')
+            print('The sweet smell of petrichor flows into the cave.')
+            print('You forget everything.')
+            print('Who are you? You don\'t know either.')
+            print('\'Your name is '+Team[0]+'.\' A voice replies.')
+            print('You back away. Who is this person, and why are they lying to you?')
+            print('How would they know your name when even you cannot remember?')
+            print('An invisble force pulls you outside, into the rain')
+            print('As soon as the petrichor vanishes, your memories come back.')
+        elif occurrence == 'Poverty':
+            print('Money cannot bring you happiness.')
+            print('When you were little, you had replied')
+            print('\'But what about 3000 Fishian Gold?\'')
+            print('\'Perhaps.\' Fidget had said, staring up into the nonexistent sky.')
+            print('You knew what she was yearning for.')
+            print('She wished that 3000 Fishian Gold could bring your mother back.')
+            goldWell = input('Do you throw a coin into the Fishian Gold Well? (y/n) ')
+            if goldWell == 'y':
+                fishianGold -= 1
+                chances = random.randint(1, 100)
+                if chances <= 20:
+                    print('You got 200 Fishian Gold!')
+                    fishianGold += 200
+                elif chances <= 45:
+                    print('You lost 50 Fishian Gold...')
+                    fishianGold -= 50
+                    if fishianGold < 1:
+                        fishianGold = 0
+                elif chances <= 75:
+                    print('You got 100 Fishian Gold!')
+                    fishianGold += 100
+                elif chances <= 90:
+                    print('You lost 250 Fishian Gold...')
+                    fishianGold -= 250
+                    if fishianGold < 1:
+                        fishianGold = 0
+                elif chances <= 95:
+                    print('You got 1000 Fishian Gold!!!')
+                    fishianGold += 1000
+                else:
+                    print('You lost all Fishian Gold...')
+                    fishianGold = 0
+            elif goldWell == 'n':
+                print('You do not throw a coin into the well.')
+        elif occurrence == 'Wish':
+            print('You see a wishing well in front of you.')
+            wish = input('Do you throw a coin into the wishing well? (y/n) ')
+            if wish == 'y':
+                fishianGold -= 1
+                if pity > 89:
+                    pity = 89
+                upperlimit = 90 - pity
+                woah = random.randint(1, upperlimit)
+                if woah == 1:
+                    possrewards = ['300 Fishian Gold', ' 200 Fish Food', '1 Paradisea Bond']
+                    print('A flash of rainbow light explodes in front of you.')
+                    reward = random.choice(possrewards)
+                    print('You got: '+reward+'!')
+                    if reward == '300 Fishian Gold':
+                        fishianGold += 300
+                    elif reward == '200 Fish Food':
+                        fishFood += 200
+                    elif reward == '1 Paradisea Bond':
+                        try:
+                            items['Paradisea Bond'][2] += 1
+                        except KeyError as error:
+                            items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 1]
+                    pity = 0
+                elif woah <= 7 or woah < 84:
+                    possrewards = ['75 Fishian Gold', '50 Fish Food']
+                    print('A flash of purple light rexplodes in front of you.')
+                    reward = random.choice(possrewards)
+                    print('You got: '+reward+'!')
+                    if reward == '50 Fish Food':
+                        fishFood += 50
+                    else:
+                        fishianGold += 75
+                    pity += 1
+                else:
+                    possrewards = ['10 Fishian Gold', 'Nothing', 'Nothing', 'Nothing', 'Nothing']
+                    print('A flash of blue light implodes in front of you.')
+                    reward = random.choice(possrewards)
+                    print('You got: '+reward+'!')
+                    if reward == 'Nothing':
+                        print('Bad luck...')
+                        pity += 5
+                    else:
+                        fishianGold += 10
+                        pity += 3
                 
-    return ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff
+    return ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity
 
 def trueAdventure(fishianGold, crafts, fishFood, team, place, kingdomStuff, items, completedInvasions):
     ded = False
@@ -2384,6 +2552,8 @@ def trueAdventure(fishianGold, crafts, fishFood, team, place, kingdomStuff, item
     foundTreasure = seaGlassStuff[0]
     metParadisea = seaGlassStuff[1]
     paradiseashopstuff = seaGlassStuff[2]
+    metJiXiang = seaGlassStuff[3]
+    pity = seaGlassStuff[4]
     print(borderCrossed)
     if place == 'Your Kingdom':
         gotGold, gotArco, metPizz, fishianGold, metIodine, items = yourKingdomAdventure(Team, gotGold, gotArco,
@@ -2412,7 +2582,7 @@ def trueAdventure(fishianGold, crafts, fishFood, team, place, kingdomStuff, item
             print('Dab\'s control is too strong! You can go here after completing \'Blossom: Invasion\'')
     elif place == 'Sea-Glass Cliffs':
         if 'Sea-Glass Cliffs: Invasion' in completedInvasions:
-            ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff)
+            ded, items, fishFood, fishianGold, crafts, foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity = seaGlassAdventure(ded, Team, items, fishFood, fishianGold, crafts, metDaphne, foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity)
             print(metParadisea)
         else:
             print('Dab\'s control is too strong! You can go here after completing \'Sea-Glass Cliffs: Invasion\'')
@@ -2434,7 +2604,9 @@ Version 0.571 - Expanded on Blossom, added Sea-Glass Cliffs
 Version 0.572 - Kept debugging Paradisea's Shop, Added Weapon Diagrams 
 Version 0.573 - metParadisea now updates correctly. Fixed errors where stuff would not save. 
 Version 0.574 - Weapon Diagrams now work. 
-Version 0.575 - Added Sea-Glass Cliffs Beach, Ji'Xiang -- CURRENT
+Version 0.575 - Added Sea-Glass Cliffs Beach, Ji'Xiang 
+Version 0.576 - Added two more endings to meeting Ji'Xiang
+Version 0.577 - Partial rewrite of Köyden scene, added Sea-Glass Cliffs Sus Cave -- CURRENT
 Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
         '''
     print(adventure_updatelog)
@@ -2443,7 +2615,7 @@ Version Goals: Debug Items, Debug Craft, Improve Sea-Glass Cliffs
     mineralValleyStuff = [metShale, valorAsked, andesiteRAWR]
     peakDepthsStuff = [metCinnabar, gotIrn]
     blossomStuff = [metSkyfall, metMona, monaDed, metDaphne]
-    seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff]
+    seaGlassStuff = [foundTreasure, metParadisea, paradiseashopstuff, metJiXiang, pity]
     kingdomStuff = [yourKingdomStuff, cloudMountainStuff, mineralValleyStuff, peakDepthsStuff, blossomStuff, seaGlassStuff]
     print(kingdomStuff)
     return ded, kingdomStuff, fishianGold, crafts, items, fishFood
@@ -3032,7 +3204,7 @@ print("Hello! This is a game of breeding fish.")
 gameType = input("New game?(y/n) ")
 if gameType == "y":
     #fakee
-    completedInvasions = ['Sea-Glass Cliffs: Invasion']
+    completedInvasions = ['Sea-Glass Cliffs: Invasion', 'Cloud Mountains: Invasion']
     items['Paradisea Bond'] = ['special-currency', 'paradisea-shop', 50]
     items['Fishian Iron'][2] += 100
     items['Sea Glass'][2] += 100
@@ -3049,3 +3221,6 @@ else:
     print("Invalid input!")
     printMap(fishMap)
     battle(fidget, 200, 200, bob, 200, 200, normalEnemyStratagems)
+
+
+
