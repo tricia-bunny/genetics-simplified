@@ -6,18 +6,26 @@ print('')
 print('I. Who is your most hated antagonist?')
 print('(A) Dab the Fish')
 print('(B) Köyden Kyda')
-print('(C) Andesite Kelp')
+print('(C) Myself... :(')
 print('(D) Shard the Fish')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
         fishies.append('Shif')
+        fishies.append('Andesite')
+        fishies.append('Kale')
     elif answer == 'b':
         fishies.append('Akuma')
+        fishies.append('Hope')
+        fishies.append('Shard')
     elif answer == 'c':
-        fishies.append('Cinder')
+        fishies.append('Usagi-Ko')
+        fishies.append('Cygnet')
+        fishies.append('Skylon')
     else:
         fishies.append('Köyden')
+        fishies.append('Vivo')
+        fishies.append('Ji\'Xiang')
 print(answer)
 print('(Oh, don\'t mind that, it\'s just a syntax thing)')
 
@@ -25,20 +33,26 @@ print('')
 print('II. What do you do in your free time?')
 print('(A) Beat up a sibling')
 print('(B) Read')
-print('(C) Draw')
+print('(C) Think of Strategic Plans')
 print('(D) Play video games')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
-        fishies.append('Dab')
-        fishies.append('Starlight')
+        fishies.append('Shif')
+        fishies.append('Skylon')
+        fishies.append('Andesite')
     elif answer == 'b':
-        fishies.append('Usagi-Ko')
+        fishies.append('Cygnet')
         fishies.append('Kale')
+        fishies.append('Akuma')
     elif answer == 'c':
-        fishies.append('Fidget')
+        fishies.append('Köyden')
+        fishies.append('Usagi-Ko')
+        fishies.append('Shard')
     else:
         fishies.append('Hope')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Vivo')
 
 print('')
 print('III. How do you like to fight?')
@@ -49,16 +63,21 @@ print('(D) I prefer to meditate')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
-        fishies.append('Shif')
+        fishies.append('Kale')
         fishies.append('Köyden')
+        fishies.append('Ji\'Xiang')
     elif answer == 'b':
-        fishies.append('Fabbit')
+        fishies.append('Andesite')
+        fishies.append('Vivo')
+        fishies.append('Shif')
     elif answer == 'c':
-        fishies.append('Yay')
-        fishies.append('Dab')
+        fishies.append('Hope')
+        fishies.append('Shard')
+        fishies.append('Skylon')
     else:
         fishies.append('Usagi-Ko')
-        fishies.append('Kitsune-Ko')
+        fishies.append('Cygnet')
+        fishies.append('Akuma')
 
 print('')
 print('IV. How many friends do you have?')
@@ -71,125 +90,169 @@ if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
         fishies.append('Hope')
         fishies.append('Kale')
+        fishies.append('Skylon')
     elif answer == 'b':
-        fishies.append('Fidget')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Cygnet')
+        fishies.append('Andesite')
     elif answer == 'c':
         fishies.append('Akuma')
         fishies.append('Iodine')
+        fishies.append('Shif')
     else:
         fishies.append('Köyden')
         fishies.append('Shard')
+        fishies.append('Vivo')
 
 print('')
-print('V. How many former girl/boyfriends do you have?')
-print('(A) None, I haven\'t ever had one')
-print('(B) None, my first is still going great with me!')
-print('(C) A few')
-print('(D) Far too many for my liking')
+print('V. Would you end your life to save another?')
+print('(A) Yes')
+print('(B) No, I value my own life more')
+print('(C) If that person was important to me')
+print('(D) No, it would only be temporary anyway')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
+        fishies.append('Kale')
+        fishies.append('Akuma')
+        fishies.append('Usagi-Ko')
+    elif answer == 'b':
+        fishies.append('Shard')
+        fishies.append('Vivo')
         fishies.append('Köyden')
+    elif answer == 'c':
+        fishies.append('Hope')
+        fishies.append('Shif')
+        fishies.append('Ji\'Xiang')
+    else:
+        fishies.append('Skylon')
+        fishies.append('Cygnet')
+        fishies.append('Andesite')
+
+print('')
+print('VI. All your friends are dead.')
+print('(A) Commit suicide so I can be with them again')
+print('(B) I killed them all')
+print('(C) Avenge them!')
+print('(D) Move on and find new ones. Friends are only fleeting.')
+answer = input('').lower()
+if answer in ['a', 'b', 'c', 'd']:
+    if answer == 'a':
+        fishies.append('Akuma')
+        fishies.append('Andesite')
+        fishies.append('Kale')
+    elif answer == 'b':
+        fishies.append('Köyden')
+        fishies.append('Shard')
+        fishies.append('Skylon')
+    elif answer == 'c':
+        fishies.append('Hope')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Vivo')
+    else:
+        fishies.append('Cygnet')
+        fishies.append('Usagi-Ko')
+        fishies.append('Shif')
+
+print('')
+print('VII. What would you change about yourself?')
+print('(A) My past betrayals')
+print('(B) Nothing')
+print('(C) My past mistakes')
+print('(D) My past failures')
+answer = input('').lower()
+if answer in ['a', 'b', 'c', 'd']:
+    if answer == 'a':
+        fishies.append('Usagi-Ko')
+        fishies.append('Köyden')
+        fishies.append('Andesite')
     elif answer == 'b':
         fishies.append('Shif')
-        fishies.append('Fidget')
+        fishies.append('Kale')
+        fishies.append('Ji\'Xiang')
     elif answer == 'c':
-        fishies.append('Pizzicato')
         fishies.append('Cygnet')
-    else:
-        fishies.append('Dab')
-
-print('')
-print('VI. Where do you pick your fights?')
-print('(A) On the school field')
-print('(B) In the classroom/office')
-print('(C) On abandoned plains')
-print('(D) In dark stone quarries')
-answer = input('').lower()
-if answer in ['a', 'b', 'c', 'd']:
-    if answer == 'a':
-        fishies.append('Pizzicato')
-        fishies.append('Iodine')
-    elif answer == 'b':
         fishies.append('Hope')
         fishies.append('Kale')
-    elif answer == 'c':
-        fishies.append('Artemis')
-        fishies.append('Cygnet')
     else:
-        fishies.append('Köyden')
-        fishies.append('Arch')
+        fishies.append('Skylon')
+        fishies.append('Shard')
+        fishies.append('Vivo')
 
 print('')
-print('VII. How do you like your magic?')
-print('(A) Lots of power! Haha!')
-print('(B) In a staff, where it\'s safe')
-print('(C) Umm...like...more internal-ish?')
-print('(D) Anything that\'s not like it is now.')
+print('VIII. What do you take as your victory reward?')
+print('(A) The head of the enemy leader')
+print('(B) Nothing')
+print('(C) Recognition')
+print('(D) Freedom')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
-        fishies.append('Dab')
+        fishies.append('Shard')
+        fishies.append('Vivo')
+        fishies.append('Akuma')
     elif answer == 'b':
         fishies.append('Usagi-Ko')
+        fishies.append('Shif')
+        fishies.append('Kale')
     elif answer == 'c':
-        fishies.append('Artemis')
-    else:
-        fishies.append('Axis')
-        fishies.append('Cygnet')
-        fishies.append('Arch')
-
-print('')
-print('VIII. What is your favorite kind of curse?')
-print('(A) Wormhole(time)')
-print('(B) Warp(space)')
-print('(C) Immortality(a curse in its own way)')
-print('(D) Mutation(undead)')
-answer = input('').lower()
-if answer in ['a', 'b', 'c', 'd']:
-    if answer == 'a':
-        fishies.append('Artemis')
-    elif answer == 'b':
-        fishies.append('Cygnet')
-    elif answer == 'c':
-        fishies.append('Axis')
-    else:
-        fishies.append('Dab')
-
-print('')
-print('IX. What kind of crown would you have if you did?')
-print('(A) Elaborate, with tons of jewels and gold')
-print('(B) Simple and light, easy to wear')
-print('(C) Just a simple gold crown')
-print('(D) I don\'t deserve one anyways, why should I?')
-answer = input('').lower()
-if answer in ['a', 'b', 'c', 'd']:
-    if answer == 'a':
-        fishies.append('Dab')
-    elif answer == 'b':
-        fishies.append('Andesite')
-    elif answer == 'c':
-        fishies.append('Arch')
+        fishies.append('Hope')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Skylon')
     else:
         fishies.append('Köyden')
+        fishies.append('Andesite')
+        fishies.append('Cygnet')
 
 print('')
-print('X. Who is the most annoying protoganist?')
-print('(A) Hope the Fish')
-print('(B) Cygnet Cardinal')
-print('(C) Artemis Kyda')
-print('(D) Mona Forieh')
+print('IX. What would you describe yourself as?')
+print('(A) Traitor')
+print('(B) Unworthy')
+print('(C) Insignificant')
+print('(D) Unempathetic')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
-        fishies.append('Kale')
+        fishies.append('Köyden')
+        fishies.append('Usagi-Ko')
+        fishies.append('Andesite')
     elif answer == 'b':
-        fishies.append('Artemis')
-        fishies.append('Arch')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Shif')
+        fishies.append('Andesite')
     elif answer == 'c':
         fishies.append('Cygnet')
+        fishies.append('Kale')
+        fishies.append('Vivo')
     else:
+        fishies.append('Shard')
+        fishies.append('Akuma')
+        fishies.append('Skylon')
+
+print('')
+print('X. What is immortality?')
+print('(A) The greatest curse of all')
+print('(B) A blessing from the gods')
+print('(C) A two-sided sword')
+print('(D) An unachievable, insignificant dream')
+answer = input('').lower()
+if answer in ['a', 'b', 'c', 'd']:
+    if answer == 'a':
+        fishies.append('Cygnet')
+        fishies.append('Usagi-Ko')
+        fishies.append('Akuma')
+    elif answer == 'b':
+        fishies.append('Shard')
         fishies.append('Hope')
+        fishies.append('Kale')
+    elif answer == 'c':
+        fishies.append('Shif')
+        fishies.append('Ji\'Xiang')
+        fishies.append('Vivo')
+    else:
+        fishies.append('Köyden')
+        fishies.append('Andesite')
+        fishies.append('Skylon')
 
 # Results
 def organize(thelist):
