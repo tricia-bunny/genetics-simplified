@@ -63,11 +63,11 @@ print('(D) I prefer to meditate')
 answer = input('').lower()
 if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
-        fishies.append('Kale')
+        fishies.append('Andesite')
         fishies.append('Köyden')
         fishies.append('Ji\'Xiang')
     elif answer == 'b':
-        fishies.append('Andesite')
+        fishies.append('Kale')
         fishies.append('Vivo')
         fishies.append('Shif')
     elif answer == 'c':
@@ -271,9 +271,8 @@ def maximum(thelist, maxnum, leverage):
         elif i > maxnum:
             maxnum = i
     if leverage == 10:
-        while True:
-            print('FunctionError: Function recall too many times')
-            print('(In other words: restart the program!!!)')
+        print('FunctionError: Function recall too many times')
+        print('(In other words: restart the program!!!)')
     else:
         if len(checkagain) > 0:
             leverage += 1
