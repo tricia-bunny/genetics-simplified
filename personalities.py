@@ -1,3 +1,6 @@
+
+
+
 import random
 fishies = []
 print('Which fish are you?')
@@ -253,6 +256,31 @@ if answer in ['a', 'b', 'c', 'd']:
         fishies.append('Köyden')
         fishies.append('Andesite')
         fishies.append('Skylon')
+
+print('')
+print('XI. You have been granted a wish.')
+print('(A) MONEY!')
+print('(B) Power')
+print('(C) To be freed')
+print('(D) Give the wish to someone else.')
+answer = input('').lower()
+if answer in ['a', 'b', 'c', 'd']:
+    if answer == 'a':
+        fishies.append('Vivo')
+        fishies.append('Skylon')
+        fishies.append('Shif')
+    elif answer == 'b':
+        fishies.append('Shard')
+        fishies.append('Andesite')
+        fishies.append('Hope')
+    elif answer == 'c':
+        fishies.append('Köyden')
+        fishies.append('Usagi-Ko')
+        fishies.append('Cygnet')
+    else:
+        fishies.append('Ji\'Xiang')
+        fishies.append('Kale')
+        fishies.append('Akuma')
 
 # Results
 def organize(thelist):
