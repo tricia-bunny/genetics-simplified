@@ -68,11 +68,11 @@ if answer in ['a', 'b', 'c', 'd']:
     if answer == 'a':
         fishies.append('Andesite')
         fishies.append('Köyden')
-        fishies.append('Ji\'Xiang')
+        fishies.append('Shif')
     elif answer == 'b':
         fishies.append('Kale')
         fishies.append('Vivo')
-        fishies.append('Shif')
+        fishies.append('Ji\'Xiang')
     elif answer == 'c':
         fishies.append('Hope')
         fishies.append('Shard')
