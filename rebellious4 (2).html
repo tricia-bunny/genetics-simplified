@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>The Mork War</title>
+      <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans">
+    <style>
+        body {
+            font-family:Noto Sans;
+        }
+    </style>
+    <script>
+        var player1hp = 500;
+        var player2hp = 500;
+        var player3hp = 500;
+        var player4hp = 400;
+        var morkLoss = 0;
+        var rebelLoss = 0;
+        var archLoss = 0;
+        var kittyLoss = 0;
+        function regenerateValues() {
+            document.getElementById("pl1").innerHTML = player1hp;
+            document.getElementById("pl2").innerHTML = player2hp;
+            document.getElementById("pl3").innerHTML = player3hp;
+            document.getElementById("pl4").innerHTML = player4hp;
+        }
+    </script>
+  </head>
+  <body onload="regenerateValues()">
+    <div style="font-size: 17px;">The Mork War</div>
+    <br/>
+    <br/>
+    <br/>
+    <div style="background-color: lightblue;">
+    Player 1
+    <br/>
+    The Mork and Assistant
+    <br/>
+    <img src="pixil-gif-drawing (3).gif" name="Mork" width="150">
+    <br/>
+    Health: <span id="pl1">Placeholder</span>
+    <br/>
+    <button type="button" onclick="player1atk()">Attack</button>
+    <br/>
+    <button type="button" onclick="player1heal()">Heal</button>
+    <br/>
+    <button type="button" onclick="player1spe()">Special</button>
+    <br/>
+    </div>
+    <br/>
+    <br/>
+    <div style="background-color: plum;">
+    Player 2
+    <br/>
+    The Mork Rebellion
+    <br/>
+    <img src="pixil-gif-drawing%20(4).gif" name="mork rebellion" width="150">
+    <br/>
+    Health: <span id="pl2">Placeholder</span>
+    <br/>
+    <button type="button" onclick="player2atk()">Attack</button>
+    <br/>
+    <button type="button" onclick="player2heal()">Heal</button>
+    <br/>
+    <button type="button" onclick="player2spe()">Special</button>
+    <br/>
+    </div>
+    <br/>
+    <br/>
+    <div style="background-color: pink;">
+    Player 3
+    <br/>
+    The Archer
+    <br/>
+    <img src="pixil-gif-drawing%20(1).gif" name="Archer" width="150">
+    <br/>
+    Health: <span id="pl3">Placeholder</span>
+    <br/>
+    <button type="button" onclick="player3atk()">Attack</button>
+    <br/>
+    <button type="button" onclick="player3heal()">Heal</button>
+    <br/>
+    <button type="button" onclick="player3spe()">Special</button>
+    <br/>
+    </div>
+    <br/>
+    <br/>
+    <div style="background-color: lightgreen;">
+    Player 4
+    <br/>
+    The Kingdom's Cat
+    <br/>
+    <img src="pixil-gif-drawing%20(2).gif" name="Cat" width="150">
+    <br/>
+    Health: <span id="pl4">Placeholder</span>
+    <br/>
+    <button type="button" onclick="player4atk()">Attack</button>
+    <br/>
+    <button type="button" onclick="player4heal()">Heal</button>
+    <br/>
+    <button type="button" onclick="player4spe()">Special</button>
+    <br/>
+    </div>
+    <br/>
+    <br/>
+    <button type="button" onclick="specialRain()">Special Rain</button>
+    <br/>
+    <button type="button" onclick="checkIfDeadAndMore()">Check if Dead</button>
+    <br/>
+    <button type="button" onclick="regenerateValues()">Regenerate Values</button>
+    <br/>
+    <button type="button" onclick="nerf()">Nerf Everything</button>
+    <br/>
+    <br/>
+    <br/>
+    <script>
+        function player1atk() {
+            var randAtk = Math.floor(Math.random() * 20);
+            player2hp = player2hp - randAtk;
+            player3hp = player3hp - randAtk;
+            player4hp = player4hp - randAtk;
+            checkIfDeadAndMore();
+        }
+        function player2atk() {
+            var randAtk = Math.floor(Math.random() * 15);
+            player1hp = player1hp - randAtk;
+            player3hp = player3hp - randAtk;
+            player4hp = player4hp - randAtk;
+            checkIfDeadAndMore();
+        }
+        function player4atk() {
+            var randAtk = Math.floor(Math.random() * 17);
+            player1hp = player1hp - randAtk;
+            player2hp = player2hp - randAtk;
+            player3hp = player3hp - randAtk;
+            checkIfDeadAndMore();
+        }
+        function player1heal() {
+            player1hp = player1hp + 15;
+            checkIfDeadAndMore();
+        }
+        function player2heal() {
+            player2hp = player2hp + 20;
+            checkIfDeadAndMore();
+        }
+        function player3heal() {
+            player3hp = player3hp + 19;
+            checkIfDeadAndMore();
+        }
+        function player4heal() {
+            player4hp = player4hp + 14;
+            checkIfDeadAndMore();
+        }
+        function player1spe() {
+            var randAtk = Math.floor(Math.random() * 25);
+            player2hp = player2hp - randAtk;
+            player3hp = player3hp - randAtk;
+            player4hp = player4hp - randAtk;
+            player1hp = player1hp + 5;
+            checkIfDeadAndMore();
+        }
+        function player2spe() {
+            var randAtk = Math.floor(Math.random() * 10);
+            player1hp = player1hp - randAtk;
+            player3hp = player3hp - randAtk;
+            player4hp = player4hp - randAtk;
+            player2hp = player2hp + 30;
+            checkIfDeadAndMore();
+        }
+        function player3spe() {
+            var randAtk = Math.floor(Math.random() * 15);
+            player1hp = player1hp - randAtk;
+            player2hp = player2hp - randAtk;
+            player4hp = player4hp - randAtk;
+            var randomAtk = randAtk * 2 - 1
+            player3hp = player3hp + randomAtk;
+            checkIfDeadAndMore();
+        }
+        function player3atk() {
+            var randAtk = Math.floor(Math.random() * 15);
+            player1hp = player1hp - randAtk;
+            player2hp = player2hp - randAtk;
+            player4hp = player4hp - randAtk;
+            checkIfDeadAndMore();
+            
+        }
+        function player4spe() {
+            var randAtk = Math.floor(Math.random() * 30);
+            player1hp = player1hp - randAtk;
+            player2hp = player2hp - randAtk;
+            player3hp = player3hp - randAtk;
+            player4hp = player4hp + 30;
+            checkIfDeadAndMore();
+        }
+        function nerf() {
+            player1hp = player1hp - 100;
+            player2hp = player2hp - 100;
+            player3hp = player3hp - 100;
+            player4hp = player4hp - 100;
+            checkIfDeadAndMore();
+        }
+        function specialRain() {
+            player1spe();
+            player2spe();
+            player3spe();
+            player4spe();
+            checkIfDeadAndMore();
+        }
+        function checkIfDeadAndMore() {
+            if (player1hp > 500) {
+                player1hp = 500;
+            }
+            if (player2hp > 500) {
+                player2hp = 500;
+            }
+            if (player3hp > 500) {
+                player3hp = 500;
+            }
+            if (player4hp > 400) {
+                player4hp = 400;
+            }
+            if (morkLoss == 1) {
+                player1hp = "DEAD";
+            } else if (rebelLoss == 1) {
+                player2hp = "DEAD";
+            } else if (archLoss == 1) {
+                player3hp = "DEAD";
+            } else if (kittyLoss == 1) {
+                player4hp = "DEAD"
+            }
+            if (player1hp < 1) {
+                alert("The Mork and Assistant Lose!!!");
+                morkLoss = 1;
+            }
+            if (player2hp < 1) {
+                alert("The Mork Rebellion Loses!!!");
+                rebelLoss = 1;
+            }
+            if (player3hp < 1) {
+                alert("The Archer Loses!!!");
+                archLoss = 1;
+            }
+            if (player4hp < 1){
+                alert("The Kingdom's Cat Loses!!!");
+                kittyLoss = 1;
+            }
+            regenerateValues();
+            
+            //alert(player1hp);
+            //alert(player2hp);
+            //alert(player3hp);
+            //alert(player4hp);
+            //alert(morkLoss);
+            //alert(rebelLoss);
+            //alert(archLoss);
+            //alert(kittyLoss);
+            if (morkLoss == 1) {
+                if (rebelLoss == 1) {
+                    if (archLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player3won.html";
+                    }
+                } else if (archLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Mork Rebellion Wins!");
+                        window.location.href = "player2won.html";
+                    }
+                } else if (kittyLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player3won.html";
+                    } else if (archLoss == 1) {
+                        alert("The Mork Rebellion Wins!")
+                        window.location.href = "player2won.html";
+                    }
+                }
+            } else if (rebelLoss == 1) {
+                if (morkLoss == 1) {
+                    if (archLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player3won.html";
+                    }
+                } else if (archLoss == 1) {
+                    if (morkLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Mork Wins!");
+                        window.location.href = "player1won.html";
+                    }
+                } else if (kittyLoss == 1) {
+                    if (morkLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player3won.html";
+                    } else if (archLoss == 1) {
+                        alert("The Mork Wins!")
+                        window.location.href = "player1won.html";
+                    }
+                }
+            } else if (archLoss == 1) {
+                if (rebelLoss == 1) {
+                    if (morkLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Mork Wins!");
+                        window.location.href = "player1won.html";
+                    }
+                } else if (morkLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Kingdom's Cat Wins!");
+                        window.location.href = "player4won.html";
+                    } else if (kittyLoss == 1) {
+                        alert("The Mork Rebellion Wins!");
+                        window.location.href = "player2won.html";
+                    }
+                } else if (kittyLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Mork Wins!");
+                        window.location.href = "player1won.html";
+                    } else if (morkLoss == 1) {
+                        alert("The Mork Rebellion Wins!")
+                        window.location.href = "player2won.html";
+                    }
+                }
+            } else if (kittyLoss == 1) {
+                if (rebelLoss == 1) {
+                    if (archLoss == 1) {
+                        alert("The Mork Wins!");
+                        window.location.href = "player1won.html";
+                    } else if (morkLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player1won.html";
+                    }
+                } else if (archLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Mork Wins!");
+                        window.location.href = "player1won.html";
+                    } else if (morkLoss == 1) {
+                        alert("The Mork Rebellion Wins!");
+                        window.location.href = "player2won.html";
+                    }
+                } else if (morkLoss == 1) {
+                    if (rebelLoss == 1) {
+                        alert("The Archer Wins!");
+                        window.location.href = "player3won.html";
+                    } else if (archLoss = 1) {
+                        alert("The Mork Rebellion Wins!")
+                        window.location.href = "player2won.html";
+                    }
+                }
+            } 
+        }
+    </script>
+  </body>
+</html>
