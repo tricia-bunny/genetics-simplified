@@ -1,40 +1,51 @@
 <!DOCTYPE html>
+<html>
 <head>
    <title>Fishland (Intro)</title>
-  <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans">
-  <style>
-    body {
-      font-family:Noto Sans;
-    }
-  </style>
-      <script>
-        var intronum = 0;
-        var word = "Nonexistence";
-        var picture = "Nonexistence";
-        function makeScene() {
-          if (intronum == 1) {
-            word = "The camp is bustling with activity, the sun is setting its last rays upon the plain.";
-            picture = '<img src="Peach Springs - IA" name="Intro 1 Animated" width=150>';
-          } else if (intronum == 2) {
-              word = "You climb into your kelp bed with your bunkmate and adoptive niece, π.";
-              picture = "Image Unavailable";
-          }
-        }
-        function loadScene() {
-            intronum = intronum + 1;
-            makeScene();
-            document.getElementById("text").innerHTML = word;
-            document.getElementById("picture").innerHTML = picture;
-        }
-    </script>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans">
+   <style>
+     body {
+       font-family: 'Noto Sans', sans-serif;
+     }
+   </style>
+   <script>
+     var intronum = 0;
+     var word = "Nonexistence";
+     var picture = "Nonexistence";
+     function makeScene() {
+       if (intronum == 1) {
+         word = "The camp is bustling with activity, the sun is setting its last rays upon the plain.";
+         picture = '<img src="Peach Springs - IA" alt="Intro 1 Animated" width="150">';
+       } else if (intronum == 2) {
+         word = "You climb into your kelp bed with your bunkmate and adoptive niece, π.";
+         picture = "Image Unavailable";
+       } else {
+         word = "Text Unavailable";
+         picture = "Image Unavailable";
+       }
+     }
+     function loadScene() {
+       intronum = intronum + 1;
+       makeScene();
+       document.getElementById("text").innerHTML = word;
+       document.getElementById("picture").innerHTML = picture;
+     }
+     window.onload = function() {
+       // Set initial state
+       makeScene();
+       document.getElementById("text").innerHTML = word;
+       document.getElementById("picture").innerHTML = picture;
+     }
+   </script>
 </head>
-<body onload="loadScene()">
-      <div style="font-size: 17px;">Fishland (Intro)</div>
-      <br/>
-      <br/>
-      <span id="picture">Placeholder</span>
-      <span id="text">Placeholder</span>
-      <br/>
-      <button type="button" onclick="loadScene()">Next Scene</button>
+<body>
+   <div style="font-size: 17px;">Fishland (Intro)</div>
+   <br/>
+   <br/>
+   <span id="picture">Placeholder</span>
+   <br/>
+   <span id="text">Placeholder</span>
+   <br/>
+   <button type="button" onclick="loadScene()">Next Scene</button>
 </body>
+</html>
