@@ -2159,7 +2159,7 @@ def jixiang():
                 print('Tears start to well up in your eyes. You don\'t know why.')
                 print('Ji\'Xiang gets up to leave. As he walks off into the rainy distance, you wipe your tears away.')
                 print('\'Farewell, Leader of Peach Springs!\'')
-                print('Then a softly uttered reply, only barely audible against the buffeting rainstorm: \'Farewell, my friend.\'')
+                print('Then a softly uttered reply: \'Farewell, my friend.\'')
     elif ignorance == 'i':
         print('\'Ah... hehe... I forgot.\' you say, scratching your head.')
         print('\'Oh.\' he says. \'Well, you can always come and join Dab\'s legion if you want...!!\'')
@@ -3221,6 +3221,5 @@ else:
     print("Invalid input!")
     printMap(fishMap)
     battle(fidget, 200, 200, bob, 200, 200, normalEnemyStratagems)
-
 
 
