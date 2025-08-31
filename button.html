@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans">
+    <style>
+        body {
+            font-family:Noto Sans;
+        }
+    </style>
+    <title>Fish Stuff</title>
+    <script>
+        var buttoninfo = '<button type="button" onclick="nextpage()">NEXT</button>';
+        var imginfo = '<img src="pixil-frame-0%20(13).png" width="500"/>';
+        var buttonID = "play";
+        var buttonNum = 0;
+        function switchBUTTON() {
+            if (buttonID == "next") {
+                buttoninfo = '<button type="button" onclick="nextpage()">NEXT</button>';
+                imginfo = '<img src="pixil-frame-0%20(13).png" width="500"/>';
+                buttonID = "loading";
+            } else if (buttonID == "play") {
+                buttoninfo = '<button type="button" onclick="nextpage()">PLAY</button>';
+                imginfo = '<img src="pixil-gif-drawing%20(6).gif" width="500">';
+                buttonID = "loading";
+            } else if (buttonID == "loading") {
+                buttoninfo = " ";
+                imginfo = '<img src="pixil-gif-drawing%20(5).gif" width="500"/>';
+                var timer = setTimeout(function() {
+                    buttonID = "next";
+                    nextpage();
+                }, 5000);
+            }
+            buttonNum = buttonNum + 1;
+        }
+        function nextpage() {
+            switchBUTTON();
+            document.getElementById("BUTTON").innerHTML = buttoninfo;
+            document.getElementById("pic").innerHTML = imginfo;
+        }
+    </script>
+  </head>
+  <body onload="nextpage()">
+      <h1>FISH</h1>
+      <p>The fishes of Fishland are fish.</p>
+      <span id="pic"></span>
+      <br/>
+      <span id="BUTTON"> </span>
+  </body>
+</html>
